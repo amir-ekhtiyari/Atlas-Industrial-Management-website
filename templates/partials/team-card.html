@@ -1,0 +1,43 @@
+{% load i18n %}
+{% comment %}
+    کارت عضو تیم — قالب مشترک صفحه‌ی تیم و صفحه‌ی شرکت.
+
+    `heading` سطح تیتر را تعیین می‌کند تا سلسله‌مراتب هر صفحه درست بماند:
+    در صفحه‌ی تیم کارت‌ها زیر h1 می‌آیند (پس h2)، و در صفحه‌ی شرکت زیر یک
+    h2 بخش قرار می‌گیرند (پس h3).
+
+    اگر عکسی آپلود نشده باشد، حروف اول نام در قاب نمایش داده می‌شود.
+{% endcomment %}
+<article class="t-card reveal">
+    <div class="t-card__photo{% if not member.photo %} t-card__photo--blank{% endif %}">
+        {% if member.photo %}
+            <img src="{{ member.photo.url }}" alt="{{ member.full_name }}" loading="lazy" width="360" height="480">
+        {% else %}
+            <span class="t-card__initials ltr" aria-hidden="true">{{ member.initials }}</span>
+        {% endif %}
+    </div>
+    <div>
+        {% if heading == 'h2' %}
+            <h2 class="t-card__name">{{ member.full_name }}</h2>
+        {% else %}
+            <h3 class="t-card__name">{{ member.full_name }}</h3>
+        {% endif %}
+        <p class="t-card__role">{{ member.position }}</p>
+    </div>
+    {% if member.bio and show_bio %}<p class="t-card__bio">{{ member.bio }}</p>{% endif %}
+    {% if member.email or member.linkedin_url %}
+        <div class="t-card__links">
+            {% if member.email %}
+                <a href="mailto:{{ member.email }}" aria-label="{% blocktrans with n=member.full_name %}ایمیل {{ n }}{% endblocktrans %}">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg>
+                </a>
+            {% endif %}
+            {% if member.linkedin_url %}
+                <a href="{{ member.linkedin_url }}" target="_blank" rel="noopener noreferrer"
+                   aria-label="{% blocktrans with n=member.full_name %}لینکدین {{ n }}{% endblocktrans %}">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-linkedin"></use></svg>
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</article>

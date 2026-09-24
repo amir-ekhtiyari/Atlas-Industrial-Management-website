@@ -1,0 +1,35 @@
+{% load i18n %}
+{% comment %}
+    داده‌ی ساخت‌یافته (JSON-LD) برای گوگل.
+
+    فقط اطلاعاتی درج می‌شود که در پنل مدیریت واقعاً پر شده است؛ هیچ گواهی،
+    امتیاز یا مشتری جعلی اضافه نمی‌شود.
+{% endcomment %}
+{% get_current_language as LANGUAGE_CODE %}
+{% if global_company %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "{{ request.scheme }}://{{ request.get_host }}/#organization",
+  "name": "{{ global_company.name|escapejs }}",
+  "url": "{{ request.scheme }}://{{ request.get_host }}/{{ LANGUAGE_CODE }}/",
+  {% if global_company.logo %}"logo": "{{ request.scheme }}://{{ request.get_host }}{{ global_company.logo.url }}",{% endif %}
+  {% if global_company.meta_description %}"description": "{{ global_company.meta_description|striptags|escapejs }}",{% endif %}
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "IR"{% if global_company.address %},
+    "streetAddress": "{{ global_company.address|escapejs }}"{% endif %}{% if global_company.postal_code %},
+    "postalCode": "{{ global_company.postal_code|escapejs }}"{% endif %}
+  },
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "availableLanguage": ["fa", "en"]{% if global_company.phone %},
+    "telephone": "{{ global_company.phone|escapejs }}"{% endif %}{% if global_company.sales_email or global_company.email %},
+    "email": "{% firstof global_company.sales_email global_company.email %}"{% endif %}
+  }]{% if global_company.social_links %},
+  "sameAs": [{% for link in global_company.social_links %}"{{ link.url|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %}]{% endif %}
+}
+</script>
+{% endif %}

@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}{% trans "درباره اطلس" %} — {{ company.name }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{{ company.about_text|striptags|truncatechars:175 }}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "شرکت" as head_eyebrow %}
+{% trans "درباره اطلس" as head_title %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=company.tagline crumbs=crumbs %}
+
+{# ─────────────────────────────────────────────────── داستان شرکت ─── #}
+<section class="band band--tall">
+    <div class="shell split split--lead split--top">
+        <div class="reveal">
+            <p class="tag">{% trans "معرفی" %}</p>
+            <h2 style="margin-block: var(--s4) var(--s5);">
+                {{ company.intro_title|default:_("مهندسی، تولید و پشتیبانی در یک مجموعه") }}
+            </h2>
+            <div class="article-body">{{ company.about_text|linebreaks }}</div>
+        </div>
+
+        <div class="reveal" data-delay="1">
+            {% if company.about_image %}
+                <figure class="frame" style="border-radius: var(--r-lg); overflow: hidden;">
+                    <img src="{{ company.about_image.url }}" width="800" height="600" loading="lazy"
+                         style="aspect-ratio: 4/3; object-fit: cover;"
+                         alt="{% blocktrans with n=company.name %}مجموعه‌ی {{ n }}{% endblocktrans %}">
+                </figure>
+            {% elif technologies %}
+                <div>
+                    <p class="tag" style="margin-block-end: var(--s4);">{% trans "حوزه‌های فعالیت" %}</p>
+                    <ul class="link-list">
+                        {% for tech in technologies %}
+                            <li>
+                                {% if tech.has_page %}
+                                    <a href="{{ tech.get_absolute_url }}">
+                                        <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                                        <span>{{ tech.title }}</span>
+                                    </a>
+                                {% else %}
+                                    <span class="link-list__flat">{{ tech.title }}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="shell" style="margin-block-start: var(--s8);">
+        <div class="grid grid--3">
+            <figure class="frame reveal" style="border-radius: var(--r-lg); overflow: hidden;">
+                <img src="{% static 'images/about/offshore-platforms.jpg' %}" width="800" height="600" loading="lazy"
+                     style="aspect-ratio: 4/3; object-fit: cover;"
+                     alt="{% trans 'سکوهای نفتی فراساحل' %}">
+            </figure>
+            <figure class="frame reveal" data-delay="1" style="border-radius: var(--r-lg); overflow: hidden;">
+                <img src="{% static 'images/about/heavy-lift-module.jpg' %}" width="800" height="600" loading="lazy"
+                     style="aspect-ratio: 4/3; object-fit: cover;"
+                     alt="{% trans 'نصب ماژول سنگین در دریا' %}">
+            </figure>
+            <figure class="frame reveal" data-delay="2" style="border-radius: var(--r-lg); overflow: hidden;">
+                <img src="{% static 'images/about/crane-vessel-offshore.jpg' %}" width="800" height="600" loading="lazy"
+                     style="aspect-ratio: 4/3; object-fit: cover;"
+                     alt="{% trans 'شناور جرثقیل سنگین در کنار سکوی فراساحل' %}">
+            </figure>
+        </div>
+    </div>
+
+    {% if statistics %}
+        <div class="shell" style="margin-block-start: var(--s8);">
+            <div class="metrics">
+                {% for stat in statistics %}
+                    <div class="metric">
+                        <span class="metric__v ltr">{{ stat.value }}{% if stat.suffix %}<span class="metric__suffix">{{ stat.suffix }}</span>{% endif %}</span>
+                        <span class="metric__k">{{ stat.label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+{# ───────────────────────────────────────── مأموریت و چشم‌انداز ─── #}
+{% if company.mission_text or company.vision_text %}
+<section class="band band--tall band--carbon">
+    <div class="mesh mesh--edge" aria-hidden="true" style="position: absolute; inset: 0;"></div>
+    <div class="shell" style="position: relative;">
+        <div class="grid grid--2 grid--wide">
+            {% if company.mission_text %}
+                <article class="feature reveal">
+                    <div class="feature__head">
+                        <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-target"></use></svg></span>
+                        <div>
+                            <span class="feature__idx ltr" style="color: var(--signal-400);">01</span>
+                            <h2 class="feature__title">{% trans "مأموریت" %}</h2>
+                        </div>
+                    </div>
+                    <div class="feature__text">{{ company.mission_text|linebreaks }}</div>
+                </article>
+            {% endif %}
+            {% if company.vision_text %}
+                <article class="feature reveal" data-delay="1">
+                    <div class="feature__head">
+                        <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-spark"></use></svg></span>
+                        <div>
+                            <span class="feature__idx ltr" style="color: var(--signal-400);">02</span>
+                            <h2 class="feature__title">{% trans "چشم‌انداز" %}</h2>
+                        </div>
+                    </div>
+                    <div class="feature__text">{{ company.vision_text|linebreaks }}</div>
+                </article>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ────────────────────────────────────────────────── خط زمانی ─── #}
+{% if milestones %}
+<section class="band band--tall">
+    <div class="shell shell--mid">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "مسیر" %}</p>
+            <h2>{% trans "نقاط عطف" %}</h2>
+        </div>
+        <ol class="timeline">
+            {% for item in milestones %}
+                <li class="timeline__item reveal">
+                    <span class="timeline__year ltr">{{ item.year }}</span>
+                    <div>
+                        <h3 class="timeline__title">{{ item.title }}</h3>
+                        {% if item.description %}<p class="timeline__text">{{ item.description }}</p>{% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</section>
+{% endif %}
+
+{# ──────────────────────────────────────── توانمندی و کیفیت ─── #}
+{% if capabilities %}
+<section class="band band--tall band--paper">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag">{% trans "توانمندی‌ها" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "زیرساخت مهندسی و تولید" %}</h2>
+            </div>
+            <p class="lead">
+                <a href="{% url 'core:quality' %}" class="link">
+                    {% trans "فرایند مهندسی و کیفیت" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            </p>
+        </div>
+        <div class="grid grid--3">
+            {% for item in capabilities %}
+                <article class="card card--hover reveal">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                    <h3 class="card__title">{{ item.title }}</h3>
+                    {% if item.description %}<p class="card__text">{{ item.description }}</p>{% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ───────────────────────────────────────────────────── تیم ─── #}
+{% if team_members %}
+<section class="band band--tall">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag">{% trans "تیم" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "افراد پشت این کار" %}</h2>
+            </div>
+            <p class="lead">
+                <a href="{% url 'team:list' %}" class="link">
+                    {% trans "معرفی کامل تیم" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            </p>
+        </div>
+        <div class="grid grid--4">
+            {% for member in team_members %}
+                {% include 'partials/team-card.html' with member=member %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if testimonials %}
+<section class="band band--tall band--paper">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "بازخورد" %}</p>
+            <h2>{% trans "نظر همکاران و مشتریان" %}</h2>
+        </div>
+        <div class="grid grid--3">
+            {% for item in testimonials %}
+                <blockquote class="quote reveal">
+                    <svg class="icon quote__mark" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                    <p class="quote__text">{{ item.quote }}</p>
+                    <footer class="quote__meta">
+                        <p class="quote__who">{{ item.author }}</p>
+                        {% if item.role %}<p class="quote__role">{{ item.role }}</p>{% endif %}
+                    </footer>
+                </blockquote>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include 'partials/cta.html' with cta_company=company %}
+{% endblock %}

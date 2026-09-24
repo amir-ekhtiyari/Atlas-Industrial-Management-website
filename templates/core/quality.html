@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "مهندسی و کیفیت" %} — {{ company.name }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{% trans 'فرایند تأمین، تولید، کنترل کیفیت و مستندسازی در اطلس؛ همراه با خدمات بازرگانی، فراساحل و مشاوره فنی.' %}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "کیفیت" as head_eyebrow %}
+{% trans "مهندسی و کیفیت" as head_title %}
+{% trans "کیفیت در تأمین و تولید صنعتی با مدرک سنجیده می‌شود، نه با ادعا. این‌جا مسیری را توضیح می‌دهیم که هر سفارش از نیاز تا تحویل طی می‌کند." as head_intro %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+{% if process_steps %}
+<section class="band band--tall">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "فرایند" %}</p>
+            <h2>{% trans "از نیاز تا تحویل" %}</h2>
+        </div>
+        <ol class="process">
+            {% for step in process_steps %}
+                <li class="process__item reveal">
+                    <span class="process__n ltr">{{ step.step_number|stringformat:"02d" }}</span>
+                    <h3 class="process__title">{{ step.title }}</h3>
+                    {% if step.description %}<p class="process__text">{{ step.description }}</p>{% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</section>
+{% endif %}
+
+{% if capabilities %}
+<section class="band band--tall band--paper">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag">{% trans "توانمندی‌ها" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "چه کاری را در مجموعه انجام می‌دهیم" %}</h2>
+            </div>
+            <p class="lead">{% trans "تأمین، ساخت، مونتاژ و کنترل کیفیت در یک مجموعه هماهنگ می‌شود؛ همین موضوع کیفیت، زمان و مستندات را در تمام زنجیره قابل پیگیری می‌کند." %}</p>
+        </div>
+        <div class="grid grid--3">
+            {% for item in capabilities %}
+                <article class="card card--hover reveal">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                    <h3 class="card__title">{{ item.title }}</h3>
+                    {% if item.description %}<p class="card__text">{{ item.description }}</p>{% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# استانداردها — اگر شرکت موردی ثبت نکرده باشد، به‌جای ادعای جعلی، رویکرد مستندسازی توضیح داده می‌شود #}
+<section class="band band--tall band--carbon">
+    <div class="mesh mesh--edge" aria-hidden="true" style="position: absolute; inset: 0;"></div>
+    <div class="shell split split--lead split--top" style="position: relative;">
+        <div class="reveal">
+            <p class="tag" style="color: var(--signal-400);">{% trans "مدارک" %}</p>
+            <h2 style="margin-block: var(--s4) var(--s5);">
+                {% trans "ارزیابی باید بر پایه‌ی مدرک باشد" %}
+            </h2>
+            <div class="lead body-copy" style="color: var(--steel-300);">
+                <p>{% trans "الزامات تأییدیه به بازار و کاربری مقصد بستگی دارد و برای هر پروژه متفاوت است. ما مدارک فنی موجود — مشخصات، سابقه‌ی آزمون و راهنمای بهره‌برداری — را در اختیار تیم مهندسی مشتری می‌گذاریم تا مسیر لازم با هم مشخص شود." %}</p>
+                <p>{% trans "هیچ ادعایی درباره‌ی تأییدیه‌ای که در اختیار نداریم مطرح نمی‌کنیم." %}</p>
+            </div>
+            <div class="btn-row" style="margin-block-start: var(--s6);">
+                <a href="{% url 'contact:form' %}?topic=technical" class="btn btn--signal">
+                    {% trans "درخواست مدارک فنی" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="reveal" data-delay="1">
+            {% if certifications %}
+                {% for item in certifications %}
+                    <article class="cert">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="cert__thumb" loading="lazy" width="54" height="54">
+                        {% else %}
+                            <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                        {% endif %}
+                        <div class="cert__body">
+                            <p class="cert__title">{{ item.title }}</p>
+                            {% if item.issuer %}<p class="cert__by">{{ item.issuer }}</p>{% endif %}
+                            {% if item.description %}<p class="cert__note">{{ item.description }}</p>{% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <div class="grid grid--2 grid--tight">
+                    <article class="card">
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"></use></svg></span>
+                        <h3 class="card__title">{% trans "مشخصات فنی" %}</h3>
+                        <p class="card__text">{% trans "داده‌ی عملکردی هر محصول به‌صورت مکتوب ارائه می‌شود." %}</p>
+                    </article>
+                    <article class="card">
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-flask"></use></svg></span>
+                        <h3 class="card__title">{% trans "سابقه‌ی آزمون" %}</h3>
+                        <p class="card__text">{% trans "نتیجه‌ی آزمون در پرونده‌ی هر شماره سری ثبت می‌شود." %}</p>
+                    </article>
+                    <article class="card">
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-file"></use></svg></span>
+                        <h3 class="card__title">{% trans "راهنمای بهره‌برداری" %}</h3>
+                        <p class="card__text">{% trans "دستور کار و راهنمای نگهداری همراه محصول تحویل می‌شود." %}</p>
+                    </article>
+                    <article class="card">
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-headset"></use></svg></span>
+                        <h3 class="card__title">{% trans "پاسخ فنی" %}</h3>
+                        <p class="card__text">{% trans "پرسش‌های تیم مهندسی مشتری مستقیم پاسخ داده می‌شود." %}</p>
+                    </article>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% if services %}
+<section class="band band--tall">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "خدمات" %}</p>
+            <h2>{% trans "فراتر از تأمین کالا" %}</h2>
+        </div>
+        <div class="grid grid--2">
+            {% for service in services %}
+                <article class="row-item reveal">
+                    {% if service.image %}
+                        <img src="{{ service.image.url }}" alt="" class="row-item__thumb" loading="lazy" width="46" height="46">
+                    {% else %}
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ service.icon }}"></use></svg></span>
+                    {% endif %}
+                    <div class="row-item__body">
+                        <h3 class="row-item__title">{{ service.title }}</h3>
+                        {% if service.description %}<p class="row-item__text">{{ service.description }}</p>{% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if faqs %}
+<section class="band band--tall band--paper">
+    <div class="shell shell--mid">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "پرسش‌های پرتکرار" %}</p>
+            <h2>{% trans "سؤالات متداول" %}</h2>
+        </div>
+        <div class="accordion">
+            {% for faq in faqs %}
+                <details class="accordion__item"{% if forloop.first %} open{% endif %}>
+                    <summary class="accordion__q">
+                        <span>{{ faq.question }}</span>
+                        <svg class="icon accordion__icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                    </summary>
+                    <div class="accordion__a">{{ faq.answer|linebreaks }}</div>
+                </details>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include 'partials/cta.html' with cta_company=company %}
+{% endblock %}

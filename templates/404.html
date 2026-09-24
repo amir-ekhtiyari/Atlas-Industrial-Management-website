@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "صفحه پیدا نشد" %} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
+
+{% block content %}
+<section class="shell error-page">
+    <div>
+        <p class="error-page__code ltr">404</p>
+        <h1 class="error-page__title">{% trans "این صفحه پیدا نشد" %}</h1>
+        <p class="error-page__text">
+            {% trans "ممکن است نشانی تغییر کرده یا صفحه حذف شده باشد. از مسیرهای زیر ادامه دهید." %}
+        </p>
+        <div class="btn-row error-page__actions">
+            <a href="{% url 'core:home' %}" class="btn btn--solid">{% trans "صفحه اصلی" %}</a>
+            <a href="{% url 'products:list' %}" class="btn btn--line">{% trans "محصولات" %}</a>
+            <a href="{% url 'core:technology_list' %}" class="btn btn--quiet">{% trans "فناوری‌ها" %}</a>
+            <a href="{% url 'contact:form' %}" class="btn btn--quiet">{% trans "تماس" %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

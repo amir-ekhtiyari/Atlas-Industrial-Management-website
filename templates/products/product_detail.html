@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% comment %}
+    قالب عمومی صفحه‌ی محصول.
+
+    هیچ فرضی درباره‌ی نوع محصول ندارد: هر بخش فقط وقتی رندر می‌شود که داده‌ی
+    مربوطه در پنل مدیریت پر شده باشد. افزودن محصولی از خط تولید کاملاً متفاوت
+    نیازی به تغییر این فایل ندارد.
+{% endcomment %}
+
+{% block title %}{{ product.name }}{% if product.model_code %} · {{ product.model_code }}{% endif %} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
+{% block og_type %}product{% endblock %}
+{% block og_title %}{{ product.name }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{{ product.display_meta_description|striptags|truncatechars:175 }}">
+{% endblock %}
+{% block og_image %}
+    {% if product.image %}
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}">
+    {% else %}{{ block.super }}{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{# ─────────────────────────────────────────────────── هدر محصول ─── #}
+<section class="p-hero">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="shell">
+        <nav aria-label="{% trans 'مسیر صفحه' %}">
+            <ol class="crumbs" style="color: var(--steel-400); padding-block: var(--s4) 0;">
+                <li><a href="{% url 'core:home' %}" style="color: inherit;">{% trans "خانه" %}</a></li>
+                <li class="crumbs__sep" aria-hidden="true">/</li>
+                <li><a href="{% url 'products:list' %}" style="color: inherit;">{% trans "محصولات" %}</a></li>
+                {% if product.category %}
+                    <li class="crumbs__sep" aria-hidden="true">/</li>
+                    <li><a href="{{ product.category.get_absolute_url }}" style="color: inherit;">{{ product.category.name }}</a></li>
+                {% endif %}
+                <li class="crumbs__sep" aria-hidden="true">/</li>
+                <li class="crumbs__now" style="color: var(--steel-200);">{{ product.name|truncatechars:34 }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="shell p-hero__inner">
+        <div class="p-hero__copy">
+            {% if product.model_code %}
+                <p class="p-hero__code"><span class="ltr">{{ product.model_code }}</span></p>
+            {% elif product.category %}
+                <p class="pill">{{ product.category.name }}</p>
+            {% endif %}
+
+            <h1 class="p-hero__title">{{ product.name }}</h1>
+            <p class="p-hero__text">{{ product.tagline|default:product.short_description }}</p>
+
+            {% if highlight_specs %}
+                <div class="p-hero__specs{% if highlight_specs|length == 4 %} p-hero__specs--4{% endif %}">
+                    {% for spec in highlight_specs %}
+                        <div class="p-hero__spec">
+                            <span class="p-hero__spec-k">{{ spec.label }}</span>
+                            <span class="p-hero__spec-v">{{ spec.display_value }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="btn-row">
+                <a href="{% url 'contact:form' %}?product={{ product.slug }}" class="btn btn--signal btn--lg">
+                    {% trans "درخواست اطلاعات فنی" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+                {% if documents %}
+                    <a href="#documents" class="btn btn--line-dark btn--lg">
+                        <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg>
+                        {% trans "مدارک" %}
+                    </a>
+                {% elif global_company.phone %}
+                    <a href="tel:{{ global_company.phone }}" class="btn btn--line-dark btn--lg">
+                        <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+                        <span class="ltr">{{ global_company.phone }}</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="reveal">
+            <div class="gallery" data-gallery>
+                <div class="gallery__stage">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" data-gallery-stage
+                             width="900" height="675" fetchpriority="high">
+                    {% else %}
+                        <span class="p-card__blank" style="border-radius: var(--r-lg);">
+                            <svg class="icon" aria-hidden="true" style="inline-size: 64px; block-size: 64px;">
+                                <use href="#{{ product.category.icon|default:'icon-box' }}"></use>
+                            </svg>
+                        </span>
+                    {% endif %}
+                </div>
+
+                {% if gallery and product.image %}
+                    <div class="gallery__thumbs">
+                        <button type="button" class="gallery__thumb is-active" data-gallery-thumb
+                                data-src="{{ product.image.url }}" data-alt="{{ product.name }}" aria-current="true">
+                            <img src="{{ product.image.url }}" alt="" loading="lazy" width="150" height="150">
+                        </button>
+                        {% for image in gallery %}
+                            <button type="button" class="gallery__thumb" data-gallery-thumb
+                                    data-src="{{ image.image.url }}" data-alt="{{ image.alt_text }}" aria-current="false">
+                                <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" loading="lazy" width="150" height="150">
+                            </button>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{# ─────────────────────────────────── ناوبری درون‌صفحه‌ای (فقط بخش‌های موجود) ─── #}
+<nav class="subnav" data-subnav aria-label="{% trans 'بخش‌های این صفحه' %}">
+    <div class="shell subnav__inner">
+        <div class="subnav__list">
+            <a href="#overview" class="subnav__link">{% trans "معرفی" %}</a>
+            {% if features %}<a href="#features" class="subnav__link">{% trans "ویژگی‌ها" %}</a>{% endif %}
+            {% if specs %}<a href="#specs" class="subnav__link">{% trans "مشخصات" %}</a>{% endif %}
+            {% if applications %}<a href="#uses" class="subnav__link">{% trans "کاربردها" %}</a>{% endif %}
+            {% if documents %}<a href="#documents" class="subnav__link">{% trans "مدارک" %}</a>{% endif %}
+            <a href="#inquiry" class="subnav__link">{% trans "استعلام" %}</a>
+        </div>
+        <a href="{% url 'contact:form' %}?product={{ product.slug }}" class="btn btn--solid btn--sm subnav__cta">
+            {% trans "درخواست اطلاعات" %}
+        </a>
+    </div>
+</nav>
+
+{# ─────────────────────────────────────────────────────── معرفی ─── #}
+<section class="band" id="overview">
+    <div class="shell split split--sidebar split--top">
+        <div class="stack--lg">
+            <div class="reveal">
+                <h2 class="tag">{% trans "معرفی" %}</h2>
+                <div class="article-body" style="margin-block-start: var(--s5);">{{ product.description|linebreaks }}</div>
+            </div>
+
+            {% if features %}
+                <div class="reveal" id="features">
+                    <h2 class="tag">{% trans "ویژگی‌های کلیدی" %}</h2>
+                    <div class="grid grid--2 grid--tight" style="margin-block-start: var(--s5);">
+                        {% for f in features %}
+                            <article class="card card--flat">
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-check-circle"></use></svg></span>
+                                <h3 class="card__title" style="font-size: var(--fs-base);">{{ f.title }}</h3>
+                                {% if f.description %}<p class="card__text">{{ f.description }}</p>{% endif %}
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if specs %}
+                <div class="reveal" id="specs">
+                    <h2 class="tag">{% trans "مشخصات فنی" %}</h2>
+                    <div class="spec-wrap" style="margin-block-start: var(--s5);">
+                        <table class="spec-table">
+                            <caption>{{ product.name }}{% if product.model_code %} · <span class="ltr">{{ product.model_code }}</span>{% endif %}</caption>
+                            <tbody>
+                                {% regroup specs by group as spec_groups %}
+                                {% for group in spec_groups %}
+                                    {% if group.grouper %}
+                                        <tr class="spec-table__group"><th colspan="2" scope="colgroup">{{ group.grouper }}</th></tr>
+                                    {% endif %}
+                                    {% for spec in group.list %}
+                                        <tr>
+                                            <th scope="row">{{ spec.label }}</th>
+                                            <td>{{ spec.display_value }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if product.specifications %}
+                        <div class="body-copy" style="margin-block-start: var(--s5); font-size: var(--fs-sm);">
+                            {{ product.specifications|linebreaks }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% elif product.specifications %}
+                <div class="reveal" id="specs">
+                    <h2 class="tag">{% trans "یادداشت فنی" %}</h2>
+                    <div class="body-copy" style="margin-block-start: var(--s5);">{{ product.specifications|linebreaks }}</div>
+                </div>
+            {% endif %}
+
+            {% if applications %}
+                <div class="reveal" id="uses">
+                    <h2 class="tag">{% trans "کاربردها" %}</h2>
+                    <ul class="checks" style="margin-block-start: var(--s5); gap: var(--s4);">
+                        {% for item in applications %}
+                            <li>
+                                <svg class="icon" aria-hidden="true"><use href="#icon-check-circle"></use></svg>
+                                <span><strong>{{ item.title }}</strong>{% if item.description %}{{ item.description }}{% endif %}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if documents %}
+                <div class="reveal" id="documents">
+                    <h2 class="tag">{% trans "مدارک و کاتالوگ" %}</h2>
+                    <ul class="docs" style="margin-block-start: var(--s5);">
+                        {% for doc in documents %}
+                            <li>
+                                <a href="{{ doc.file.url }}" target="_blank" rel="noopener">
+                                    <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg>
+                                    <span>{{ doc.title }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+
+        {# ───────────────────────────────────────── پنل کناری ─── #}
+        <aside class="stack--lg" id="inquiry">
+            <div class="aside-panel aside-panel--sticky">
+                <div style="display: flex; gap: var(--s3); align-items: center;">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-message"></use></svg></span>
+                    <h2 class="aside-panel__title">{% trans "استعلام محصول" %}</h2>
+                </div>
+                <p class="aside-panel__text">
+                    {% trans "برای دریافت مشخصات کامل، شرایط تحویل و گزینه‌های پیکربندی، درخواست خود را ثبت کنید." %}
+                </p>
+                <a href="{% url 'contact:form' %}?product={{ product.slug }}" class="btn btn--signal btn--block">
+                    {% trans "ثبت درخواست" %}
+                </a>
+
+                {% if global_company %}
+                    <hr>
+                    <ul class="contact-lines">
+                        {% if global_company.phone %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "تلفن" %}</span>
+                                    <span class="contact-lines__v"><a href="tel:{{ global_company.phone }}" class="ltr">{{ global_company.phone }}</a></span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% firstof global_company.sales_email global_company.email as sales_mail %}
+                        {% if sales_mail %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "ایمیل فروش" %}</span>
+                                    <span class="contact-lines__v"><a href="mailto:{{ sales_mail }}" class="ltr">{{ sales_mail }}</a></span>
+                                </span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            {% if technologies %}
+                <div>
+                    <p class="tag" style="margin-block-end: var(--s4);">{% trans "بر پایه‌ی این فناوری‌ها" %}</p>
+                    <ul class="link-list">
+                        {% for tech in technologies %}
+                            <li>
+                                {% if tech.has_page %}
+                                    <a href="{{ tech.get_absolute_url }}">
+                                        <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                                        <span>{{ tech.title }}</span>
+                                    </a>
+                                {% else %}
+                                    <span class="link-list__flat">{{ tech.title }}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if industries %}
+                <div>
+                    <p class="tag" style="margin-block-end: var(--s4);">{% trans "صنعت‌ها" %}</p>
+                    <ul class="link-list">
+                        {% for ind in industries %}
+                            <li>
+                                {% if ind.has_page %}
+                                    <a href="{{ ind.get_absolute_url }}">
+                                        <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                                        <span>{{ ind.title }}</span>
+                                    </a>
+                                {% else %}
+                                    <span class="link-list__flat">{{ ind.title }}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </aside>
+    </div>
+</section>
+
+{% if related_products %}
+<section class="band band--tall band--paper">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "همچنین ببینید" %}</p>
+            <h2>{% trans "محصولات مرتبط" %}</h2>
+        </div>
+        <div class="grid grid--3">
+            {% for item in related_products %}
+                <article class="p-card reveal">
+                    <a href="{{ item.get_absolute_url }}" class="p-card__media" tabindex="-1" aria-hidden="true">
+                        {% if item.category %}<span class="p-card__flag">{{ item.category.name }}</span>{% endif %}
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" width="600" height="412" loading="lazy" alt="">
+                        {% else %}
+                            <span class="p-card__blank">
+                                <svg class="icon" aria-hidden="true"><use href="#{{ item.category.icon|default:'icon-box' }}"></use></svg>
+                            </span>
+                        {% endif %}
+                    </a>
+                    <div class="p-card__body">
+                        {% if item.model_code %}<span class="p-card__code ltr">{{ item.model_code }}</span>{% endif %}
+                        <h3 class="p-card__title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
+                        <p class="p-card__text">{{ item.tagline|default:item.short_description }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include 'partials/cta.html' with cta_company=global_company %}
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.name|escapejs }}",
+  "description": "{{ product.short_description|striptags|escapejs }}",
+  "url": "{{ request.build_absolute_uri }}"{% if product.model_code %},
+  "sku": "{{ product.model_code|escapejs }}"{% endif %}{% if product.image %},
+  "image": "{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}"{% endif %}{% if product.category %},
+  "category": "{{ product.category.name|escapejs }}"{% endif %},
+  "manufacturer": {
+    "@type": "Organization",
+    "name": "{{ global_company.name|escapejs }}",
+    "@id": "{{ request.scheme }}://{{ request.get_host }}/#organization"
+  }
+}
+</script>
+{% endblock %}

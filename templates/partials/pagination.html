@@ -1,0 +1,30 @@
+{% load i18n %}
+{% if page_obj.paginator.num_pages > 1 %}
+<nav class="pagination" aria-label="{% trans 'صفحه‌بندی' %}">
+    {% if page_obj.has_previous %}
+        <a href="{% querystring page=page_obj.previous_page_number %}" class="pagination__link" rel="prev">
+            <svg class="icon icon--dir" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+            <span class="visually-hidden">{% trans "صفحه قبل" %}</span>
+        </a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if num == page_obj.number %}
+            <span class="pagination__current" aria-current="page">{{ num }}</span>
+        {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+            <a href="{% querystring page=num %}" class="pagination__link">{{ num }}</a>
+        {% elif num == 1 or num == page_obj.paginator.num_pages %}
+            <a href="{% querystring page=num %}" class="pagination__link">{{ num }}</a>
+        {% elif num == page_obj.number|add:"-3" or num == page_obj.number|add:"3" %}
+            <span class="pagination__ellipsis" aria-hidden="true">…</span>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="{% querystring page=page_obj.next_page_number %}" class="pagination__link" rel="next">
+            <span class="visually-hidden">{% trans "صفحه بعد" %}</span>
+            <svg class="icon icon--dir" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+        </a>
+    {% endif %}
+</nav>
+{% endif %}

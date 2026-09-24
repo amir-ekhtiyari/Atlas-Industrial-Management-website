@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "بینش و اخبار" %} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{% trans 'اخبار شرکت، یادداشت‌های فنی و مطالب مهندسی اطلس.' %}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "بینش" as head_eyebrow %}
+{% trans "بینش و اخبار" as head_title %}
+{% trans "یادداشت‌های فنی، رویدادهای شرکت و مطالبی درباره‌ی کاری که انجام می‌دهیم." as head_intro %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+<section class="band band--tall">
+    <div class="shell">
+        {% if categories %}
+            <div class="filter-stack">
+                <div class="filter-row">
+                    <span class="filter-row__k">{% trans "موضوع" %}</span>
+                    <div class="chips">
+                        <a href="{% url 'news:list' %}" class="chip{% if not active_category %} is-active{% endif %}">{% trans "همه" %}</a>
+                        {% for category in categories %}
+                            <a href="{% querystring category=category.slug page=None %}"
+                               class="chip{% if active_category.pk == category.pk %} is-active{% endif %}"
+                               {% if active_category.pk == category.pk %}aria-current="true"{% endif %}>{{ category.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="grid grid--3">
+            {% for post in posts %}
+                <article class="n-card reveal">
+                    {% if post.cover %}
+                        <a href="{{ post.get_absolute_url }}" class="n-card__media" tabindex="-1" aria-hidden="true">
+                            <img src="{{ post.cover.url }}" width="600" height="375" loading="lazy" alt="">
+                        </a>
+                    {% endif %}
+                    <p class="n-card__meta">
+                        <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"j F Y" }}</time>
+                        {% if post.category %}<span class="pill">{{ post.category.name }}</span>{% endif %}
+                    </p>
+                    <h2 class="n-card__title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                    <p class="n-card__text">{{ post.summary }}</p>
+                    <div class="n-card__foot">
+                        <a href="{{ post.get_absolute_url }}" class="link card-link">
+                            {% trans "ادامه مطلب" %}
+                            <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="empty">
+                    <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-news"></use></svg></span>
+                    <h2 class="empty__title">{% trans "هنوز مطلبی منتشر نشده" %}</h2>
+                    <p class="empty__text">{% trans "یادداشت‌های فنی و اخبار شرکت در این بخش منتشر می‌شوند." %}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% include 'partials/pagination.html' %}
+    </div>
+</section>
+
+{% include 'partials/cta.html' with cta_company=global_company %}
+{% endblock %}

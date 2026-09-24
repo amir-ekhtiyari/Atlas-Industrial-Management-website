@@ -1,0 +1,29 @@
+{% load i18n %}
+{% comment %}
+    سربرگ صفحات داخلی — یک قالب برای همه‌ی صفحات، تا هر صفحه‌ی تازه‌ای
+    (فناوری، صنعت، خط محصول) بدون کد اضافه همان ظاهر را بگیرد.
+
+    پارامترها: eyebrow، heading، intro، crumbs (فهرست dict با name/url)
+{% endcomment %}
+<section class="page-head">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="shell page-head__inner">
+        <nav aria-label="{% trans 'مسیر صفحه' %}">
+            <ol class="crumbs">
+                <li><a href="{% url 'core:home' %}">{% trans "خانه" %}</a></li>
+                {% for crumb in crumbs %}
+                    <li class="crumbs__sep" aria-hidden="true">/</li>
+                    {% if crumb.url %}
+                        <li><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
+                    {% else %}
+                        <li class="crumbs__now" aria-current="page">{{ crumb.name }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+
+        {% if eyebrow %}<p class="tag">{{ eyebrow }}</p>{% endif %}
+        <h1>{{ heading }}</h1>
+        {% if intro %}<p class="page-head__text">{{ intro }}</p>{% endif %}
+    </div>
+</section>

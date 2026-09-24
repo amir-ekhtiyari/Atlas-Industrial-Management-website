@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% comment %}
+    صفحه‌ی جزئیات برای هر مورد دارای صفحه‌ی اختصاصی — حوزه‌ی فناوری یا صنعت.
+    یک قالب برای هر دو، چون ساختار داده‌شان یکسان است (PageContent).
+{% endcomment %}
+
+{% block title %}{{ item.title }} — {{ company.name }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ item.title }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{{ item.display_meta_description|striptags|truncatechars:175 }}">
+{% endblock %}
+{% block og_image %}
+    {% if item.image %}
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ item.image.url }}">
+    {% else %}{{ block.super }}{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if kind == 'technology' %}
+    {% url 'core:technology_list' as parent_url %}
+    {% trans "فناوری" as parent_label %}
+{% else %}
+    {% url 'core:industry_list' as parent_url %}
+    {% trans "صنعت‌ها" as parent_label %}
+{% endif %}
+
+<section class="page-head">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="shell page-head__inner">
+        <nav aria-label="{% trans 'مسیر صفحه' %}">
+            <ol class="crumbs">
+                <li><a href="{% url 'core:home' %}">{% trans "خانه" %}</a></li>
+                <li class="crumbs__sep" aria-hidden="true">/</li>
+                <li><a href="{{ parent_url }}">{{ parent_label }}</a></li>
+                <li class="crumbs__sep" aria-hidden="true">/</li>
+                <li class="crumbs__now" aria-current="page">{{ item.title|truncatechars:40 }}</li>
+            </ol>
+        </nav>
+        <p class="tag">
+            <span class="tag__idx">{{ parent_label }}</span>
+            {{ company.name }}
+        </p>
+        <h1>{{ item.title }}</h1>
+        {% if item.description %}<p class="page-head__text">{{ item.description }}</p>{% endif %}
+    </div>
+</section>
+
+<section class="band">
+    <div class="shell split split--sidebar split--top">
+        <div>
+            {% if item.image %}
+                <figure class="frame reveal" style="border-radius: var(--r-lg); overflow: hidden; margin-block-end: var(--s7);">
+                    <img src="{{ item.image.url }}" width="900" height="600" fetchpriority="high"
+                         style="aspect-ratio: 3/2; object-fit: cover;" alt="{{ item.title }}">
+                </figure>
+            {% endif %}
+
+            <div class="article-body reveal">{{ item.body|linebreaks }}</div>
+        </div>
+
+        <aside class="stack--lg">
+            {% if related_products %}
+                <div class="aside-panel">
+                    <h2 class="aside-panel__title">{% trans "محصولات مرتبط" %}</h2>
+                    <ul class="mini-list">
+                        {% for p in related_products %}
+                            <li>
+                                <a href="{{ p.get_absolute_url }}">
+                                    <span class="mini-list__k">{{ p.name }}</span>
+                                    {% if p.model_code %}<span class="mini-list__v ltr">{{ p.model_code }}</span>{% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'products:list' %}{% if kind == 'technology' %}?technology={{ item.slug }}{% else %}?industry={{ item.slug }}{% endif %}"
+                       class="btn btn--signal btn--block">
+                        {% trans "مشاهده در کاتالوگ" %}
+                    </a>
+                </div>
+            {% endif %}
+
+            <div class="aside-panel">
+                <div style="display: flex; gap: var(--s3); align-items: center;">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-message"></use></svg></span>
+                    <h2 class="aside-panel__title">{% trans "پرسش فنی دارید؟" %}</h2>
+                </div>
+                <p class="aside-panel__text">
+                    {% trans "نیاز خود را برای ما بنویسید تا تیم مهندسی گزینه‌های ممکن را بررسی کند." %}
+                </p>
+                <a href="{% url 'contact:form' %}?topic=technical" class="btn btn--line-dark btn--block">
+                    {% trans "ثبت درخواست" %}
+                </a>
+            </div>
+
+            {% if siblings %}
+                <div>
+                    <p class="tag" style="margin-block-end: var(--s4);">
+                        {% if kind == 'technology' %}{% trans "دیگر حوزه‌های فناوری" %}{% else %}{% trans "دیگر صنعت‌ها" %}{% endif %}
+                    </p>
+                    <ul class="link-list">
+                        {% for sib in siblings %}
+                            <li>
+                                {% if sib.has_page %}
+                                    <a href="{{ sib.get_absolute_url }}">
+                                        <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                                        <span>{{ sib.title }}</span>
+                                    </a>
+                                {% else %}
+                                    <span class="link-list__flat">{{ sib.title }}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </aside>
+    </div>
+</section>
+
+{% include 'partials/cta.html' with cta_company=company %}
+{% endblock %}

@@ -1,0 +1,485 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ company.name }}{% if company.tagline %} — {{ company.tagline }}{% endif %}{% endblock %}
+
+{% block content %}
+
+{# ═══════════════════════════════════════════════════════════ HERO ═══ #}
+<section class="hero">
+    <div class="mesh mesh--fade" aria-hidden="true"></div>
+    <div class="shell hero__inner">
+        <div class="hero__copy">
+            <p class="tag" style="color: var(--signal-400);">
+                <span class="tag__idx" style="color: var(--steel-400);">{{ company.name }}</span>
+                {{ company.tagline|default:_("مهندسی و تولید تجهیزات فنی") }}
+            </p>
+
+            <h1 class="hero__title">{{ company.display_hero_title }}</h1>
+            <p class="hero__text">{{ company.hero_text }}</p>
+
+            <div class="btn-row hero__actions">
+                <a href="{% url 'products:list' %}" class="btn btn--signal btn--lg">
+                    {% trans "مشاهده محصولات و خدمات" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+                <a href="{% url 'contact:form' %}" class="btn btn--line-dark btn--lg">
+                    {% trans "درخواست مشاوره / استعلام تأمین" %}
+                </a>
+            </div>
+
+            <div class="hero__facts">
+                <div class="hero__fact">
+                    <span class="hero__fact-k">{% trans "حوزه‌های فناوری" %}</span>
+                    <span class="hero__fact-v">
+                        {% if technologies %}{% blocktrans count n=technologies|length %}{{ n }} حوزه فعال{% plural %}{{ n }} حوزه فعال{% endblocktrans %}{% else %}{% trans "در حال توسعه" %}{% endif %}
+                    </span>
+                </div>
+                <div class="hero__fact">
+                    <span class="hero__fact-k">{% trans "محصولات" %}</span>
+                    <span class="hero__fact-v">
+                        {% if product_total %}{% blocktrans count n=product_total %}{{ n }} قلم در کاتالوگ{% plural %}{{ n }} قلم در کاتالوگ{% endblocktrans %}{% else %}{% trans "به‌زودی" %}{% endif %}
+                    </span>
+                </div>
+                <div class="hero__fact">
+                    <span class="hero__fact-k">{% trans "چرخه‌ی کار" %}</span>
+                    <span class="hero__fact-v">{% trans "تأمین، تولید، کنترل کیفیت و تحویل" %}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero__stage reveal" data-delay="1">
+            {% if company.hero_image %}
+                <div class="hero__panel">
+                    <div class="mesh" aria-hidden="true"></div>
+                    <p class="hero__panel-head">
+                        <span>{{ company.name }}</span>
+                        <span class="dot">{% trans "مجموعه‌ی تولید" %}</span>
+                    </p>
+                    <div class="hero__figure hero__figure--photo">
+                        <img src="{{ company.hero_image.url }}" width="900" height="675" fetchpriority="high"
+                             alt="{% blocktrans with n=company.name %}مجموعه‌ی مهندسی و تولید {{ n }}{% endblocktrans %}">
+                    </div>
+                </div>
+            {% else %}
+                {# بدون تصویر: خطوط محصول و حوزه‌های فناوری به‌عنوان نقشه‌ی شرکت #}
+                <div class="hero__panel">
+                    <div class="mesh" aria-hidden="true"></div>
+                    <p class="hero__panel-head">
+                        <span>{% trans "نقشه‌ی توانمندی" %}</span>
+                        <span class="dot">{% trans "از نیاز تا تحویل" %}</span>
+                    </p>
+                    <ul class="hero__map">
+                        {% for tech in technologies|slice:":5" %}
+                            <li class="hero__map-item">
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#{{ tech.icon }}"></use></svg></span>
+                                <span>
+                                    <span class="hero__map-k">{{ tech.title }}</span>
+                                    {% if tech.description %}<span class="hero__map-v">{{ tech.description|truncatechars:74 }}</span>{% endif %}
+                                </span>
+                            </li>
+                        {% empty %}
+                            <li class="hero__map-item">
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-cog"></use></svg></span>
+                                <span><span class="hero__map-k">{% trans "حوزه‌های فناوری از پنل مدیریت اضافه می‌شوند" %}</span></span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{# ════════════════════════════════════════════════════════ 01 COMPANY ═══ #}
+{% if company.intro_text %}
+<section class="band band--tall" id="company">
+    <div class="shell split split--lead split--top">
+        <div class="reveal">
+            <p class="tag"><span class="tag__idx">01</span> {% trans "شرکت" %}</p>
+            <h2 style="margin-block: var(--s4) var(--s5);">
+                {{ company.intro_title|default:_("مهندسی، تولید و پشتیبانی در یک مجموعه") }}
+            </h2>
+            <div class="lead body-copy">{{ company.intro_text|linebreaks }}</div>
+
+            <div class="btn-row" style="margin-block-start: var(--s6);">
+                <a href="{% url 'core:about' %}" class="btn btn--line">{% trans "درباره اطلس" %}</a>
+                <a href="{% url 'core:quality' %}" class="link">
+                    {% trans "مهندسی و کیفیت" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="reveal" data-delay="1">
+            {% if company.about_image %}
+                <figure class="frame" style="border-radius: var(--r-lg); overflow: hidden;">
+                    <img src="{{ company.about_image.url }}" width="800" height="600" loading="lazy"
+                         style="aspect-ratio: 4/3; object-fit: cover;"
+                         alt="{% blocktrans with n=company.name %}مجموعه‌ی {{ n }}{% endblocktrans %}">
+                </figure>
+            {% elif capabilities %}
+                <ul class="checks" style="gap: var(--s5);">
+                    {% for item in capabilities|slice:":4" %}
+                        <li>
+                            <svg class="icon" aria-hidden="true"><use href="#icon-check-circle"></use></svg>
+                            <span><strong>{{ item.title }}</strong>{% if item.description %}{{ item.description }}{% endif %}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if statistics %}
+        <div class="shell" style="margin-block-start: var(--s8);">
+            <div class="metrics">
+                {% for stat in statistics %}
+                    <div class="metric">
+                        <span class="metric__v ltr">{{ stat.value }}{% if stat.suffix %}<span class="metric__suffix">{{ stat.suffix }}</span>{% endif %}</span>
+                        <span class="metric__k">{{ stat.label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endif %}
+
+{# ═══════════════════════════════════════════════════ 02 TECHNOLOGIES ═══ #}
+{% if technologies %}
+<section class="band band--tall band--carbon" id="technologies">
+    <div class="mesh mesh--edge" aria-hidden="true" style="position: absolute; inset: 0;"></div>
+    <div class="shell" style="position: relative;">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag" style="color: var(--signal-400);">
+                    <span class="tag__idx" style="color: var(--steel-400);">02</span>
+                    {% trans "فناوری" %}
+                </p>
+                <h2 style="margin-block-start: var(--s4);">
+                    {% trans "حوزه‌هایی که در آن‌ها کار می‌کنیم" %}
+                </h2>
+            </div>
+            <p class="lead" style="color: var(--steel-300);">
+                {% trans "از شناخت نیاز و تأمین تا ساخت، مونتاژ، کنترل کیفیت و تحویل؛ این حوزه‌ها چارچوب کار اطلس در پروژه‌های صنعتی را می‌سازند." %}
+            </p>
+        </div>
+
+        <div class="grid grid--3">
+            {% for tech in technologies %}
+                <article class="tile reveal">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ tech.icon }}"></use></svg></span>
+                    <h3 class="tile__title" style="margin-block-start: var(--s3);">{{ tech.title }}</h3>
+                    {% if tech.description %}<p class="tile__text">{{ tech.description }}</p>{% endif %}
+                    {% if tech.has_page %}
+                        <a href="{{ tech.get_absolute_url }}" class="link card-link"
+                           style="margin-block-start: auto; color: var(--signal-400);">
+                            {% trans "جزئیات" %}
+                            <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+
+        <div class="btn-row" style="margin-block-start: var(--s7);">
+            <a href="{% url 'core:technology_list' %}" class="btn btn--line-dark">
+                {% trans "همه‌ی حوزه‌های فناوری" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{# ═══════════════════════════════════════════════════════ 03 PRODUCTS ═══ #}
+<section class="band band--tall band--paper" id="products">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag"><span class="tag__idx">03</span> {% trans "محصولات" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "آنچه امروز تولید می‌کنیم" %}</h2>
+            </div>
+            <p class="lead">
+                {% if product_lines %}
+                    {% trans "محصولات اطلس در خطوط مشخصی سازمان یافته‌اند؛ از تجهیزات صنعت دریا، نفت و گاز تا اقلام لیفتینگ و ریگینگ." %}
+                {% else %}
+                    {% trans "کاتالوگ محصولات از پنل مدیریت تغذیه می‌شود؛ هر محصول تازه به‌طور خودکار در این بخش دیده می‌شود." %}
+                {% endif %}
+            </p>
+        </div>
+
+        {% if product_lines %}
+            <div class="chips reveal" style="margin-block-end: var(--s6);">
+                {% for line in product_lines %}
+                    <a href="{{ line.get_absolute_url }}" class="chip">
+                        {{ line.name }}
+                        <span class="chip__n ltr">{{ line.live }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="grid grid--3">
+            {% for product in featured_products %}
+                <article class="p-card reveal">
+                    <a href="{{ product.get_absolute_url }}" class="p-card__media" tabindex="-1" aria-hidden="true">
+                        {% if product.category %}<span class="p-card__flag">{{ product.category.name }}</span>{% endif %}
+                        {% if product.is_featured %}<span class="p-card__flag p-card__flag--signal p-card__flag--end">{% trans "شاخص" %}</span>{% endif %}
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" width="600" height="412" loading="lazy" alt="">
+                        {% else %}
+                            <span class="p-card__blank">
+                                <svg class="icon" aria-hidden="true"><use href="#{{ product.category.icon|default:'icon-box' }}"></use></svg>
+                            </span>
+                        {% endif %}
+                    </a>
+                    <div class="p-card__body">
+                        {% if product.model_code %}<span class="p-card__code ltr">{{ product.model_code }}</span>{% endif %}
+                        <h3 class="p-card__title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                        <p class="p-card__text">{{ product.tagline|default:product.short_description }}</p>
+                        <div class="p-card__foot">
+                            <a href="{{ product.get_absolute_url }}" class="link card-link">
+                                {% trans "مشخصات محصول" %}
+                                <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="empty">
+                    <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-box"></use></svg></span>
+                    <h3 class="empty__title">{% trans "کاتالوگ در حال تکمیل است" %}</h3>
+                    <p class="empty__text">{% trans "محصولات از پنل مدیریت اضافه می‌شوند و بی‌درنگ در این بخش و کاتالوگ دیده خواهند شد." %}</p>
+                    <a href="{% url 'contact:form' %}" class="btn btn--solid">{% trans "تماس با اطلس" %}</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if featured_products %}
+            <div class="btn-row" style="margin-block-start: var(--s7);">
+                <a href="{% url 'products:list' %}" class="btn btn--line">{% trans "کاتالوگ کامل محصولات" %}</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{# ═════════════════════════════════════════════════════ 04 INDUSTRIES ═══ #}
+{% if industries %}
+<section class="band band--tall" id="industries">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag"><span class="tag__idx">04</span> {% trans "صنعت‌ها" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "کجا به کار می‌آید" %}</h2>
+            </div>
+            <p class="lead">{% trans "حوزه‌هایی که فناوری‌ها و محصولات اطلس در آن‌ها کاربرد دارند." %}</p>
+        </div>
+
+        <div class="grid grid--4">
+            {% for item in industries %}
+                <article class="card card--hover reveal">
+                    <span class="glyph glyph--solid"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                    <h3 class="card__title">{{ item.title }}</h3>
+                    {% if item.description %}<p class="card__text">{{ item.description }}</p>{% endif %}
+                    {% if item.has_page %}
+                        <a href="{{ item.get_absolute_url }}" class="link card-link" style="margin-block-start: auto;">
+                            {% trans "بیشتر" %}
+                            <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+
+        <div class="btn-row" style="margin-block-start: var(--s7);">
+            <a href="{% url 'core:industry_list' %}" class="link">
+                {% trans "همه‌ی صنعت‌ها" %}
+                <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{# ═══════════════════════════════════════════════════════ 05 WHY ATLAS ═══ #}
+{% if advantages %}
+<section class="band band--tall band--paper" id="why">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag"><span class="tag__idx">05</span> {% trans "چرا اطلس" %}</p>
+            <h2>{% trans "تمایزهایی که قابل بررسی‌اند" %}</h2>
+        </div>
+
+        <div class="grid grid--4">
+            {% for item in advantages %}
+                <article class="tile reveal">
+                    <span class="tile__idx ltr">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <h3 class="tile__title">{{ item.title }}</h3>
+                    {% if item.description %}<p class="tile__text">{{ item.description }}</p>{% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ══════════════════════════════════════════════ 06 ENGINEERING & QUALITY ═══ #}
+{% if capabilities or certifications %}
+<section class="band band--tall" id="quality">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag"><span class="tag__idx">06</span> {% trans "مهندسی و کیفیت" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "چگونه کار می‌کنیم" %}</h2>
+            </div>
+            <p class="lead">
+                {% trans "کیفیت در این صنعت با مدرک سنجیده می‌شود، نه با ادعا. آنچه در اختیار داریم را شفاف ارائه می‌کنیم." %}
+            </p>
+        </div>
+
+        <div class="split split--lead split--top">
+            {% if capabilities %}
+                <div class="reveal">
+                    <div class="grid grid--2 grid--tight">
+                        {% for item in capabilities %}
+                            <article class="card card--flat">
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                                <h3 class="card__title" style="font-size: var(--fs-base);">{{ item.title }}</h3>
+                                {% if item.description %}<p class="card__text">{{ item.description }}</p>{% endif %}
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="reveal" data-delay="1">
+                {% if certifications %}
+                    <div>
+                        <p class="tag" style="margin-block-end: var(--s4);">{% trans "استانداردها" %}</p>
+                        {% for item in certifications %}
+                            <article class="cert">
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="cert__thumb" loading="lazy" width="54" height="54">
+                                {% else %}
+                                    <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                                {% endif %}
+                                <div class="cert__body">
+                                    <p class="cert__title">{{ item.title }}</p>
+                                    {% if item.issuer %}<p class="cert__by">{{ item.issuer }}</p>{% endif %}
+                                    {% if item.description %}<p class="cert__note">{{ item.description }}</p>{% endif %}
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="card">
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"></use></svg></span>
+                        <h3 class="card__title">{% trans "مستندسازی فنی" %}</h3>
+                        <p class="card__text">
+                            {% trans "برای هر محصول، مشخصات فنی، سابقه‌ی آزمون و مدارک موجود در اختیار تیم مهندسی مشتری قرار می‌گیرد تا ارزیابی بر پایه‌ی مدرک انجام شود." %}
+                        </p>
+                        <a href="{% url 'core:quality' %}" class="link card-link" style="margin-block-start: auto;">
+                            {% trans "فرایند کیفیت" %}
+                            <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="btn-row" style="margin-block-start: var(--s7);">
+            <a href="{% url 'core:quality' %}" class="btn btn--line">{% trans "مهندسی و کیفیت" %}</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ═══════════════════════════════════════════════════ 07 GLOBAL MARKET ═══ #}
+{% if company.global_text %}
+<section class="band band--tall band--carbon" id="global">
+    <div class="mesh mesh--fade" aria-hidden="true" style="position: absolute; inset: 0;"></div>
+    <div class="shell split split--lead" style="position: relative;">
+        <div class="reveal">
+            <p class="tag" style="color: var(--signal-400);">
+                <span class="tag__idx" style="color: var(--steel-400);">07</span>
+                {% trans "بازار جهانی" %}
+            </p>
+            <h2 style="margin-block: var(--s4) var(--s5);">
+                {{ company.global_title|default:_("آماده‌ی بازارهای بین‌المللی") }}
+            </h2>
+            <div class="lead body-copy" style="color: var(--steel-300);">{{ company.global_text|linebreaks }}</div>
+
+            <div class="btn-row" style="margin-block-start: var(--s6);">
+                <a href="{% url 'contact:form' %}?topic=partnership" class="btn btn--signal">
+                    {% trans "گفت‌وگو درباره تأمین بین‌المللی" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="reveal" data-delay="1">
+            <div class="grid grid--2 grid--tight">
+                <article class="card">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-globe"></use></svg></span>
+                    <h3 class="card__title">{% trans "حمل بین‌المللی" %}</h3>
+                    <p class="card__text">{% trans "حمل کالا از تمام نقاط جهان به ایران و بالعکس." %}</p>
+                </article>
+                <article class="card">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-handshake"></use></svg></span>
+                    <h3 class="card__title">{% trans "ترانزیت" %}</h3>
+                    <p class="card__text">{% trans "معرفی Consignee در کشورهای ثالث و ترانزیت به ایران." %}</p>
+                </article>
+                <article class="card">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"></use></svg></span>
+                    <h3 class="card__title">{% trans "امور گمرکی" %}</h3>
+                    <p class="card__text">{% trans "خدمات گمرکی در ایران و امارات متحده عربی." %}</p>
+                </article>
+                <article class="card">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-route"></use></svg></span>
+                    <h3 class="card__title">{% trans "تحویل فراساحل" %}</h3>
+                    <p class="card__text">{% trans "تحویل کالا به شناور و پروژه‌های فراساحل." %}</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ═══════════════════════════════════════════════════════ 08 INSIGHTS ═══ #}
+{% if latest_posts %}
+<section class="band band--tall band--paper" id="insights">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag"><span class="tag__idx">08</span> {% trans "بینش" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "تازه‌های اطلس" %}</h2>
+            </div>
+            <p class="lead">
+                <a href="{% url 'news:list' %}" class="link">
+                    {% trans "همه‌ی مطالب" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            </p>
+        </div>
+
+        <div class="grid grid--3">
+            {% for post in latest_posts %}
+                <article class="n-card reveal">
+                    {% if post.cover %}
+                        <a href="{{ post.get_absolute_url }}" class="n-card__media" tabindex="-1" aria-hidden="true">
+                            <img src="{{ post.cover.url }}" width="600" height="375" loading="lazy" alt="">
+                        </a>
+                    {% endif %}
+                    <p class="n-card__meta">
+                        <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"j F Y" }}</time>
+                        {% if post.category %}<span class="pill">{{ post.category.name }}</span>{% endif %}
+                    </p>
+                    <h3 class="n-card__title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                    <p class="n-card__text">{{ post.summary }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include 'partials/cta.html' with cta_company=company cta_index="09" %}
+{% endblock %}
