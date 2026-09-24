@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "کاتالوگ محصولات" %} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{% trans 'کاتالوگ محصولات اطلس — تجهیزات صنعت دریا، نفت و گاز و اقلام لیفتینگ و ریگینگ، دسته‌بندی‌شده بر پایه‌ی خط محصول، حوزه‌ی فعالیت و صنعت.' %}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "محصولات" as head_eyebrow %}
+{% trans "کاتالوگ محصولات" as head_title %}
+{% trans "محصولات اطلس متناسب با الزامات فنی پروژه‌های صنعتی و فراساحل تأمین یا تولید می‌شوند. برای یافتن سریع‌تر، بر پایه‌ی خط محصول، فناوری یا صنعت فیلتر کنید." as head_intro %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+<section class="band">
+    <div class="shell">
+        {% if product_lines or technologies or industries or query %}
+            <div class="filter-stack">
+                {% if product_lines %}
+                    <div class="filter-row">
+                        <span class="filter-row__k">{% trans "خط محصول" %}</span>
+                        <div class="chips">
+                            <a href="{% url 'products:list' %}" class="chip{% if not has_filters %} is-active{% endif %}">{% trans "همه" %}</a>
+                            {% for line in product_lines %}
+                                <a href="{% querystring line=line.slug page=None %}"
+                                   class="chip{% if active_line.pk == line.pk %} is-active{% endif %}"
+                                   {% if active_line.pk == line.pk %}aria-current="true"{% endif %}>
+                                    {{ line.name }}
+                                    <span class="chip__n ltr">{{ line.live }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if technologies %}
+                    <div class="filter-row">
+                        <span class="filter-row__k">{% trans "فناوری" %}</span>
+                        <div class="chips">
+                            {% for tech in technologies %}
+                                <a href="{% querystring technology=tech.slug page=None %}"
+                                   class="chip{% if active_technology.pk == tech.pk %} is-active{% endif %}"
+                                   {% if active_technology.pk == tech.pk %}aria-current="true"{% endif %}>
+                                    {{ tech.title }}
+                                    <span class="chip__n ltr">{{ tech.live }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if industries %}
+                    <div class="filter-row">
+                        <span class="filter-row__k">{% trans "صنعت" %}</span>
+                        <div class="chips">
+                            {% for ind in industries %}
+                                <a href="{% querystring industry=ind.slug page=None %}"
+                                   class="chip{% if active_industry.pk == ind.pk %} is-active{% endif %}"
+                                   {% if active_industry.pk == ind.pk %}aria-current="true"{% endif %}>
+                                    {{ ind.title }}
+                                    <span class="chip__n ltr">{{ ind.live }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="filter-row">
+                    <span class="filter-row__k">{% trans "جست‌وجو" %}</span>
+                    <form method="get" class="search" role="search">
+                        {% if active_line %}<input type="hidden" name="line" value="{{ active_line.slug }}">{% endif %}
+                        {% if active_technology %}<input type="hidden" name="technology" value="{{ active_technology.slug }}">{% endif %}
+                        {% if active_industry %}<input type="hidden" name="industry" value="{{ active_industry.slug }}">{% endif %}
+                        <label for="p-search" class="vh">{% trans "جست‌وجوی محصول" %}</label>
+                        <input type="search" id="p-search" name="q" value="{{ query }}" class="field"
+                               placeholder="{% trans 'نام یا کد محصول' %}">
+                        <button type="submit" class="btn btn--solid btn--sm" aria-label="{% trans 'جست‌وجو' %}">
+                            <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if has_filters %}
+            <p class="result-note">
+                <span>{% blocktrans count counter=total_count %}{{ counter }} محصول{% plural %}{{ counter }} محصول{% endblocktrans %}</span>
+                <a href="{% url 'products:list' %}" class="link">{% trans "حذف فیلترها" %}</a>
+            </p>
+        {% endif %}
+
+        <div class="grid grid--3">
+            {% for product in products %}
+                <article class="p-card reveal">
+                    <a href="{{ product.get_absolute_url }}" class="p-card__media" tabindex="-1" aria-hidden="true">
+                        {% if product.category %}<span class="p-card__flag">{{ product.category.name }}</span>{% endif %}
+                        {% if product.is_featured %}<span class="p-card__flag p-card__flag--signal p-card__flag--end">{% trans "شاخص" %}</span>{% endif %}
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" width="600" height="412" loading="lazy" alt="">
+                        {% else %}
+                            <span class="p-card__blank">
+                                <svg class="icon" aria-hidden="true"><use href="#{{ product.category.icon|default:'icon-box' }}"></use></svg>
+                            </span>
+                        {% endif %}
+                    </a>
+                    <div class="p-card__body">
+                        {% if product.model_code %}<span class="p-card__code ltr">{{ product.model_code }}</span>{% endif %}
+                        <h2 class="p-card__title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h2>
+                        <p class="p-card__text">{{ product.tagline|default:product.short_description }}</p>
+                        <div class="p-card__foot">
+                            <a href="{{ product.get_absolute_url }}" class="link card-link">
+                                {% trans "مشخصات محصول" %}
+                                <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="empty">
+                    <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-box"></use></svg></span>
+                    <h2 class="empty__title">
+                        {% if has_filters %}{% trans "محصولی با این فیلترها پیدا نشد" %}{% else %}{% trans "کاتالوگ در حال تکمیل است" %}{% endif %}
+                    </h2>
+                    <p class="empty__text">
+                        {% if has_filters %}
+                            {% trans "فیلترها را تغییر دهید، یا نیاز خود را برای ما بنویسید تا گزینه‌های ممکن را بررسی کنیم." %}
+                        {% else %}
+                            {% trans "محصولات از پنل مدیریت اضافه می‌شوند و بی‌درنگ در این کاتالوگ دیده خواهند شد." %}
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'contact:form' %}?topic=technical" class="btn btn--solid">{% trans "طرح نیاز فنی" %}</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% include 'partials/pagination.html' %}
+    </div>
+</section>
+
+{% include 'partials/cta.html' with cta_company=global_company %}
+{% endblock %}

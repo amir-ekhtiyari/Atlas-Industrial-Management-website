@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "تماس با اطلس" %} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{% trans 'تماس بازرگانی و فنی با اطلس: درخواست اطلاعات، استعلام، همکاری و صادرات.' %}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "تماس" as head_eyebrow %}
+{% trans "با اطلس صحبت کنید" as head_title %}
+{% trans "نیاز فنی، بازار مقصد یا موضوع همکاری خود را بنویسید. کارشناسان ما در کمتر از یک روز کاری پاسخ می‌دهند." as head_intro %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+{# مسیرهای تماس — ورودی‌های مشخص برای هر نوع مخاطب B2B #}
+<section class="band band--tight">
+    <div class="shell">
+        <div class="grid grid--3">
+            <a href="?topic=technical#form" class="route reveal">
+                <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"></use></svg></span>
+                <span class="route__k">{% trans "اطلاعات فنی" %}</span>
+                <span class="route__v">{% trans "مشخصات، مدارک و داده‌ی عملکردی محصول." %}</span>
+                <svg class="icon arrow route__arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+            <a href="?topic=sales#form" class="route reveal" data-delay="1">
+                <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-target"></use></svg></span>
+                <span class="route__k">{% trans "استعلام و خرید" %}</span>
+                <span class="route__v">{% trans "قیمت، شرایط تحویل و برنامه‌ی تأمین." %}</span>
+                <svg class="icon arrow route__arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+            <a href="?topic=partnership#form" class="route reveal" data-delay="2">
+                <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-handshake"></use></svg></span>
+                <span class="route__k">{% trans "همکاری و صادرات" %}</span>
+                <span class="route__v">{% trans "نمایندگی، توزیع و بازارهای بین‌المللی." %}</span>
+                <svg class="icon arrow route__arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="band band--flush-top band--tall" id="form">
+    <div class="shell split split--sidebar split--top">
+        <form method="post" class="form-shell" data-form>
+            {% csrf_token %}
+
+            <div class="form-shell__head">
+                <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-message"></use></svg></span>
+                <div>
+                    <h2 class="form-shell__title">{% trans "ثبت درخواست" %}</h2>
+                    <p class="form-shell__note">{% trans "فیلدهای ستاره‌دار الزامی هستند." %}</p>
+                </div>
+            </div>
+
+            {% if form.non_field_errors %}
+                <div class="alert alert--error" role="alert" style="margin-block-end: var(--s5);">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg>
+                    <span>{{ form.non_field_errors.0 }}</span>
+                </div>
+            {% endif %}
+
+            <div class="fields">
+                {% for field in form.visible_fields %}
+                    {% if field.name == 'website' %}
+                        <div class="trap" aria-hidden="true">
+                            <label for="{{ field.id_for_label }}">{% trans "این فیلد را خالی بگذارید" %}</label>
+                            {{ field }}
+                        </div>
+                    {% else %}
+                        <div class="field-group{% if field.name == 'message' or field.name == 'subject' %} fields__full{% endif %}{% if field.errors %} field-group--bad{% endif %}">
+                            <label class="field-label" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="field-req" aria-hidden="true">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <span class="field-error" role="alert">
+                                    <svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg>
+                                    <span>{{ field.errors|join:" " }}</span>
+                                </span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="form-foot">
+                <button type="submit" class="btn btn--signal btn--lg">
+                    {% trans "ارسال درخواست" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </button>
+                <span class="form-foot__note">{% trans "اطلاعات شما محفوظ است و فقط برای پاسخ‌گویی استفاده می‌شود." %}</span>
+            </div>
+        </form>
+
+        <aside class="stack--lg">
+            {% if company %}
+                <div class="aside-panel">
+                    <div style="display: flex; gap: var(--s3); align-items: center;">
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg></span>
+                        <h2 class="aside-panel__title">{% trans "اطلاعات تماس" %}</h2>
+                    </div>
+
+                    <ul class="contact-lines">
+                        {% if company.address %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "نشانی" %}</span>
+                                    <span class="contact-lines__v">{{ company.address }}{% if company.postal_code %} — <span class="ltr">{{ company.postal_code }}</span>{% endif %}</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if company.phone %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "تلفن" %}</span>
+                                    <span class="contact-lines__v">
+                                        <a href="tel:{{ company.phone }}" class="ltr">{{ company.phone }}</a>
+                                        {% if company.secondary_phone %}<br><a href="tel:{{ company.secondary_phone }}" class="ltr">{{ company.secondary_phone }}</a>{% endif %}
+                                    </span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if company.fax %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-fax"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "فکس" %}</span>
+                                    <span class="contact-lines__v ltr">{{ company.fax }}</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if company.email %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "ایمیل" %}</span>
+                                    <span class="contact-lines__v">
+                                        <a href="mailto:{{ company.email }}" class="ltr">{{ company.email }}</a>
+                                        {% if company.sales_email %}<br><a href="mailto:{{ company.sales_email }}" class="ltr">{{ company.sales_email }}</a>{% endif %}
+                                    </span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if company.working_hours %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "ساعات کاری" %}</span>
+                                    <span class="contact-lines__v">{{ company.working_hours }}</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    {% if company.social_links %}
+                        <hr>
+                        <div class="socials">
+                            {% for link in company.social_links %}
+                                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ link.label }}">
+                                    <svg class="icon" aria-hidden="true"><use href="#{{ link.icon }}"></use></svg>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if company.map_embed_url %}
+                    <div class="map-frame">
+                        <iframe src="{{ company.map_embed_url }}" title="{% trans 'نقشه موقعیت شرکت' %}"
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </aside>
+    </div>
+</section>
+
+{% if faqs %}
+<section class="band band--tall band--paper">
+    <div class="shell shell--mid">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "پرسش‌های پرتکرار" %}</p>
+            <h2>{% trans "سؤالات متداول" %}</h2>
+        </div>
+        <div class="accordion">
+            {% for faq in faqs %}
+                <details class="accordion__item"{% if forloop.first %} open{% endif %}>
+                    <summary class="accordion__q">
+                        <span>{{ faq.question }}</span>
+                        <svg class="icon accordion__icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                    </summary>
+                    <div class="accordion__a">{{ faq.answer|linebreaks }}</div>
+                </details>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

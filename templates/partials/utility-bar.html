@@ -1,0 +1,39 @@
+{% load i18n %}
+{% if global_company %}
+<div class="utility">
+    <div class="shell utility__inner">
+        <div class="utility__group">
+            <span class="utility__note">
+                <svg class="icon" aria-hidden="true"><use href="#icon-cog"></use></svg>
+                {% trans "مهندسی و تولید تجهیزات فنی" %}
+            </span>
+        </div>
+
+        <div class="utility__group">
+            {% if global_company.phone %}
+                <a href="tel:{{ global_company.phone }}" class="utility__item">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+                    <span class="ltr">{{ global_company.phone }}</span>
+                </a>
+            {% endif %}
+            {% firstof global_company.sales_email global_company.email as contact_mail %}
+            {% if contact_mail %}
+                <a href="mailto:{{ contact_mail }}" class="utility__item">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg>
+                    <span class="ltr">{{ contact_mail }}</span>
+                </a>
+            {% endif %}
+            {% if global_company.social_links %}
+                <span class="utility__group" style="gap: var(--s2);">
+                    {% for link in global_company.social_links %}
+                        <a href="{{ link.url }}" class="utility__item" target="_blank"
+                           rel="noopener noreferrer" aria-label="{{ link.label }}">
+                            <svg class="icon" aria-hidden="true"><use href="#{{ link.icon }}"></use></svg>
+                        </a>
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}

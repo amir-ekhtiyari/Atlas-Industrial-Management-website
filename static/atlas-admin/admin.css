@@ -1,0 +1,172 @@
+/* ==========================================================================
+   Atlas — بهبود ظاهر پنل مدیریت
+   هدف: خوانایی فارسی، فرم‌های مرتب، و تفکیک واضح فیلدهای دو زبان.
+   ========================================================================== */
+
+:root {
+    --atlas-brand: #0E3A66;
+    --atlas-brand-dark: #071B31;
+    --atlas-accent: #0B7F6C;
+    --atlas-line: #DEE6EE;
+    --atlas-surface: #FFFFFF;
+    --atlas-ink: #17273A;
+    --atlas-muted: #6B7E93;
+}
+
+html[dir="rtl"] body,
+body {
+    font-family: 'Vazirmatn', 'Segoe UI', Tahoma, system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------- سربرگ */
+
+#header {
+    background: var(--atlas-brand-dark);
+    color: #fff;
+    padding: 12px 24px;
+}
+#branding h1, #branding h1 a:link, #branding h1 a:visited { color: #fff; font-weight: 800; }
+#user-tools { font-size: 0.78rem; }
+#user-tools a { border-block-end-color: rgba(255, 255, 255, 0.4); }
+
+div.breadcrumbs {
+    background: var(--atlas-brand);
+    color: rgba(255, 255, 255, 0.78);
+    padding: 10px 24px;
+    font-size: 0.8rem;
+}
+div.breadcrumbs a { color: #fff; }
+
+/* ------------------------------------------------------------- دکمه‌ها */
+
+.button, input[type="submit"], input[type="button"],
+.submit-row input, a.button {
+    background: var(--atlas-brand);
+    border-radius: 6px;
+    font-weight: 700;
+    padding: 9px 18px;
+}
+.button:hover, input[type="submit"]:hover, .submit-row input:hover {
+    background: var(--atlas-brand-dark);
+}
+.button.default, input[type="submit"].default, .submit-row input.default {
+    background: var(--atlas-accent);
+}
+.button.default:hover, .submit-row input.default:hover { background: #095F51; }
+.submit-row { border-radius: 6px; }
+
+/* ---------------------------------------------------------------- فرم‌ها */
+
+.module { border-radius: 8px; overflow: hidden; box-shadow: 0 1px 2px rgba(10, 39, 67, 0.06); }
+.module h2, .module caption, .inline-group h2 {
+    background: var(--atlas-brand);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 10px 14px;
+}
+fieldset.module { margin-block-end: 18px; }
+.aligned label { font-weight: 600; color: var(--atlas-ink); }
+.help, .helptext { color: var(--atlas-muted); font-size: 0.78rem; line-height: 1.7; }
+
+input[type="text"], input[type="email"], input[type="url"], input[type="number"],
+input[type="password"], select, textarea, .vTextField {
+    border: 1px solid #C9D5E1;
+    border-radius: 6px;
+    padding: 8px 10px;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus,
+select:focus, textarea:focus, .vTextField:focus {
+    border-color: var(--atlas-brand);
+    box-shadow: 0 0 0 3px rgba(14, 58, 102, 0.12);
+    outline: none;
+}
+textarea { line-height: 1.85; min-height: 110px; }
+
+/* -------------------------------------------------- فیلدهای چندزبانه */
+
+/* modeltranslation به هر ویجت کلاس mt و mt-field-<name>-<lang> می‌دهد. */
+.form-row.atlas-lang-row { position: relative; }
+
+.atlas-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    background: #EFF4F8;
+    border: 1px solid var(--atlas-line);
+    border-radius: 8px;
+}
+.atlas-lang-switch__label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--atlas-muted);
+    margin-inline-end: 4px;
+}
+.atlas-lang-switch button {
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--atlas-line);
+    background: #fff;
+    color: var(--atlas-ink);
+    cursor: pointer;
+}
+.atlas-lang-switch button:hover { border-color: var(--atlas-brand); color: var(--atlas-brand); }
+.atlas-lang-switch button.is-active {
+    background: var(--atlas-brand);
+    border-color: var(--atlas-brand);
+    color: #fff;
+}
+
+/* برچسب زبان روی هر فیلد ترجمه‌شده */
+.atlas-lang-tag {
+    display: inline-block;
+    font-family: system-ui, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: #E4EDF6;
+    color: var(--atlas-brand);
+    margin-inline-start: 6px;
+    vertical-align: middle;
+}
+.atlas-lang-tag[data-lang="en"] { background: #E8F7F4; color: var(--atlas-accent); }
+
+.atlas-hidden { display: none !important; }
+
+/* فیلدهای انگلیسی همیشه LTR تایپ شوند، حتی در پنل RTL */
+input.mt-field-en, textarea.mt-field-en,
+[class*="-en"].mt { direction: ltr; text-align: left; }
+
+/* ----------------------------------------------------------- فهرست‌ها */
+
+#changelist table thead th { background: #EFF4F8; font-size: 0.8rem; }
+#changelist table thead th a { color: var(--atlas-ink); }
+#changelist-filter h2 { background: var(--atlas-brand); }
+.results { border-radius: 8px; overflow: auto; }
+#changelist table tbody td, #changelist table tbody th { vertical-align: middle; }
+
+.paginator { font-size: 0.82rem; }
+
+/* -------------------------------------------------------------- inline */
+
+.inline-group .tabular td.original p { font-size: 0.78rem; color: var(--atlas-muted); }
+.inline-related h3 { background: #EFF4F8; font-size: 0.8rem; }
+.add-row a { font-weight: 700; }
+
+/* ------------------------------------------------------------ صفحه اصلی */
+
+.dashboard #content-main .module table th { width: auto; }
+.dashboard .module caption a { color: #fff; }
+
+@media (max-width: 767px) {
+    .atlas-lang-switch { padding: 10px; }
+}

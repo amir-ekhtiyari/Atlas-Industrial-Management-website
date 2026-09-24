@@ -1,0 +1,78 @@
+{% load i18n %}
+{% url 'core:home' as u_home %}
+{% url 'core:about' as u_company %}
+{% url 'core:technology_list' as u_tech %}
+{% url 'core:industry_list' as u_industries %}
+{% url 'core:quality' as u_quality %}
+{% url 'products:list' as u_products %}
+{% url 'news:list' as u_insights %}
+{% url 'team:list' as u_team %}
+{% url 'contact:form' as u_contact %}
+
+<header class="masthead" data-masthead>
+    <div class="shell masthead__inner">
+        {% include 'partials/logo.html' with href=u_home name=global_company.name subline=global_company.tagline|truncatechars:34 label=global_company.name %}
+
+        <nav id="site-nav" class="nav" data-drawer aria-label="{% trans 'ناوبری اصلی' %}">
+            <div class="nav__head">
+                <span class="nav__title">{% trans "منو" %}</span>
+                <button type="button" class="nav-btn" data-drawer-close aria-label="{% trans 'بستن منو' %}">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+                </button>
+            </div>
+
+            <a href="{{ u_company }}" class="nav__link{% if request.path == u_company %} is-current{% endif %}"
+               {% if request.path == u_company %}aria-current="page"{% endif %}>{% trans "شرکت" %}</a>
+            <a href="{{ u_tech }}" class="nav__link{% if u_tech in request.path %} is-current{% endif %}"
+               {% if u_tech in request.path %}aria-current="page"{% endif %}>{% trans "فناوری‌ها" %}</a>
+            <a href="{{ u_products }}" class="nav__link{% if u_products in request.path %} is-current{% endif %}"
+               {% if u_products in request.path %}aria-current="page"{% endif %}>{% trans "محصولات" %}</a>
+            <a href="{{ u_industries }}" class="nav__link{% if u_industries in request.path %} is-current{% endif %}"
+               {% if u_industries in request.path %}aria-current="page"{% endif %}>{% trans "صنعت‌ها" %}</a>
+            <a href="{{ u_quality }}" class="nav__link{% if request.path == u_quality %} is-current{% endif %}"
+               {% if request.path == u_quality %}aria-current="page"{% endif %}>{% trans "کیفیت" %}</a>
+            <a href="{{ u_insights }}" class="nav__link{% if u_insights in request.path %} is-current{% endif %}"
+               {% if u_insights in request.path %}aria-current="page"{% endif %}>{% trans "بینش" %}</a>
+            <a href="{{ u_contact }}" class="nav__link{% if request.path == u_contact %} is-current{% endif %}"
+               {% if request.path == u_contact %}aria-current="page"{% endif %}>{% trans "تماس" %}</a>
+
+            <span class="nav__spacer"></span>
+
+            <div class="nav__foot">
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ other_language.path }}">
+                    <input type="hidden" name="language" value="{{ other_language.code }}">
+                    <button type="submit" class="lang">
+                        <svg class="icon" aria-hidden="true"><use href="#icon-language"></use></svg>
+                        <span>{{ other_language.name }}</span>
+                    </button>
+                </form>
+                <a href="{{ u_contact }}" class="btn btn--signal btn--block">{% trans "درخواست اطلاعات" %}</a>
+            </div>
+        </nav>
+
+        <div class="actions">
+            <form action="{% url 'set_language' %}" method="post" style="display:inline-flex;">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ other_language.path }}">
+                <input type="hidden" name="language" value="{{ other_language.code }}">
+                <button type="submit" class="lang"
+                        title="{% blocktrans with lang=other_language.name %}نمایش سایت به {{ lang }}{% endblocktrans %}">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-language"></use></svg>
+                    <span>{% if other_language.code == 'en' %}EN{% else %}FA{% endif %}</span>
+                </button>
+            </form>
+
+            <a href="{{ u_contact }}" class="btn btn--solid btn--sm actions__cta">
+                {% trans "درخواست اطلاعات" %}
+            </a>
+
+            <button type="button" class="nav-btn" data-drawer-toggle
+                    aria-expanded="false" aria-controls="site-nav" aria-label="{% trans 'منوی اصلی' %}">
+                <svg class="icon nav-btn__open" aria-hidden="true"><use href="#icon-menu"></use></svg>
+                <svg class="icon nav-btn__close" aria-hidden="true"><use href="#icon-close"></use></svg>
+            </button>
+        </div>
+    </div>
+</header>

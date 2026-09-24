@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "صنعت‌ها" %} — {{ company.name }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{% trans 'صنعت‌ها و حوزه‌های کاربردی که فناوری‌ها و محصولات اطلس در آن‌ها به کار می‌آیند.' %}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "صنعت‌ها" as head_eyebrow %}
+{% trans "صنعت‌ها و حوزه‌های کاربرد" as head_title %}
+{% trans "اطلس در صنایعی فعال است که خطا، تأخیر یا نقص محصول در آن‌ها هزینه‌ساز است. این‌ها حوزه‌هایی است که امروز در آن‌ها فعالیم." as head_intro %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+{% if industries %}
+<section class="band">
+    <div class="shell">
+        <div class="grid grid--2 grid--wide">
+            {% for item in industries %}
+                <article class="feature reveal">
+                    <div class="feature__head">
+                        <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                        <div>
+                            <span class="feature__idx ltr">{{ forloop.counter|stringformat:"02d" }}</span>
+                            <h2 class="feature__title">{{ item.title }}</h2>
+                        </div>
+                    </div>
+
+                    {% if item.description %}<p class="feature__text">{{ item.description }}</p>{% endif %}
+
+                    {% with linked=item.products.all %}
+                        {% if linked %}
+                            <div class="feature__meta">
+                                <span class="feature__meta-k">{% trans "محصولات مرتبط" %}</span>
+                                <span class="feature__meta-v">
+                                    {% for p in linked|slice:":3" %}
+                                        <a href="{{ p.get_absolute_url }}">{{ p.name }}</a>{% if not forloop.last %} · {% endif %}
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    {% if item.has_page %}
+                        <a href="{{ item.get_absolute_url }}" class="link card-link">
+                            {% trans "جزئیات این حوزه" %}
+                            <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="band">
+    <div class="shell">
+        <div class="empty">
+            <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-globe"></use></svg></span>
+            <h2 class="empty__title">{% trans "این بخش در حال تکمیل است" %}</h2>
+            <p class="empty__text">{% trans "صنعت‌ها از پنل مدیریت اضافه می‌شوند. برای گفت‌وگو درباره‌ی کاربرد در حوزه‌ی خود با ما تماس بگیرید." %}</p>
+            <a href="{% url 'contact:form' %}" class="btn btn--solid">{% trans "تماس با اطلس" %}</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if technologies %}
+<section class="band band--tall band--paper">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag">{% trans "پشتوانه‌ی فنی" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "فناوری‌های پشت این کاربردها" %}</h2>
+            </div>
+            <p class="lead">
+                <a href="{% url 'core:technology_list' %}" class="link">
+                    {% trans "همه‌ی حوزه‌های فناوری" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            </p>
+        </div>
+        <div class="grid grid--3">
+            {% for tech in technologies %}
+                <article class="card card--hover reveal">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ tech.icon }}"></use></svg></span>
+                    <h3 class="card__title">{{ tech.title }}</h3>
+                    {% if tech.description %}<p class="card__text">{{ tech.description|truncatewords:18 }}</p>{% endif %}
+                    {% if tech.has_page %}
+                        <a href="{{ tech.get_absolute_url }}" class="link card-link" style="margin-block-start: auto;">
+                            {% trans "بیشتر" %}
+                            <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include 'partials/cta.html' with cta_company=company %}
+{% endblock %}

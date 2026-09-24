@@ -1,0 +1,97 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% firstof page_title company.name global_company.name _("اطلس") as seo_title %}
+{% firstof page_description company.meta_description global_company.meta_description global_company.tagline as seo_desc %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#07081A">
+
+    <title>{% block title %}{{ global_company.name|default:_("اطلس") }}{% endblock %}</title>
+
+    {% if seo_desc %}<meta name="description" content="{{ seo_desc|striptags|truncatechars:175 }}">{% endif %}
+    <meta name="robots" content="{% block robots %}index, follow, max-image-preview:large{% endblock %}">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    {% for lang in site_languages %}
+        <link rel="alternate" hreflang="{{ lang.code }}" href="{{ request.scheme }}://{{ request.get_host }}{{ lang.path }}">
+    {% endfor %}
+    <link rel="alternate" hreflang="x-default" href="{{ request.scheme }}://{{ request.get_host }}/fa/">
+
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:site_name" content="{{ global_company.name|default:_('اطلس') }}">
+    <meta property="og:locale" content="{% if LANGUAGE_CODE == 'fa' %}fa_IR{% else %}en_US{% endif %}">
+    <meta property="og:title" content="{% block og_title %}{{ seo_title }}{% endblock %}">
+    {% if seo_desc %}<meta property="og:description" content="{{ seo_desc|striptags|truncatechars:175 }}">{% endif %}
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    {% block og_image %}
+        {% if global_company.og_image %}
+            <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ global_company.og_image.url }}">
+        {% elif global_company.hero_image %}
+            <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ global_company.hero_image.url }}">
+        {% endif %}
+    {% endblock %}
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="{% static 'brand/favicon.ico' %}" sizes="48x48">
+    <link rel="icon" href="{% static 'brand/favicon-32.png' %}" type="image/png" sizes="32x32">
+    <link rel="icon" href="{% static 'brand/favicon-16.png' %}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{% static 'brand/favicon-192.png' %}" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="{% static 'brand/apple-touch-icon.png' %}" sizes="180x180">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    {% if LANGUAGE_CODE == 'fa' %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    {% else %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/space-grotesk@5.3.0/index.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter@5.3.0/index.min.css">
+    {% endif %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/jetbrains-mono@5.3.0/index.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% include 'partials/structured-data.html' %}
+    {% block structured_data %}{% endblock %}
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    {% include 'partials/icons.html' %}
+
+    <a href="#main" class="skip-link">{% trans "رفتن به محتوای اصلی" %}</a>
+
+    {% include 'partials/utility-bar.html' %}
+    {% include 'partials/masthead.html' %}
+    <div class="scrim" data-drawer-scrim></div>
+
+    <main id="main" class="site-main">
+        {% if messages %}
+            <div class="shell">
+                <div class="alerts">
+                    {% for message in messages %}
+                        <div class="alert alert--{{ message.tags|default:'info' }}"
+                             role="{% if message.tags == 'error' %}alert{% else %}status{% endif %}">
+                            <svg class="icon" aria-hidden="true">
+                                <use href="#icon-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'warning' %}alert{% else %}info{% endif %}"></use>
+                            </svg>
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'partials/footer.html' %}
+
+    <button type="button" class="to-top" data-to-top aria-label="{% trans 'بازگشت به بالای صفحه' %}">
+        <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+    </button>
+
+    <script src="{% static 'js/main.js' %}" defer></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

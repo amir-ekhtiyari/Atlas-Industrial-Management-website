@@ -1,0 +1,24 @@
+{% load static i18n %}
+{% comment %}
+    نشان اطلس — نسخه‌ی بدون نوشته‌ی لوگوی شرکت (چرخ‌دنده، کره و اطلس)
+    روی کاشی سفید با گوشه‌های گرد؛ همان تصویری که favicon از آن ساخته شده.
+    کاشی سفید باعث می‌شود نشان روی پس‌زمینه‌ی روشن و تیره (فوتر) خوانا بماند.
+
+    پارامترها:
+      variant  = "full" (پیش‌فرض، نشان + نام) یا "mark" (فقط نشان)
+      subline  = متن ریز زیر نام (اختیاری)
+      on_dark  = True برای استفاده روی پس‌زمینه‌ی تیره
+      href     = مقصد لینک؛ اگر ندهید، بدون لینک رندر می‌شود
+{% endcomment %}
+
+{% if href %}<a href="{{ href }}" class="brand" aria-label="{{ label|default:_('اطلس — صفحه اصلی') }}">{% else %}<span class="brand">{% endif %}
+    <img class="brand__img" src="{% static 'brand/atlas-icon.png' %}" width="38" height="38" alt="">
+
+
+    {% if variant != 'mark' %}
+        <span class="brand__text">
+            <span class="brand__name">{{ name|default:_("اطلس") }}</span>
+            {% if subline %}<span class="brand__sub">{{ subline }}</span>{% endif %}
+        </span>
+    {% endif %}
+{% if href %}</a>{% else %}</span>{% endif %}

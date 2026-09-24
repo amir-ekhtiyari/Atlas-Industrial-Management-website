@@ -1,0 +1,32 @@
+# --- اسرار و پیکربندی محلی ---
+.env
+.env.*
+!.env.example
+
+# --- پایتون ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# --- محیط مجازی ---
+.venv/
+venv/
+env/
+
+# --- جنگو ---
+staticfiles/
+*.log
+db.sqlite3
+db.sqlite3-journal
+
+# فایل‌های آپلودی کاربر؛ پشتیبان‌گیری جداگانه انجام شود.
+media/
+
+# --- ابزارها و ویرایشگرها ---
+.idea/
+.claude/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

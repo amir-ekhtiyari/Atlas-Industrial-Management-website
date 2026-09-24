@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "تیم اطلس" %} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{% trans 'تیم مهندسی، تولید و پشتیبانی اطلس.' %}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "تیم" as head_eyebrow %}
+{% trans "تیم اطلس" as head_title %}
+{% trans "مهندسان طراحی، تولید و پشتیبانی که هر محصول را از ایده تا تحویل همراهی می‌کنند." as head_intro %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+<section class="band band--tall">
+    <div class="shell">
+        <div class="grid grid--4">
+            {% for member in members %}
+                {% include 'partials/team-card.html' with member=member show_bio=True heading='h2' %}
+            {% empty %}
+                <div class="empty">
+                    <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg></span>
+                    <h2 class="empty__title">{% trans "معرفی تیم در حال تکمیل است" %}</h2>
+                    <p class="empty__text">{% trans "اعضای تیم از پنل مدیریت اضافه می‌شوند." %}</p>
+                    <a href="{% url 'contact:form' %}" class="btn btn--solid">{% trans "تماس با اطلس" %}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include 'partials/cta.html' with cta_company=global_company %}
+{% endblock %}

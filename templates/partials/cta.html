@@ -1,0 +1,35 @@
+{% load i18n %}
+{% firstof cta_company global_company as cta %}
+<section class="cta">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="shell cta__inner">
+        <div>
+            <p class="tag" style="color: var(--signal-400);">
+                <span class="tag__idx" style="color: var(--steel-400);">{{ cta_index|default:"—" }}</span>
+                {% trans "گفت‌وگو با اطلس" %}
+            </p>
+            <h2 class="cta__title" style="margin-block-start: var(--s4);">
+                {{ cta.cta_title|default:_("درخواست مشاوره یا استعلام تأمین") }}
+            </h2>
+            <p class="cta__text">
+                {{ cta.cta_text|default:_("نیاز فنی، مشخصات و زمان‌بندی پروژه‌ی خود را برای ما بنویسید تا مسیر مناسب تأمین، ساخت و تحویل را با شما بررسی کنیم.") }}
+            </p>
+        </div>
+
+        <div class="cta__paths">
+            <a href="{% url 'contact:form' %}?topic=technical" class="btn btn--signal btn--lg">
+                {% trans "درخواست اطلاعات فنی" %}
+                <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+            <a href="{% url 'contact:form' %}?topic=partnership" class="btn btn--line-dark btn--lg">
+                {% trans "همکاری و صادرات" %}
+            </a>
+            {% if cta.phone %}
+                <a href="tel:{{ cta.phone }}" class="btn btn--line-dark btn--lg">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+                    <span class="ltr">{{ cta.phone }}</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>

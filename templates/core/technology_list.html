@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "حوزه‌های فناوری" %} — {{ company.name }}{% endblock %}
+{% block extra_head %}
+    <meta name="description" content="{% trans 'حوزه‌های فعالیت و توانمندی‌های اطلس: تأمین، ساخت قطعات فلزی و پلیمری، مونتاژ، کنترل کیفیت و تحویل فراساحل.' %}">
+{% endblock %}
+
+{% block content %}
+
+{% trans "فناوری" as head_eyebrow %}
+{% trans "حوزه‌های فناوری" as head_title %}
+{% trans "از شناخت نیاز و تأمین تا ساخت، مونتاژ، کنترل کیفیت و تحویل؛ این حوزه‌ها چارچوب کار اطلس را می‌سازند و هر پروژه، متناسب با نیاز خود، از یک یا چند مورد از آن‌ها بهره می‌گیرد." as head_intro %}
+{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+{% if technologies %}
+<section class="band">
+    <div class="shell">
+        <div class="grid grid--2 grid--wide">
+            {% for tech in technologies %}
+                <article class="feature reveal">
+                    <div class="feature__head">
+                        <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#{{ tech.icon }}"></use></svg></span>
+                        <div>
+                            <span class="feature__idx ltr">{{ forloop.counter|stringformat:"02d" }}</span>
+                            <h2 class="feature__title">{{ tech.title }}</h2>
+                        </div>
+                    </div>
+
+                    {% if tech.description %}<p class="feature__text">{{ tech.description }}</p>{% endif %}
+
+                    {% with linked=tech.products.all %}
+                        {% if linked %}
+                            <div class="feature__meta">
+                                <span class="feature__meta-k">{% trans "محصولات مرتبط" %}</span>
+                                <span class="feature__meta-v">
+                                    {% for p in linked|slice:":3" %}
+                                        <a href="{{ p.get_absolute_url }}">{{ p.name }}</a>{% if not forloop.last %} · {% endif %}
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    {% if tech.has_page %}
+                        <a href="{{ tech.get_absolute_url }}" class="link card-link">
+                            {% trans "جزئیات این حوزه" %}
+                            <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="band">
+    <div class="shell">
+        <div class="empty">
+            <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-cog"></use></svg></span>
+            <h2 class="empty__title">{% trans "حوزه‌های فناوری در حال تدوین است" %}</h2>
+            <p class="empty__text">{% trans "این بخش از پنل مدیریت پر می‌شود. برای گفت‌وگو درباره‌ی توانمندی‌های فنی با ما تماس بگیرید." %}</p>
+            <a href="{% url 'contact:form' %}" class="btn btn--solid">{% trans "تماس با اطلس" %}</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if capabilities %}
+<section class="band band--tall band--paper">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "توانمندی‌ها" %}</p>
+            <h2>{% trans "زیرساخت مهندسی و تولید" %}</h2>
+        </div>
+        <div class="grid grid--3">
+            {% for item in capabilities %}
+                <article class="card card--hover reveal">
+                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
+                    <h3 class="card__title">{{ item.title }}</h3>
+                    {% if item.description %}<p class="card__text">{{ item.description }}</p>{% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if process_steps %}
+<section class="band band--tall">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "فرایند" %}</p>
+            <h2>{% trans "از نیاز تا تحویل" %}</h2>
+        </div>
+        <ol class="process">
+            {% for step in process_steps %}
+                <li class="process__item reveal">
+                    <span class="process__n ltr">{{ step.step_number|stringformat:"02d" }}</span>
+                    <h3 class="process__title">{{ step.title }}</h3>
+                    {% if step.description %}<p class="process__text">{{ step.description }}</p>{% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</section>
+{% endif %}
+
+{% if services %}
+<section class="band band--tall band--paper">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "خدمات" %}</p>
+            <h2>{% trans "فراتر از تأمین کالا" %}</h2>
+        </div>
+        <div class="grid grid--2">
+            {% for service in services %}
+                <article class="row-item reveal">
+                    {% if service.image %}
+                        <img src="{{ service.image.url }}" alt="" class="row-item__thumb" loading="lazy" width="46" height="46">
+                    {% else %}
+                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ service.icon }}"></use></svg></span>
+                    {% endif %}
+                    <div class="row-item__body">
+                        <h3 class="row-item__title">{{ service.title }}</h3>
+                        {% if service.description %}<p class="row-item__text">{{ service.description }}</p>{% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include 'partials/cta.html' with cta_company=company %}
+{% endblock %}

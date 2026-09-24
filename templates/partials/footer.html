@@ -1,0 +1,98 @@
+{% load i18n %}
+{% url 'core:home' as u_home %}
+<footer class="footer">
+    <div class="shell footer__top">
+        <div class="footer__col">
+            {% include 'partials/logo.html' with href=u_home name=global_company.name subline=global_company.tagline on_dark=True %}
+            {% if global_company.meta_description %}
+                <p class="footer__about">{{ global_company.meta_description }}</p>
+            {% endif %}
+            {% if global_company.social_links %}
+                <div class="socials">
+                    {% for link in global_company.social_links %}
+                        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ link.label }}">
+                            <svg class="icon" aria-hidden="true"><use href="#{{ link.icon }}"></use></svg>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="footer__col">
+            <h2 class="footer__h">{% trans "شرکت" %}</h2>
+            <ul class="footer__links">
+                <li><a href="{% url 'core:about' %}">{% trans "درباره اطلس" %}</a></li>
+                <li><a href="{% url 'core:quality' %}">{% trans "مهندسی و کیفیت" %}</a></li>
+                <li><a href="{% url 'team:list' %}">{% trans "تیم" %}</a></li>
+                <li><a href="{% url 'news:list' %}">{% trans "بینش و اخبار" %}</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__col">
+            <h2 class="footer__h">{% trans "فناوری و محصول" %}</h2>
+            <ul class="footer__links">
+                <li><a href="{% url 'core:technology_list' %}">{% trans "حوزه‌های فناوری" %}</a></li>
+                <li><a href="{% url 'products:list' %}">{% trans "کاتالوگ محصولات" %}</a></li>
+                <li><a href="{% url 'core:industry_list' %}">{% trans "صنعت‌ها" %}</a></li>
+                {% for line in footer_lines %}
+                    <li><a href="{{ line.get_absolute_url }}">{{ line.name|truncatechars:30 }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if global_company %}
+        <div class="footer__col">
+            <h2 class="footer__h">{% trans "تماس بازرگانی" %}</h2>
+            <ul class="footer__contact">
+                {% if global_company.address %}
+                    <li>
+                        <svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>
+                        <span>{{ global_company.address }}{% if global_company.postal_code %} — <span class="ltr">{{ global_company.postal_code }}</span>{% endif %}</span>
+                    </li>
+                {% endif %}
+                {% if global_company.phone %}
+                    <li>
+                        <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+                        <span>
+                            <a href="tel:{{ global_company.phone }}" class="ltr">{{ global_company.phone }}</a>
+                            {% if global_company.secondary_phone %}<br><a href="tel:{{ global_company.secondary_phone }}" class="ltr">{{ global_company.secondary_phone }}</a>{% endif %}
+                        </span>
+                    </li>
+                {% endif %}
+                {% if global_company.email %}
+                    <li>
+                        <svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg>
+                        <span>
+                            <a href="mailto:{{ global_company.email }}" class="ltr">{{ global_company.email }}</a>
+                            {% if global_company.sales_email %}<br><a href="mailto:{{ global_company.sales_email }}" class="ltr">{{ global_company.sales_email }}</a>{% endif %}
+                        </span>
+                    </li>
+                {% endif %}
+                {% if global_company.working_hours %}
+                    <li>
+                        <svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg>
+                        <span>{{ global_company.working_hours }}</span>
+                    </li>
+                {% endif %}
+            </ul>
+            <a href="{% url 'contact:form' %}?topic=partnership" class="link link--signal" style="color: var(--signal-400);">
+                {% trans "همکاری و صادرات" %}
+                <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+
+            <div style="display: flex; align-items: center; gap: var(--s3); margin-block-start: var(--s5);">
+                <img src="{% url 'qr_code' %}" alt="{% trans 'کد QR وب‌سایت اطلس' %}" width="72" height="72"
+                     loading="lazy" style="border-radius: var(--r-sm); background: #fff; padding: 4px;">
+                <a href="{% url 'qr_code' %}?download=1" class="link" style="color: var(--steel-300);">
+                    {% trans "دانلود QR سایت" %}
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="shell footer__bottom">
+        <p>&copy; {% now "Y" %} {{ global_company.name|default:_("اطلس") }} — {% trans "تمامی حقوق محفوظ است." %}</p>
+        <p class="credit">{% trans "Made by" %} <strong>AMIR</strong></p>
+    </div>
+</footer>
