@@ -2434,3 +2434,242 @@ select.field {
 @media (max-width: 599.98px) {
     .hero__copy > .tag { letter-spacing: 0.06em; padding-inline: 0.8rem; }
 }
+
+
+/* ==========================================================================
+   20 · لایه‌ی طراحی v2 — ریتم بخش‌ها، عمق کارت‌ها، ریزتعامل‌ها
+   --------------------------------------------------------------------------
+   این لایه عمداً در انتهای فایل و یک‌جا آمده تا مرورش ساده باشد. قواعد قبلی
+   دست‌نخورده‌اند و این‌جا با همان specificity بازنویسی می‌شوند.
+   ========================================================================== */
+
+:root {
+    /* گوشه‌های نرم‌تر */
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 20px;
+
+    /* سطوح روشن با ته‌رنگ آبی برند به‌جای خاکستری خنثی */
+    --paper: #F5F6FB;
+    --tint: #EEF0FA;
+    --line-soft: #E6E8F2;
+
+    /* سایه‌ی لایه‌ای: سایه‌ی تماس نزدیک + سایه‌ی نرم دور */
+    --sh-card: 0 1px 2px rgba(12, 14, 36, 0.04), 0 6px 18px -10px rgba(12, 14, 36, 0.12);
+    --sh-card-hover: 0 2px 4px rgba(12, 14, 36, 0.04), 0 28px 56px -24px rgba(24, 28, 90, 0.30);
+    --ease-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ── ۱. ریتم بخش‌ها ─────────────────────────────────────────────────── */
+/* بلوک‌های رنگی زمینه‌ی موقعیت‌دهی می‌خواهند تا شبکه‌ی تزئینی (.mesh) داخل
+   خود بخش بماند، نه نسبت به کل صفحه. */
+.band--carbon, .band--tint, .band--paper { position: relative; isolation: isolate; }
+.band--carbon > .mesh, .band--tint > .mesh { z-index: -1; }
+
+/* بخش تیره: هاله‌ی ملایم آبی برند به‌جای رنگ تخت */
+.band--carbon {
+    background:
+        radial-gradient(ellipse 60% 55% at 88% 0%, rgba(107, 115, 217, 0.16), transparent 70%),
+        radial-gradient(ellipse 50% 60% at 0% 100%, rgba(41, 45, 82, 0.55), transparent 70%),
+        var(--carbon-900);
+}
+/* بخش روشن با ته‌رنگ برند و بافت نقطه‌ای بسیار کم‌رنگ */
+.band--tint {
+    background:
+        radial-gradient(rgba(67, 75, 158, 0.11) 1px, transparent 1.2px) 0 0 / 22px 22px,
+        linear-gradient(180deg, var(--tint), #F7F8FD);
+}
+.band--paper {
+    background: linear-gradient(180deg, var(--paper), #FBFBFE);
+    border-block: 1px solid var(--line-soft);
+}
+
+/* ── ۲. سربرگ بخش‌ها: برچسب قرصی و تیتر محکم‌تر ────────────────────── */
+.section-head { margin-block-end: var(--s8); }
+.section-head .tag,
+.band > .shell > .reveal > .tag,
+.page-head .tag {
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--r-pill);
+    background: var(--signal-050);
+    border: 1px solid #DCDFF6;
+    letter-spacing: 0.14em;
+}
+.section-head > .tag, .band > .shell > .reveal > .tag { justify-self: start; }
+.section-head--center > .tag { justify-self: center; }
+.band--carbon .section-head .tag,
+.band--carbon > .shell > .reveal > .tag,
+.page-head .tag {
+    background: rgba(147, 154, 240, 0.10);
+    border-color: rgba(147, 154, 240, 0.28);
+}
+.section-head .tag .tag__idx::after,
+.band > .shell > .reveal > .tag .tag__idx::after,
+.page-head .tag .tag__idx::after { inline-size: 12px; }
+h2 { letter-spacing: -0.02em; }
+html[lang="fa"] h2 { letter-spacing: 0; line-height: 1.45; }
+.section-head h2 { font-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.5rem); }
+
+/* ── ۳. کارت‌ها: سطح، عمق و hover یکپارچه ─────────────────────────── */
+.card, .tile, .feature, .route, .p-card, .n-card {
+    border-color: var(--line-soft);
+    box-shadow: var(--sh-card);
+    transition:
+        border-color var(--t) var(--ease),
+        box-shadow 420ms var(--ease-spring),
+        transform 420ms var(--ease-spring);
+}
+.card--flat { border-color: transparent; box-shadow: none; }
+.card--hover:hover, .tile:hover, .route:hover, .p-card:hover, .n-card:hover {
+    border-color: #C9CDF0;
+    box-shadow: var(--sh-card-hover);
+    transform: translateY(-5px);
+}
+/* کارت‌های بخش تیره: شیشه‌ای، با لبه‌ی روشن و درخشش آبی در hover */
+.band--carbon :is(.card, .tile, .feature) {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+    border-color: rgba(200, 208, 220, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.band--carbon .card--flat { background: transparent; border-color: transparent; box-shadow: none; }
+.band--carbon :is(.card--hover, .tile):hover {
+    border-color: rgba(147, 154, 240, 0.5);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 30px 60px -30px rgba(107, 115, 217, 0.55);
+    transform: translateY(-5px);
+}
+.tile__idx { font-size: var(--fs-sm); letter-spacing: 0.1em; }
+.band--carbon .tile__idx { color: var(--signal-300); }
+/* کارت صنعت‌ها روی زمینه‌ی ته‌رنگ: سفید و برجسته، با نوار رنگی در hover */
+.band--tint .card { background: var(--white); overflow: hidden; }
+.band--tint .card::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 3px;
+    background: linear-gradient(90deg, var(--signal-600), var(--brand-red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 420ms var(--ease-spring);
+}
+[dir="rtl"] .band--tint .card::before { transform-origin: right; }
+.band--tint .card:hover::before { transform: scaleX(1); }
+
+/* ── ۴. نشان آیکون‌ها: یک سبک واحد ─────────────────────────────────── */
+.glyph {
+    border-radius: 12px;
+    background: linear-gradient(145deg, var(--white), var(--signal-050));
+    border-color: #DADDF4;
+    color: var(--signal-600);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 10px -6px rgba(67, 75, 158, 0.35);
+}
+.glyph--solid {
+    background: linear-gradient(145deg, var(--signal-600), #2C2F78);
+    border-color: transparent;
+    color: var(--white);
+}
+.band--carbon .glyph {
+    background: linear-gradient(145deg, rgba(147, 154, 240, 0.18), rgba(147, 154, 240, 0.04));
+    border-color: rgba(147, 154, 240, 0.3);
+    color: var(--signal-300);
+    box-shadow: none;
+}
+:is(.card--hover, .tile, .feature, .route):hover .glyph,
+.band--carbon :is(.card--hover, .tile, .feature):hover .glyph {
+    background: linear-gradient(145deg, var(--signal-500), var(--signal-600));
+    border-color: transparent;
+    color: var(--white);
+}
+
+/* ── ۵. دکمه‌ها ───────────────────────────────────────────────────── */
+.btn { border-radius: 10px; }
+.btn--signal {
+    background: linear-gradient(180deg, #E0333A, var(--brand-red-600));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 12px 26px -14px rgba(214, 38, 45, 0.8);
+}
+.btn--signal:hover {
+    background: linear-gradient(180deg, #D22A31, var(--brand-red-700));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 16px 32px -14px rgba(214, 38, 45, 0.9);
+}
+.btn--line { background: var(--white); box-shadow: var(--sh-sm); }
+.btn--line:hover { box-shadow: 0 10px 22px -12px rgba(12, 14, 36, 0.45); transform: translateY(-1px); }
+.btn--line-dark { background: rgba(255, 255, 255, 0.04); }
+.btn--solid:hover { transform: translateY(-1px); }
+
+/* ── ۶. آمار: یک کارت یکپارچه با عدد گرادیانی ──────────────────────── */
+.metrics {
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    background: var(--white);
+    box-shadow: var(--sh-card);
+    overflow: hidden;
+}
+.metric { padding: var(--s6); }
+.metric__v {
+    background: linear-gradient(135deg, var(--carbon-900) 30%, var(--signal-600));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.metric__k { font-weight: 500; }
+
+/* ── ۷. حرکت: ورود نرم‌تر و پلکانی کارت‌ها ─────────────────────────── */
+/* ورود با keyframe (نه transition) تا تأخیر پلکانی فقط یک بار اعمال شود و
+   hover کارت‌ها بی‌درنگ بماند. fill-mode: backwards یعنی پس از پایان، انیمیشن
+   روی transform اثری ندارد و بالا آمدن کارت در hover کار می‌کند. */
+@keyframes reveal-rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
+}
+.reveal.is-in {
+    animation: reveal-rise 900ms var(--ease-spring) backwards;
+    animation-delay: var(--reveal-delay, 0ms);
+}
+.reveal[data-delay] { transition-delay: 0ms; }
+.reveal[data-delay="1"] { --reveal-delay: 80ms; }
+.reveal[data-delay="2"] { --reveal-delay: 160ms; }
+.reveal[data-delay="3"] { --reveal-delay: 240ms; }
+.grid > .reveal:nth-child(2) { --reveal-delay: 70ms; }
+.grid > .reveal:nth-child(3) { --reveal-delay: 140ms; }
+.grid > .reveal:nth-child(4) { --reveal-delay: 210ms; }
+.grid > .reveal:nth-child(5) { --reveal-delay: 280ms; }
+.grid > .reveal:nth-child(6) { --reveal-delay: 350ms; }
+
+/* ناوبری دسکتاپ: خط زیر پیوند در hover باز می‌شود */
+@media (min-width: 1180px) {
+    .nav__link::after {
+        content: "";
+        position: absolute;
+        inset-inline: 0.85rem;
+        inset-block-end: 0.3rem;
+        block-size: 2px;
+        border-radius: 2px;
+        background: var(--signal-500);
+        transform: scaleX(0);
+        transition: transform var(--t) var(--ease-spring);
+    }
+    .nav__link:hover::after { transform: scaleX(1); }
+    .nav__link.is-current::after { display: none; }
+}
+
+/* ── ۸. تصاویر، فرم‌ها، فوتر ──────────────────────────────────────── */
+.frame img { transition: transform 900ms var(--ease-spring); }
+figure.frame { box-shadow: var(--sh-card-hover); }
+figure.frame:hover img { transform: scale(1.03); }
+.field:focus { box-shadow: 0 0 0 4px rgba(107, 115, 217, 0.18); border-color: var(--signal-500); }
+/* خط باریک برند بالای فوتر */
+.footer { position: relative; }
+.footer::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 0;
+    block-size: 3px;
+    background: linear-gradient(90deg, var(--signal-600), var(--brand-red), var(--signal-600));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal.is-in { animation: none; }
+    .card--hover:hover, .tile:hover, .route:hover, .p-card:hover, .n-card:hover,
+    .band--carbon :is(.card--hover, .tile):hover { transform: none; }
+}
