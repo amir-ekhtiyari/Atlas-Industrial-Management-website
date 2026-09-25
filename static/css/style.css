@@ -97,7 +97,8 @@
     --fs-2xl: clamp(1.625rem, 1.4rem + 1.05vw, 2.125rem);
     --fs-3xl: clamp(2rem, 1.6rem + 1.9vw, 3rem);
     --fs-4xl: clamp(2.375rem, 1.75rem + 2.9vw, 4rem);
-    --fs-hero: clamp(2.625rem, 1.7rem + 4.2vw, 5.25rem);
+    /* تیتر hero: ۳۶ تا ۵۶ پیکسل (قبلاً تا ۸۴) — محدوده‌ی رایج سایت‌های B2B */
+    --fs-hero: clamp(2.25rem, 1.45rem + 2.6vw, 3.5rem);
     --fs-numeral: clamp(2.25rem, 1.7rem + 2.6vw, 3.5rem);
 
     /* Space — 4px base, generous upper end for editorial rhythm. */
@@ -894,40 +895,72 @@ body.nav-open .scrim { opacity: 1; visibility: visible; }
 .hero__inner {
     position: relative;
     display: grid;
-    gap: var(--s8);
-    padding-block: var(--s9) var(--s9);
-    align-items: center;
+    gap: var(--s7);
+    padding-block: clamp(3rem, 2rem + 4vw, 5.5rem) clamp(3.5rem, 2.4rem + 4vw, 6rem);
+    align-items: stretch;
 }
 @media (min-width: 1000px) {
-    .hero__inner { grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr); padding-block: var(--s10) var(--s9); gap: var(--s7); }
+    /* ستون متن پهن‌تر؛ ستون نقشه هم‌قد ستون متن کشیده می‌شود تا بالای آن فضای خالی نماند. */
+    .hero__inner { grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); gap: clamp(2.5rem, 1rem + 4vw, 5rem); }
 }
 
-.hero__copy { display: grid; gap: var(--s5); }
-.hero__title {
-    font-size: var(--fs-hero);
-    line-height: 1.04;
-    letter-spacing: -0.03em;
-    color: var(--white);
-    max-inline-size: 19ch;
+/* سلسله‌مراتب فاصله‌ها: هر سطح از قبلی فاصله‌ی بیشتری دارد تا چشم ترتیب را بخواند
+   (برچسب ← تیتر ← متن ← دکمه‌ها ← سنجه‌ها). */
+.hero__copy { display: flex; flex-direction: column; align-items: flex-start; }
+.hero__copy > .tag {
+    gap: var(--s3);
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--line-dark-strong);
+    border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, 0.04);
+    line-height: 1.5;
 }
-html[lang="fa"] .hero__title { line-height: 1.22; letter-spacing: 0; max-inline-size: 22ch; }
+/* نام شرکت همین بالا در هدر آمده؛ برچسب hero فقط شعار را در یک سطر نشان می‌دهد. */
+.hero__copy > .tag .tag__idx { display: none; }
+.hero__copy > .tag::before {
+    content: "";
+    inline-size: 6px;
+    block-size: 6px;
+    border-radius: 50%;
+    background: var(--brand-red);
+    box-shadow: 0 0 0 3px rgba(237, 51, 56, 0.22);
+}
+.hero__title {
+    margin-block-start: var(--s5);
+    font-size: var(--fs-hero);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    max-inline-size: 20ch;
+    text-wrap: balance;
+}
+/* حروف فارسی درشت‌تر دیده می‌شوند و به فاصله‌ی سطر بیشتری نیاز دارند. */
+html[lang="fa"] .hero__title {
+    font-size: clamp(2rem, 1.3rem + 2.2vw, 3.125rem);
+    line-height: 1.42;
+    letter-spacing: 0;
+    max-inline-size: 18em;
+}
 .hero__title em {
     font-style: normal;
     color: var(--signal-400);
 }
 .hero__text {
+    margin-block-start: var(--s5);
     font-size: var(--fs-lg);
-    line-height: 1.74;
-    color: var(--steel-300);
-    max-inline-size: 54ch;
+    line-height: 1.65;
+    color: var(--steel-200);
+    max-inline-size: 52ch;
 }
-.hero__actions { margin-block-start: var(--s2); }
+html[lang="fa"] .hero__text { line-height: 1.95; max-inline-size: 46em; }
+.hero__actions { margin-block-start: var(--s7); }
 
 /* نوار داده‌ی زیر hero: سه سنجه‌ی کوتاه با خط جداکننده. */
 .hero__facts {
     display: grid;
     gap: var(--s4);
-    margin-block-start: var(--s6);
+    align-self: stretch;
+    margin-block-start: var(--s8);
     padding-block-start: var(--s5);
     border-block-start: 1px solid var(--line-dark);
 }
@@ -943,9 +976,12 @@ html[lang="fa"] .hero__title { line-height: 1.22; letter-spacing: 0; max-inline-
 .hero__fact-v { font-size: var(--fs-sm); color: var(--steel-300); line-height: 1.55; }
 
 /* --- ستون بصری hero --- */
-.hero__stage { position: relative; }
+.hero__stage { position: relative; display: flex; flex-direction: column; }
 .hero__panel {
     position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--line-dark-strong);
     border-radius: var(--r-lg);
     background:
@@ -1029,15 +1065,16 @@ html[lang="fa"] .hero__title { line-height: 1.22; letter-spacing: 0; max-inline-
 }
 
 /* نقشه‌ی توانمندی داخل پنل hero — جانشین تصویر، وقتی عکسی آپلود نشده */
-.hero__map { display: grid; gap: 0; }
+/* فهرست در تمام ارتفاع قاب پخش می‌شود تا قاب هم‌قد ستون متن و بدون فضای مرده باشد. */
+.hero__map { flex: 1 1 auto; display: grid; grid-auto-rows: 1fr; gap: 0; }
 .hero__map-item {
     display: flex;
     gap: var(--s4);
-    align-items: flex-start;
+    align-items: center;
     padding-block: var(--s4);
     border-block-start: 1px solid var(--line-dark);
 }
-.hero__map-item:first-child { border-block-start: 0; padding-block-start: 0; }
+.hero__map-item:first-child { border-block-start: 0; }
 .hero__map-item .glyph { background: rgba(255, 255, 255, 0.05); border-color: var(--line-dark-strong); color: var(--signal-400); }
 .hero__map-k { display: block; font-size: var(--fs-sm); font-weight: 600; color: var(--white); }
 .hero__map-v { display: block; font-size: var(--fs-xs); color: var(--steel-400); line-height: 1.6; margin-block-start: 0.2rem; }
@@ -2021,14 +2058,17 @@ html.no-js .altitude__fill { transition: none; }
 .cert__note { font-size: var(--fs-xs); color: var(--ink-600); margin-block-start: 0.3rem; line-height: 1.6; }
 .cert__thumb { inline-size: 54px; block-size: 54px; object-fit: contain; padding: 5px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); flex-shrink: 0; }
 
-/* بلوک فراخوان پایانی — تیره، بزرگ، تک‌هدف */
+/* بلوک فراخوان پایانی — نوار آبی برند.
+   رنگ متمایز باعث می‌شود با بخش تیره‌ی بالایش (مثل «بازار جهانی») و فوتر تیره‌ی
+   پایینش یکی دیده نشود؛ هر صفحه با یک نوار فراخوان روشن و مشخص تمام می‌شود. */
 .cta {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    background: var(--carbon-950);
-    color: var(--steel-300);
-    padding-block: var(--s9);
+    background: var(--signal-600);
+    color: rgba(255, 255, 255, 0.84);
+    padding-block: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+    border-block: 1px solid rgba(255, 255, 255, 0.12);
 }
 .cta::before {
     content: "";
@@ -2036,15 +2076,21 @@ html.no-js .altitude__fill { transition: none; }
     inset: 0;
     z-index: -2;
     background:
-        radial-gradient(ellipse 55% 90% at 82% 12%, rgba(107, 115, 217, 0.18), transparent 60%),
-        radial-gradient(ellipse 60% 70% at 6% 96%, rgba(41, 45, 82, 0.9), transparent 66%),
-        var(--carbon-950);
+        radial-gradient(ellipse 50% 110% at 88% 0%, rgba(147, 154, 240, 0.45), transparent 62%),
+        radial-gradient(ellipse 55% 90% at 4% 100%, rgba(27, 22, 80, 0.85), transparent 68%),
+        linear-gradient(120deg, #3A4196 0%, var(--signal-600) 45%, #2C2F78 100%);
 }
-.cta .mesh { z-index: -1; background-size: 64px 64px; }
+.cta .mesh { z-index: -1; background-size: 64px 64px; opacity: 0.45; }
+/* برچسب بالای عنوان رنگ درون‌خطی دارد؛ روی آبی باید روشن باشد. */
+.cta .tag, .cta .tag__idx { color: rgba(255, 255, 255, 0.78) !important; }
+.cta .tag__idx::after { background: rgba(255, 255, 255, 0.4); }
 .cta__inner { position: relative; display: grid; gap: var(--s6); }
 @media (min-width: 940px) { .cta__inner { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s8); } }
 .cta__title { font-size: var(--fs-3xl); color: var(--white); max-inline-size: 30ch; }
-.cta__text { font-size: var(--fs-lg); color: var(--steel-300); max-inline-size: 58ch; margin-block-start: var(--s3); line-height: 1.7; }
+.cta__text { font-size: var(--fs-lg); color: rgba(255, 255, 255, 0.84); max-inline-size: 58ch; margin-block-start: var(--s3); line-height: 1.7; }
+.cta .btn--line-dark { --btn-bd: rgba(255, 255, 255, 0.55); }
+.cta .btn--line-dark:hover { --btn-bg: rgba(255, 255, 255, 0.14); --btn-bd: var(--white); }
+.cta .btn--signal { box-shadow: 0 14px 30px -14px rgba(10, 8, 40, 0.8); }
 .cta__paths { display: grid; gap: var(--s3); }
 @media (min-width: 620px) and (max-width: 939.98px) { .cta__paths { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
@@ -2382,4 +2428,9 @@ select.field {
     .masthead, .utility, .footer, .to-top, .nav-btn, .cta, .subnav { display: none !important; }
     body { background: #fff; color: #000; }
     .band, .hero, .p-hero { padding-block: 1rem; background: #fff !important; color: #000 !important; }
+}
+
+/* برچسب hero در موبایل: فاصله‌ی حروف کمتر تا شعار در کمترین سطر جا شود. */
+@media (max-width: 599.98px) {
+    .hero__copy > .tag { letter-spacing: 0.06em; padding-inline: 0.8rem; }
 }
