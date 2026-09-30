@@ -50,7 +50,9 @@
             {% endif %}
 
             <h1 class="p-hero__title">{{ product.name }}</h1>
-            <p class="p-hero__text">{{ product.tagline|default:product.short_description }}</p>
+            {% if product.tagline or product.short_description %}
+                <p class="p-hero__text">{{ product.tagline|default:product.short_description }}</p>
+            {% endif %}
 
             {% if highlight_specs %}
                 <div class="p-hero__specs{% if highlight_specs|length == 4 %} p-hero__specs--4{% endif %}">
@@ -136,10 +138,12 @@
 <section class="band" id="overview">
     <div class="shell split split--sidebar split--top">
         <div class="stack--lg">
-            <div class="reveal">
-                <h2 class="tag">{% trans "معرفی" %}</h2>
-                <div class="article-body" style="margin-block-start: var(--s5);">{{ product.description|linebreaks }}</div>
-            </div>
+            {% if product.description %}
+                <div class="reveal">
+                    <h2 class="tag">{% trans "معرفی" %}</h2>
+                    <div class="article-body" style="margin-block-start: var(--s5);">{{ product.description|linebreaks }}</div>
+                </div>
+            {% endif %}
 
             {% if features %}
                 <div class="reveal" id="features">
@@ -328,7 +332,7 @@
                     <div class="p-card__body">
                         {% if item.model_code %}<span class="p-card__code ltr">{{ item.model_code }}</span>{% endif %}
                         <h3 class="p-card__title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
-                        <p class="p-card__text">{{ item.tagline|default:item.short_description }}</p>
+                        {% if item.tagline or item.short_description %}<p class="p-card__text">{{ item.tagline|default:item.short_description }}</p>{% endif %}
                     </div>
                 </article>
             {% endfor %}

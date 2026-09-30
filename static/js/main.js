@@ -179,14 +179,17 @@
 
         var formatter;
         try {
-            formatter = new Intl.NumberFormat(root.lang || 'fa');
+            // بدون جداکننده‌ی هزارگان: «۱۳۸۹» سال است، نه «۱٬۳۸۹».
+            formatter = new Intl.NumberFormat(root.lang || 'fa', { useGrouping: false });
         } catch (e) {
             formatter = { format: function (n) { return String(n); } };
         }
 
         function run(el) {
-            var target = parseFloat(el.getAttribute('data-count'));
-            if (isNaN(target)) return;
+            var raw = (el.getAttribute('data-count') || '').trim();
+            // فقط عدد خالص شمرده می‌شود؛ مقدارهایی مثل «۶۲+» یا «۲۴/۷» همان‌طور می‌مانند.
+            if (!/^\d+(\.\d+)?$/.test(raw)) return;
+            var target = parseFloat(raw);
             var started = performance.now();
             var duration = 1000;
 
@@ -303,6 +306,79 @@
         });
     }
 
+
+    /* ------------------------------------------ 09 · نمایشگر تصویر بزرگ */
+
+    /**
+     * هر پیوند با data-lightbox="گروه" تصویر مقصدش را در یک پنجره‌ی بزرگ باز
+     * می‌کند؛ پیوندهای هم‌گروه با دکمه‌های قبلی/بعدی و کلیدهای جهت پیمایش
+     * می‌شوند. بدون جاوااسکریپت، پیوند همان تصویر را در مرورگر باز می‌کند.
+     */
+    function initLightbox() {
+        var links = document.querySelectorAll('a[data-lightbox]');
+        if (!links.length || typeof HTMLDialogElement === 'undefined') return;
+
+        var rtl = root.dir === 'rtl';
+        var fa = (root.lang || 'fa') === 'fa';
+        var box = document.createElement('dialog');
+        box.className = 'lightbox';
+        box.setAttribute('aria-label', fa ? 'نمایش تصویر' : 'Image viewer');
+        box.innerHTML =
+            '<figure class="lightbox__figure"><img class="lightbox__img" alt="">' +
+            '<figcaption class="lightbox__cap"></figcaption></figure>' +
+            '<button type="button" class="lightbox__btn lightbox__close" aria-label="' + (fa ? 'بستن' : 'Close') + '">&times;</button>' +
+            '<button type="button" class="lightbox__btn lightbox__prev" aria-label="' + (fa ? 'قبلی' : 'Previous') + '">&#8249;</button>' +
+            '<button type="button" class="lightbox__btn lightbox__next" aria-label="' + (fa ? 'بعدی' : 'Next') + '">&#8250;</button>' +
+            '<span class="lightbox__count" aria-live="polite"></span>';
+        document.body.appendChild(box);
+
+        var img = box.querySelector('.lightbox__img');
+        var cap = box.querySelector('.lightbox__cap');
+        var count = box.querySelector('.lightbox__count');
+        var group = [];
+        var index = 0;
+
+        function show(i) {
+            index = (i + group.length) % group.length;
+            var link = group[index];
+            var thumb = link.querySelector('img');
+            var text = link.getAttribute('data-caption') || (thumb && thumb.alt) || '';
+            img.src = link.href;
+            img.alt = text;
+            cap.textContent = text;
+            cap.hidden = !text;
+            count.textContent = group.length > 1 ? (index + 1) + ' / ' + group.length : '';
+            box.classList.toggle('lightbox--single', group.length < 2);
+        }
+
+        links.forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                if (e.ctrlKey || e.metaKey || e.shiftKey) return;   // باز کردن در زبانه‌ی تازه آزاد است
+                e.preventDefault();
+                var name = link.getAttribute('data-lightbox');
+                group = Array.prototype.filter.call(links, function (l) {
+                    return l.getAttribute('data-lightbox') === name;
+                });
+                show(group.indexOf(link));
+                box.showModal();
+                document.body.classList.add('lightbox-open');
+            });
+        });
+
+        box.querySelector('.lightbox__close').addEventListener('click', function () { box.close(); });
+        box.querySelector('.lightbox__prev').addEventListener('click', function () { show(index - 1); });
+        box.querySelector('.lightbox__next').addEventListener('click', function () { show(index + 1); });
+        box.addEventListener('click', function (e) { if (e.target === box) box.close(); });
+        box.addEventListener('close', function () {
+            document.body.classList.remove('lightbox-open');
+            img.removeAttribute('src');
+        });
+        box.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') show(index + (rtl ? -1 : 1));
+            if (e.key === 'ArrowLeft') show(index + (rtl ? 1 : -1));
+        });
+    }
+
     /* ------------------------------------------------------- init */
 
     function init() {
@@ -311,7 +387,7 @@
         // opacity:0 روی صفحه قفل می‌ماند.
         [
             initDrawer, initMasthead, initReveal, initGallery, initHotspots,
-            initCounters, initBars, initToTop, initSubnav, initForms,
+            initCounters, initBars, initToTop, initSubnav, initForms, initLightbox,
         ].forEach(function (fn) {
             try {
                 fn();

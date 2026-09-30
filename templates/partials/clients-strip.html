@@ -1,0 +1,30 @@
+{% load i18n %}
+{% comment %}
+    نوار لوگوی مشتریان — حرکت پیوسته‌ی افقی (در hover متوقف می‌شود).
+    فهرست دو بار تکرار می‌شود تا حرکت بی‌درز باشد؛ نسخه‌ی دوم برای صفحه‌خوان پنهان است.
+    با «کاهش حرکت» سیستم‌عامل، لوگوها به‌صورت شبکه‌ی ثابت نمایش داده می‌شوند.
+{% endcomment %}
+{% if clients %}
+<section class="band band--tight clients" aria-labelledby="clients-title">
+    <div class="shell">
+        <div class="clients__head reveal">
+            <p class="tag">{% trans "مشتریان" %}</p>
+            <h2 id="clients-title" class="clients__title">{% trans "همکاری با پیشروان صنعت نفت، گاز و دریا" %}</h2>
+        </div>
+    </div>
+    <div class="clients__viewport">
+        <ul class="clients__track">
+            {% for client in clients %}
+                <li class="clients__item" title="{{ client.name }}">
+                    <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy" width="200" height="100">
+                </li>
+            {% endfor %}
+            {% for client in clients %}
+                <li class="clients__item" aria-hidden="true">
+                    <img src="{{ client.logo.url }}" alt="" loading="lazy" width="200" height="100">
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}

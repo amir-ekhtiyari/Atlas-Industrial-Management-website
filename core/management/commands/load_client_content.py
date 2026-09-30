@@ -23,6 +23,7 @@ from pathlib import Path
 
 from django.conf import settings
 from django.core.files import File
+from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils import translation
@@ -38,7 +39,11 @@ from core.models import (
     Statistic,
     Technology,
 )
-from products.models import Category, Product
+from products.models import Category, Product, ProductFeature, ProductSpecification
+
+from ._client_catalogue import (
+    BUOYANCY_CATEGORY, NEW_PRODUCTS, PRODUCT_DETAILS, RENAMES, SLOGAN, WEATHER_SERVICE,
+)
 
 # ─────────────────────────────────────────────── اطلاعات شرکت
 # فیلد: (فا، en)
@@ -155,6 +160,7 @@ COMPANY = {
         'Send us your technical requirement, specifications and project timeline, and we’ll '
         'work out the right route for supply, manufacturing and delivery with you.',
     ),
+    'slogan': SLOGAN,
     'meta_description': (
         'عملکرد آزموده، تأمین مطمئن — راهکارهای صنعتی از نیاز تا تحویل، با تمرکز بر '
         'کیفیت و اطمینان.',
@@ -165,7 +171,6 @@ COMPANY = {
 
 # تصاویر شرکت: فیلد ← مسیر فایل در static
 COMPANY_IMAGES = {
-    'about_image': 'images/about/atlas-workshop.jpg',
     'logo': 'brand/atlas-logo.png',
 }
 
@@ -456,6 +461,8 @@ SERVICES = [
     ),
 ]
 
+SERVICES.append(WEATHER_SERVICE)
+
 # ─────────────────────────────────────────────── نوار اعتماد (مدل Statistic)
 # (مقدار، عنوان فا، عنوان en) — ترتیب مهم است: صفحه اصلی چهار مورد اول را نشان می‌دهد.
 
@@ -577,6 +584,8 @@ CATEGORIES = [
     ),
 ]
 
+CATEGORIES.append(BUOYANCY_CATEGORY)
+
 # ─────────────────────────────────────────────── محصولات
 # (نامک، خط محصول، نام فا، نام en، توضیح کوتاه فا، توضیح کوتاه en، شاخص،
 #  نامک‌های حوزه‌ی فعالیت، نامک‌های صنعت)
@@ -592,7 +601,7 @@ PRODUCTS = [
         'فراساحل.',
         'Hydraulic and mechanical parts, sourced or manufactured to the technical '
         'specification and requirements of offshore projects.',
-        True,
+        False,
         ('industrial-sourcing', 'metal-polymer-manufacturing', 'quality-control-testing'),
         ('offshore-oil-gas', 'process-manufacturing'),
     ),
@@ -669,6 +678,12 @@ PRODUCTS = [
     ),
 ]
 
+# محصولات تازه‌ی کاتالوگ (بویه‌ها، شناورسازها، لنگر) — ستون پنجم کد مدل است.
+MODEL_CODES = {row[0]: row[4] for row in NEW_PRODUCTS}
+PRODUCTS += [row[:4] + row[5:] for row in NEW_PRODUCTS]
+for _slug, (_fa, _en) in RENAMES.items():
+    PRODUCTS = [(r[0], r[1], _fa, _en) + r[4:] if r[0] == _slug else r for r in PRODUCTS]
+
 
 def _both(obj, field, value_fa, value_en):
     """مقدار فارسی (زبان پیش‌فرض، ستون اصلی) و انگلیسی یک فیلد ترجمه‌پذیر را می‌نشاند."""
@@ -699,6 +714,7 @@ class Command(BaseCommand):
             self._load_products(technologies, industries)
 
         self.stdout.write(self.style.SUCCESS('محتوای نهایی کارفرما بارگذاری شد.'))
+        call_command('load_client_media', stdout=self.stdout)
 
     def _report(self, model, kept, hidden):
         self.stdout.write(
@@ -821,16 +837,38 @@ class Command(BaseCommand):
             _both(obj, 'name', name_fa, name_en)
             _both(obj, 'short_description', short_fa, short_en)
             # توضیح کامل: توضیح خود قلم + توضیح خط محصول (هر دو از متن کارفرما).
+            details = PRODUCT_DETAILS.get(slug, {})
+            detail_fa, detail_en = details.get('detail', ('', ''))
             _both(
                 obj, 'description',
-                f'{short_fa}\n\n{category.description_fa}',
-                f'{short_en}\n\n{category.description_en}',
+                '\n\n'.join(t for t in (short_fa, category.description_fa, detail_fa) if t),
+                '\n\n'.join(t for t in (short_en, category.description_en, detail_en) if t),
             )
+            obj.model_code = MODEL_CODES.get(slug, obj.model_code)
             obj.is_active, obj.is_featured, obj.order = True, featured, index * 10
             obj.save()
             obj.technologies.set([technologies[s] for s in tech_slugs])
             obj.industries.set([industries[s] for s in industry_slugs])
+            self._product_details(obj, PRODUCT_DETAILS.get(slug, {}))
             slugs.append(slug)
 
         hidden = Product.objects.exclude(slug__in=slugs).filter(is_active=True).update(is_active=False)
         self._report(Product, len(slugs), hidden)
+
+    def _product_details(self, product, details):
+        """مشخصات فنی و ویژگی‌های برگرفته از کاتالوگ (هر بار از نو ساخته می‌شوند)."""
+        rows = details.get('highlight', []) + details.get('specs', [])
+        if rows:
+            product.specs.all().delete()
+            for index, row in enumerate(rows, start=1):
+                item = ProductSpecification(product=product, is_highlight=row['highlight'], order=index * 10)
+                for field in ('group', 'label', 'value', 'unit'):
+                    _both(item, field, *row[field])
+                item.save()
+        if details.get('features'):
+            product.features.all().delete()
+            for index, row in enumerate(details['features'], start=1):
+                item = ProductFeature(product=product, order=index * 10)
+                _both(item, 'title', *row['title'])
+                _both(item, 'description', *row['description'])
+                item.save()

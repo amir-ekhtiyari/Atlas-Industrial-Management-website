@@ -70,7 +70,10 @@ class Product(OptimizedImagesMixin, models.Model):
         help_text="صنعت‌هایی که این محصول در آن‌ها کاربرد دارد.",
     )
     name = models.CharField(max_length=200, verbose_name="نام محصول")
-    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True, verbose_name="نامک (URL)")
+    slug = models.SlugField(
+        max_length=200, unique=True, allow_unicode=True, blank=True, verbose_name="نامک (URL)",
+        help_text="اگر خالی بماند، از نام محصول ساخته می‌شود.",
+    )
     model_code = models.CharField(
         max_length=60, blank=True, verbose_name="کد / مدل محصول",
     )
@@ -78,8 +81,8 @@ class Product(OptimizedImagesMixin, models.Model):
         max_length=160, blank=True, verbose_name="عنوان فرعی",
         help_text="یک سطر کوتاه که جایگاه محصول را مشخص می‌کند.",
     )
-    short_description = models.CharField(max_length=300, verbose_name="توضیح کوتاه")
-    description = models.TextField(verbose_name="توضیحات کامل")
+    short_description = models.CharField(max_length=300, blank=True, verbose_name="توضیح کوتاه")
+    description = models.TextField(blank=True, verbose_name="توضیحات کامل")
     image = models.ImageField(
         upload_to='products/', blank=True, null=True, verbose_name="تصویر محصول",
         help_text="اگر خالی بماند، یک قاب طرح‌دار با کد/نام محصول نمایش داده می‌شود.",
@@ -120,7 +123,12 @@ class Product(OptimizedImagesMixin, models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name, allow_unicode=True)[:200] or 'product'
+            # نامک یکتا: اگر محصول هم‌نامی وجود داشت، شماره اضافه می‌شود (-2، -3، ...).
+            base = slugify(self.name, allow_unicode=True)[:190] or 'product'
+            slug, n = base, 2
+            while Product.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug, n = f'{base}-{n}', n + 1
+            self.slug = slug
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

@@ -8,7 +8,7 @@ class TeamMember(OptimizedImagesMixin, models.Model):
     OPTIMIZED_IMAGE_FIELDS = ('photo',)
 
     full_name = models.CharField(max_length=150, verbose_name="نام و نام خانوادگی")
-    position = models.CharField(max_length=150, verbose_name="سمت")
+    position = models.CharField(max_length=150, blank=True, verbose_name="سمت")
     photo = models.ImageField(
         upload_to='team/', blank=True, null=True, verbose_name="عکس پرسنلی",
         help_text="اگر خالی بماند، حروف اول نام در یک قاب ساده نمایش داده می‌شود.",

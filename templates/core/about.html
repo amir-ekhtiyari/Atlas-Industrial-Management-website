@@ -52,25 +52,20 @@
         </div>
     </div>
 
-    <div class="shell" style="margin-block-start: var(--s8);">
-        <div class="grid grid--3">
-            <figure class="frame reveal" style="border-radius: var(--r-lg); overflow: hidden;">
-                <img src="{% static 'images/about/offshore-platforms.jpg' %}" width="800" height="600" loading="lazy"
-                     style="aspect-ratio: 4/3; object-fit: cover;"
-                     alt="{% trans 'سکوهای نفتی فراساحل' %}">
-            </figure>
-            <figure class="frame reveal" data-delay="1" style="border-radius: var(--r-lg); overflow: hidden;">
-                <img src="{% static 'images/about/heavy-lift-module.jpg' %}" width="800" height="600" loading="lazy"
-                     style="aspect-ratio: 4/3; object-fit: cover;"
-                     alt="{% trans 'نصب ماژول سنگین در دریا' %}">
-            </figure>
-            <figure class="frame reveal" data-delay="2" style="border-radius: var(--r-lg); overflow: hidden;">
-                <img src="{% static 'images/about/crane-vessel-offshore.jpg' %}" width="800" height="600" loading="lazy"
-                     style="aspect-ratio: 4/3; object-fit: cover;"
-                     alt="{% trans 'شناور جرثقیل سنگین در کنار سکوی فراساحل' %}">
-            </figure>
+    {% if gallery %}
+        <div class="shell" style="margin-block-start: var(--s8);">
+            <ul class="gallery-grid">
+                {% for item in gallery %}
+                    <li class="gallery-grid__item reveal">
+                        <a href="{{ item.image.url }}" data-lightbox="company-gallery" data-caption="{{ item.caption }}">
+                            <img src="{{ item.image.url }}" alt="{{ item.caption }}" loading="lazy" width="800" height="600">
+                            {% if item.caption %}<span class="gallery-grid__cap">{{ item.caption }}</span>{% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-    </div>
+    {% endif %}
 
     {% if statistics %}
         <div class="shell" style="margin-block-start: var(--s8);">
@@ -94,6 +89,9 @@
         <div class="grid grid--2 grid--wide">
             {% if company.mission_text %}
                 <article class="feature reveal">
+                    {% if company.mission_image %}
+                        <figure class="feature__media"><img src="{{ company.mission_image.url }}" alt="{% trans 'مأموریت' %}" loading="lazy" width="800" height="420"></figure>
+                    {% endif %}
                     <div class="feature__head">
                         <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-target"></use></svg></span>
                         <div>
@@ -106,6 +104,9 @@
             {% endif %}
             {% if company.vision_text %}
                 <article class="feature reveal" data-delay="1">
+                    {% if company.vision_image %}
+                        <figure class="feature__media"><img src="{{ company.vision_image.url }}" alt="{% trans 'چشم‌انداز' %}" loading="lazy" width="800" height="420"></figure>
+                    {% endif %}
                     <div class="feature__head">
                         <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-spark"></use></svg></span>
                         <div>
@@ -174,6 +175,57 @@
 {% endif %}
 
 {# ───────────────────────────────────────────────────── تیم ─── #}
+{% if certifications %}
+<section class="band band--tall" id="certificates">
+    <div class="shell">
+        <div class="section-head reveal">
+            <p class="tag">{% trans "گواهی‌نامه‌ها" %}</p>
+            <h2>{% trans "استانداردها، عضویت‌ها و تقدیرنامه‌ها" %}</h2>
+        </div>
+        <ul class="docs-grid">
+            {% for item in certifications %}
+                <li class="doc-card reveal">
+                    {% if item.image %}
+                        <a href="{{ item.image.url }}" class="doc-card__media" data-lightbox="certificates" data-caption="{{ item.title }}">
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy" width="300" height="420">
+                        </a>
+                    {% endif %}
+                    <div class="doc-card__body">
+                        <h3 class="doc-card__title">{{ item.title }}</h3>
+                        {% if item.issuer %}<p class="doc-card__by">{{ item.issuer }}</p>{% endif %}
+                        {% if item.description %}<p class="doc-card__note">{{ item.description }}</p>{% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+{% if endorsements %}
+<section class="band band--tall band--paper" id="endorsements">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag">{% trans "رضایت‌نامه‌ها" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "آنچه کارفرمایان درباره‌ی ما نوشته‌اند" %}</h2>
+            </div>
+            <p class="lead">{% trans "رضایت‌نامه‌های کتبی کارفرمایان صنعت نفت، گاز و دریا از همکاری با اطلس. برای مشاهده‌ی کامل هر نامه روی آن بزنید." %}</p>
+        </div>
+        <ul class="docs-grid docs-grid--letters">
+            {% for item in endorsements %}
+                <li class="doc-card doc-card--letter reveal">
+                    <a href="{{ item.image.url }}" class="doc-card__media" data-lightbox="endorsements" data-caption="{{ item.title }}">
+                        <img src="{{ item.image.url }}" alt="{% blocktrans with n=item.title %}رضایت‌نامه‌ی {{ n }}{% endblocktrans %}" loading="lazy" width="300" height="420">
+                    </a>
+                    <div class="doc-card__body"><h3 class="doc-card__title">{{ item.title }}</h3></div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
 {% if team_members %}
 <section class="band band--tall">
     <div class="shell">
@@ -220,6 +272,8 @@
     </div>
 </section>
 {% endif %}
+
+{% include 'partials/clients-strip.html' with clients=clients %}
 
 {% include 'partials/cta.html' with cta_company=company %}
 {% endblock %}

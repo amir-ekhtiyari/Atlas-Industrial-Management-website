@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Atlas Website 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-24 16:16-0700\n"
+"POT-Creation-Date: 2026-09-30 08:53-0700\n"
 "PO-Revision-Date: 2026-08-30 13:38-0700\n"
 "Last-Translator: Atlas Team\n"
 "Language-Team: English\n"
@@ -225,7 +225,7 @@ msgid "موقعیت مکانی"
 msgstr "Location"
 
 #: .\core\constants.py:52 .\templates\contact\contact.html:118
-#: .\templates\products\product_detail.html:246
+#: .\templates\products\product_detail.html:250
 msgid "تلفن"
 msgstr "Phone"
 
@@ -262,7 +262,7 @@ msgid "صفحه اصلی"
 msgstr "Home"
 
 #: .\templates\404.html:17 .\templates\core\home.html:39
-#: .\templates\core\home.html:198 .\templates\partials\masthead.html:29
+#: .\templates\core\home.html:188 .\templates\partials\masthead.html:29
 #: .\templates\products\product_detail.html:33
 #: .\templates\products\product_list.html:11
 msgid "محصولات"
@@ -303,7 +303,7 @@ msgstr "Skip to main content"
 msgid "بازگشت به بالای صفحه"
 msgstr "Back to top"
 
-#: .\templates\contact\contact.html:4 .\templates\core\home.html:252
+#: .\templates\contact\contact.html:4 .\templates\core\home.html:242
 #: .\templates\core\industry_list.html:63
 #: .\templates\core\technology_list.html:63 .\templates\team\team_list.html:26
 msgid "تماس با اطلس"
@@ -353,7 +353,7 @@ msgid "نمایندگی، توزیع و بازارهای بین‌المللی."
 msgstr "Distribution, resale and international markets."
 
 #: .\templates\contact\contact.html:50 .\templates\core\page_detail.html:94
-#: .\templates\products\product_detail.html:236
+#: .\templates\products\product_detail.html:240
 msgid "ثبت درخواست"
 msgstr "Submit request"
 
@@ -389,34 +389,34 @@ msgstr "Fax"
 msgid "نقشه موقعیت شرکت"
 msgstr "Company location map"
 
-#: .\templates\contact\contact.html:185 .\templates\core\quality.html:154
+#: .\templates\contact\contact.html:185 .\templates\core\quality.html:140
 msgid "پرسش‌های پرتکرار"
 msgstr "Frequently asked"
 
-#: .\templates\contact\contact.html:186 .\templates\core\quality.html:155
+#: .\templates\contact\contact.html:186 .\templates\core\quality.html:141
 msgid "سؤالات متداول"
 msgstr "Frequently asked questions"
 
 #: .\templates\core\about.html:4 .\templates\core\about.html:12
-#: .\templates\core\home.html:105 .\templates\partials\footer.html:24
+#: .\templates\core\home.html:91 .\templates\partials\footer.html:24
 msgid "درباره اطلس"
 msgstr "About Atlas"
 
-#: .\templates\core\about.html:11 .\templates\core\home.html:98
+#: .\templates\core\about.html:11 .\templates\core\home.html:84
 #: .\templates\partials\footer.html:22 .\templates\partials\masthead.html:25
 msgid "شرکت"
 msgstr "Company"
 
-#: .\templates\core\about.html:19 .\templates\products\product_detail.html:122
-#: .\templates\products\product_detail.html:140
+#: .\templates\core\about.html:19 .\templates\products\product_detail.html:124
+#: .\templates\products\product_detail.html:143
 msgid "معرفی"
 msgstr "Overview"
 
-#: .\templates\core\about.html:21 .\templates\core\home.html:100
+#: .\templates\core\about.html:21 .\templates\core\home.html:86
 msgid "مهندسی، تولید و پشتیبانی در یک مجموعه"
 msgstr "Engineering, manufacturing and support under one roof"
 
-#: .\templates\core\about.html:31 .\templates\core\home.html:118
+#: .\templates\core\about.html:31 .\templates\core\home.html:104
 #, python-format
 msgid "مجموعه‌ی %(n)s"
 msgstr "%(n)s facility"
@@ -425,65 +425,80 @@ msgstr "%(n)s facility"
 msgid "حوزه‌های فعالیت"
 msgstr "Areas of activity"
 
-#: .\templates\core\about.html:60
-msgid "سکوهای نفتی فراساحل"
-msgstr "Offshore oil platforms"
-
-#: .\templates\core\about.html:65
-msgid "نصب ماژول سنگین در دریا"
-msgstr "Heavy module installation at sea"
-
-#: .\templates\core\about.html:70
-msgid "شناور جرثقیل سنگین در کنار سکوی فراساحل"
-msgstr "Heavy crane vessel alongside an offshore platform"
-
-#: .\templates\core\about.html:101
+#: .\templates\core\about.html:93 .\templates\core\about.html:99
 msgid "مأموریت"
 msgstr "Mission"
 
-#: .\templates\core\about.html:113
+#: .\templates\core\about.html:108 .\templates\core\about.html:114
 msgid "چشم‌انداز"
 msgstr "Vision"
 
-#: .\templates\core\about.html:129
+#: .\templates\core\about.html:130
 msgid "مسیر"
 msgstr "Journey"
 
-#: .\templates\core\about.html:130
+#: .\templates\core\about.html:131
 msgid "نقاط عطف"
 msgstr "Milestones"
 
-#: .\templates\core\about.html:153 .\templates\core\quality.html:41
+#: .\templates\core\about.html:154 .\templates\core\quality.html:41
 #: .\templates\core\technology_list.html:73
 msgid "توانمندی‌ها"
 msgstr "Capabilities"
 
-#: .\templates\core\about.html:154 .\templates\core\technology_list.html:74
+#: .\templates\core\about.html:155 .\templates\core\technology_list.html:74
 msgid "زیرساخت مهندسی و تولید"
 msgstr "Engineering and production infrastructure"
 
-#: .\templates\core\about.html:158
+#: .\templates\core\about.html:159
 msgid "فرایند مهندسی و کیفیت"
 msgstr "Engineering and quality process"
 
-#: .\templates\core\about.html:182 .\templates\partials\footer.html:26
+#: .\templates\core\about.html:182
+msgid "گواهی‌نامه‌ها"
+msgstr "Certificates"
+
+#: .\templates\core\about.html:183
+msgid "استانداردها، عضویت‌ها و تقدیرنامه‌ها"
+msgstr "Standards, memberships and awards"
+
+#: .\templates\core\about.html:210
+msgid "رضایت‌نامه‌ها"
+msgstr "Letters of satisfaction"
+
+#: .\templates\core\about.html:211
+msgid "آنچه کارفرمایان درباره‌ی ما نوشته‌اند"
+msgstr "What our clients have written about us"
+
+#: .\templates\core\about.html:213
+msgid ""
+"رضایت‌نامه‌های کتبی کارفرمایان صنعت نفت، گاز و دریا از همکاری با اطلس. برای "
+"مشاهده‌ی کامل هر نامه روی آن بزنید."
+msgstr "Written letters of satisfaction from oil, gas and marine clients on their work with Atlas. Select a letter to view it in full."
+
+#: .\templates\core\about.html:219
+#, python-format
+msgid "رضایت‌نامه‌ی %(n)s"
+msgstr "Letter of satisfaction from %(n)s"
+
+#: .\templates\core\about.html:234 .\templates\partials\footer.html:26
 #: .\templates\team\team_list.html:11
 msgid "تیم"
 msgstr "Team"
 
-#: .\templates\core\about.html:183
+#: .\templates\core\about.html:235
 msgid "افراد پشت این کار"
 msgstr "The people behind the work"
 
-#: .\templates\core\about.html:187
+#: .\templates\core\about.html:239
 msgid "معرفی کامل تیم"
 msgstr "Meet the full team"
 
-#: .\templates\core\about.html:205
+#: .\templates\core\about.html:257
 msgid "بازخورد"
 msgstr "Feedback"
 
-#: .\templates\core\about.html:206
+#: .\templates\core\about.html:258
 msgid "نظر همکاران و مشتریان"
 msgstr "What partners and customers say"
 
@@ -534,44 +549,40 @@ msgstr "Our cycle"
 msgid "تأمین، تولید، کنترل کیفیت و تحویل"
 msgstr "Supply, manufacturing, quality control, delivery"
 
-#: .\templates\core\home.html:57
-msgid "مجموعه‌ی تولید"
-msgstr "Production facility"
-
-#: .\templates\core\home.html:61
-#, python-format
-msgid "مجموعه‌ی مهندسی و تولید %(n)s"
-msgstr "%(n)s engineering and production facility"
-
-#: .\templates\core\home.html:69
+#: .\templates\core\home.html:56
 msgid "نقشه‌ی توانمندی"
 msgstr "Capability map"
 
-#: .\templates\core\home.html:70
-msgid "زنده از پنل مدیریت"
-msgstr "Live from the admin"
+#: .\templates\core\home.html:57 .\templates\core\quality.html:21
+#: .\templates\core\technology_list.html:94
+msgid "از نیاز تا تحویل"
+msgstr "From requirement to delivery"
 
-#: .\templates\core\home.html:84
+#: .\templates\core\home.html:71
 msgid "حوزه‌های فناوری از پنل مدیریت اضافه می‌شوند"
 msgstr "Technology areas are added from the admin panel"
 
-#: .\templates\core\home.html:107 .\templates\core\home.html:330
-#: .\templates\core\home.html:389 .\templates\core\quality.html:4
+#: .\templates\core\home.html:93 .\templates\core\home.html:344
+#: .\templates\core\home.html:405 .\templates\core\quality.html:4
 #: .\templates\core\quality.html:12 .\templates\partials\footer.html:25
 msgid "مهندسی و کیفیت"
 msgstr "Engineering & quality"
 
-#: .\templates\core\home.html:157 .\templates\core\page_detail.html:24
+#: .\templates\core\home.html:124
+msgid "اطلس در یک نگاه"
+msgstr "Atlas at a glance"
+
+#: .\templates\core\home.html:147 .\templates\core\page_detail.html:24
 #: .\templates\core\technology_list.html:11
 #: .\templates\products\product_list.html:39
 msgid "فناوری"
 msgstr "Technology"
 
-#: .\templates\core\home.html:160
+#: .\templates\core\home.html:150
 msgid "حوزه‌هایی که در آن‌ها کار می‌کنیم"
 msgstr "The areas we work in"
 
-#: .\templates\core\home.html:164
+#: .\templates\core\home.html:154
 msgid ""
 "از شناخت نیاز و تأمین تا ساخت، مونتاژ، کنترل کیفیت و تحویل؛ این حوزه‌ها "
 "چارچوب کار اطلس در پروژه‌های صنعتی را می‌سازند."
@@ -580,19 +591,19 @@ msgstr ""
 "control and delivery — these areas frame how Atlas works on industrial "
 "projects."
 
-#: .\templates\core\home.html:177
+#: .\templates\core\home.html:167
 msgid "جزئیات"
 msgstr "Details"
 
-#: .\templates\core\home.html:187 .\templates\core\industry_list.html:79
+#: .\templates\core\home.html:177 .\templates\core\industry_list.html:79
 msgid "همه‌ی حوزه‌های فناوری"
 msgstr "All technology areas"
 
-#: .\templates\core\home.html:199
+#: .\templates\core\home.html:189
 msgid "آنچه امروز تولید می‌کنیم"
 msgstr "What we build today"
 
-#: .\templates\core\home.html:203
+#: .\templates\core\home.html:193
 msgid ""
 "محصولات اطلس در خطوط مشخصی سازمان یافته‌اند؛ از تجهیزات صنعت دریا، نفت و گاز "
 "تا اقلام لیفتینگ و ریگینگ."
@@ -600,7 +611,7 @@ msgstr ""
 "Atlas products are organised into clear lines — from marine, oil and gas "
 "equipment to lifting and rigging gear."
 
-#: .\templates\core\home.html:205
+#: .\templates\core\home.html:195
 msgid ""
 "کاتالوگ محصولات از پنل مدیریت تغذیه می‌شود؛ هر محصول تازه به‌طور خودکار در این "
 "بخش دیده می‌شود."
@@ -608,19 +619,19 @@ msgstr ""
 "The catalogue is driven from the admin panel; any new product appears in "
 "this section automatically."
 
-#: .\templates\core\home.html:226 .\templates\products\product_list.html:98
+#: .\templates\core\home.html:216 .\templates\products\product_list.html:98
 msgid "شاخص"
 msgstr "Featured"
 
-#: .\templates\core\home.html:241 .\templates\products\product_list.html:113
+#: .\templates\core\home.html:231 .\templates\products\product_list.html:113
 msgid "مشخصات محصول"
 msgstr "Product specifications"
 
-#: .\templates\core\home.html:250 .\templates\products\product_list.html:123
+#: .\templates\core\home.html:240 .\templates\products\product_list.html:123
 msgid "کاتالوگ در حال تکمیل است"
 msgstr "The catalogue is being completed"
 
-#: .\templates\core\home.html:251
+#: .\templates\core\home.html:241
 msgid ""
 "محصولات از پنل مدیریت اضافه می‌شوند و بی‌درنگ در این بخش و کاتالوگ دیده خواهند "
 "شد."
@@ -628,46 +639,66 @@ msgstr ""
 "Products are added from the admin panel and appear here and in the catalogue "
 "immediately."
 
-#: .\templates\core\home.html:259
+#: .\templates\core\home.html:249
 msgid "کاتالوگ کامل محصولات"
 msgstr "Full product catalogue"
 
-#: .\templates\core\home.html:271 .\templates\core\industry_list.html:4
+#: .\templates\core\home.html:261 .\templates\core\quality.html:128
+#: .\templates\core\technology_list.html:113
+msgid "خدمات"
+msgstr "Services"
+
+#: .\templates\core\home.html:262 .\templates\core\quality.html:129
+#: .\templates\core\technology_list.html:114
+msgid "فراتر از تأمین کالا"
+msgstr "Beyond supplying goods"
+
+#: .\templates\core\home.html:264
+msgid ""
+"از حمل و امور گمرکی تا مدیریت پروژه‌های فراساحل و مشاوره‌ی انتخاب تجهیزات؛ در "
+"کنار پروژه‌ی شما هستیم."
+msgstr "From shipping and customs to offshore project management and equipment-selection advice — we stand beside your project."
+
+#: .\templates\core\home.html:277 .\templates\core\industry_list.html:4
 #: .\templates\core\industry_list.html:11 .\templates\core\page_detail.html:27
 #: .\templates\partials\footer.html:36 .\templates\partials\masthead.html:31
-#: .\templates\products\product_detail.html:287
+#: .\templates\products\product_detail.html:291
 msgid "صنعت‌ها"
 msgstr "Industries"
 
-#: .\templates\core\home.html:272
+#: .\templates\core\home.html:278
 msgid "کجا به کار می‌آید"
 msgstr "Where it is used"
 
-#: .\templates\core\home.html:274
+#: .\templates\core\home.html:280
 msgid "حوزه‌هایی که فناوری‌ها و محصولات اطلس در آن‌ها کاربرد دارند."
 msgstr "The areas where Atlas technologies and products are applied."
 
-#: .\templates\core\home.html:285 .\templates\core\industry_list.html:92
+#: .\templates\core\home.html:291 .\templates\core\industry_list.html:92
 msgid "بیشتر"
 msgstr "More"
 
-#: .\templates\core\home.html:295
+#: .\templates\core\home.html:301
 msgid "همه‌ی صنعت‌ها"
 msgstr "All industries"
 
-#: .\templates\core\home.html:307
+#: .\templates\core\home.html:315
 msgid "چرا اطلس"
 msgstr "Why Atlas"
 
-#: .\templates\core\home.html:308
+#: .\templates\core\home.html:316
 msgid "تمایزهایی که قابل بررسی‌اند"
 msgstr "Differences you can verify"
 
-#: .\templates\core\home.html:331
+#: .\templates\core\home.html:320
+msgid "ارزش‌های بنیادین"
+msgstr "Core values"
+
+#: .\templates\core\home.html:345
 msgid "چگونه کار می‌کنیم"
 msgstr "How we work"
 
-#: .\templates\core\home.html:334
+#: .\templates\core\home.html:348
 msgid ""
 "کیفیت در این صنعت با مدرک سنجیده می‌شود، نه با ادعا. آنچه در اختیار داریم را "
 "شفاف ارائه می‌کنیم."
@@ -675,15 +706,15 @@ msgstr ""
 "In this industry quality is measured by documentation, not by claims. We "
 "present what we hold, openly."
 
-#: .\templates\core\home.html:356
+#: .\templates\core\home.html:370
 msgid "استانداردها"
 msgstr "Standards"
 
-#: .\templates\core\home.html:375
+#: .\templates\core\home.html:391
 msgid "مستندسازی فنی"
 msgstr "Technical documentation"
 
-#: .\templates\core\home.html:377
+#: .\templates\core\home.html:393
 msgid ""
 "برای هر محصول، مشخصات فنی، سابقه‌ی آزمون و مدارک موجود در اختیار تیم مهندسی "
 "مشتری قرار می‌گیرد تا ارزیابی بر پایه‌ی مدرک انجام شود."
@@ -691,66 +722,66 @@ msgstr ""
 "For every product, specifications, test records and available documents are "
 "provided to your engineering team so evaluation rests on evidence."
 
-#: .\templates\core\home.html:380
+#: .\templates\core\home.html:396
 msgid "فرایند کیفیت"
 msgstr "Quality process"
 
-#: .\templates\core\home.html:403
+#: .\templates\core\home.html:434
 msgid "بازار جهانی"
 msgstr "Global market"
 
-#: .\templates\core\home.html:406
+#: .\templates\core\home.html:437
 msgid "آماده‌ی بازارهای بین‌المللی"
 msgstr "Ready for international markets"
 
-#: .\templates\core\home.html:412
+#: .\templates\core\home.html:443
 msgid "گفت‌وگو درباره تأمین بین‌المللی"
 msgstr "Discuss international supply"
 
-#: .\templates\core\home.html:422
+#: .\templates\core\home.html:453
 msgid "حمل بین‌المللی"
 msgstr "International shipping"
 
-#: .\templates\core\home.html:423
+#: .\templates\core\home.html:454
 msgid "حمل کالا از تمام نقاط جهان به ایران و بالعکس."
 msgstr ""
 "Shipping goods from anywhere in the world to Iran, and from Iran worldwide."
 
-#: .\templates\core\home.html:427
+#: .\templates\core\home.html:458
 msgid "ترانزیت"
 msgstr "Transit"
 
-#: .\templates\core\home.html:428
+#: .\templates\core\home.html:459
 msgid "معرفی Consignee در کشورهای ثالث و ترانزیت به ایران."
 msgstr "Arranging consignees in third countries and transit to Iran."
 
-#: .\templates\core\home.html:432
+#: .\templates\core\home.html:463
 msgid "امور گمرکی"
 msgstr "Customs clearance"
 
-#: .\templates\core\home.html:433
+#: .\templates\core\home.html:464
 msgid "خدمات گمرکی در ایران و امارات متحده عربی."
 msgstr "Customs services in Iran and the United Arab Emirates."
 
-#: .\templates\core\home.html:437
+#: .\templates\core\home.html:468
 msgid "تحویل فراساحل"
 msgstr "Offshore delivery"
 
-#: .\templates\core\home.html:438
+#: .\templates\core\home.html:469
 msgid "تحویل کالا به شناور و پروژه‌های فراساحل."
 msgstr "Delivery to vessels and offshore projects."
 
-#: .\templates\core\home.html:452 .\templates\news\post_detail.html:26
+#: .\templates\core\home.html:483 .\templates\news\post_detail.html:26
 #: .\templates\news\post_detail.html:37 .\templates\news\post_list.html:11
 #: .\templates\partials\masthead.html:35
 msgid "بینش"
 msgstr "Insights"
 
-#: .\templates\core\home.html:453
+#: .\templates\core\home.html:484
 msgid "تازه‌های اطلس"
 msgstr "Latest from Atlas"
 
-#: .\templates\core\home.html:457
+#: .\templates\core\home.html:488
 msgid "همه‌ی مطالب"
 msgstr "All articles"
 
@@ -775,7 +806,7 @@ msgstr ""
 
 #: .\templates\core\industry_list.html:35 .\templates\core\page_detail.html:67
 #: .\templates\core\technology_list.html:35
-#: .\templates\products\product_detail.html:313
+#: .\templates\products\product_detail.html:317
 msgid "محصولات مرتبط"
 msgstr "Related products"
 
@@ -805,13 +836,13 @@ msgid "فناوری‌های پشت این کاربردها"
 msgstr "The technologies behind these applications"
 
 #: .\templates\core\page_detail.html:33 .\templates\news\post_detail.html:22
-#: .\templates\partials\page-head.html:11
+#: .\templates\partials\page-head.html:12
 #: .\templates\products\product_detail.html:29
 msgid "مسیر صفحه"
 msgstr "Breadcrumb"
 
 #: .\templates\core\page_detail.html:35 .\templates\news\post_detail.html:24
-#: .\templates\partials\page-head.html:13
+#: .\templates\partials\page-head.html:14
 #: .\templates\products\product_detail.html:31
 msgid "خانه"
 msgstr "Home"
@@ -862,10 +893,6 @@ msgstr ""
 msgid "فرایند"
 msgstr "Process"
 
-#: .\templates\core\quality.html:21 .\templates\core\technology_list.html:94
-msgid "از نیاز تا تحویل"
-msgstr "From requirement to delivery"
-
 #: .\templates\core\quality.html:42
 msgid "چه کاری را در مجموعه انجام می‌دهیم"
 msgstr "What we do in-house"
@@ -879,8 +906,8 @@ msgstr ""
 "place — which keeps quality, timing and documentation traceable across the "
 "whole chain."
 
-#: .\templates\core\quality.html:64 .\templates\products\product_detail.html:74
-#: .\templates\products\product_detail.html:126
+#: .\templates\core\quality.html:64 .\templates\products\product_detail.html:76
+#: .\templates\products\product_detail.html:128
 msgid "مدارک"
 msgstr "Documentation"
 
@@ -908,7 +935,7 @@ msgid "درخواست مدارک فنی"
 msgstr "Request technical documents"
 
 #: .\templates\core\quality.html:100
-#: .\templates\products\product_detail.html:161
+#: .\templates\products\product_detail.html:165
 msgid "مشخصات فنی"
 msgstr "Technical specifications"
 
@@ -940,14 +967,6 @@ msgstr "Technical answers"
 #: .\templates\core\quality.html:116
 msgid "پرسش‌های تیم مهندسی مشتری مستقیم پاسخ داده می‌شود."
 msgstr "Questions from your engineering team are answered directly."
-
-#: .\templates\core\quality.html:128 .\templates\core\technology_list.html:113
-msgid "خدمات"
-msgstr "Services"
-
-#: .\templates\core\quality.html:129 .\templates\core\technology_list.html:114
-msgid "فراتر از تأمین کالا"
-msgstr "Beyond supplying goods"
 
 #: .\templates\core\technology_list.html:6
 msgid ""
@@ -1020,6 +1039,14 @@ msgstr "Nothing published yet"
 msgid "یادداشت‌های فنی و اخبار شرکت در این بخش منتشر می‌شوند."
 msgstr "Technical notes and company news will be published in this section."
 
+#: .\templates\partials\clients-strip.html:11
+msgid "مشتریان"
+msgstr "Clients"
+
+#: .\templates\partials\clients-strip.html:12
+msgid "همکاری با پیشروان صنعت نفت، گاز و دریا"
+msgstr "Trusted by leaders in oil, gas and marine industries"
+
 #: .\templates\partials\cta.html:9
 msgid "گفت‌وگو با اطلس"
 msgstr "Talk to Atlas"
@@ -1032,9 +1059,12 @@ msgstr "Request a consultation or supply quote"
 msgid ""
 "نیاز فنی، مشخصات و زمان‌بندی پروژه‌ی خود را برای ما بنویسید تا مسیر مناسب "
 "تأمین، ساخت و تحویل را با شما بررسی کنیم."
-msgstr "Send us your technical requirement, specifications and project timeline, and we’ll work out the right route for supply, manufacturing and delivery with you."
+msgstr ""
+"Send us your technical requirement, specifications and project timeline, and "
+"we’ll work out the right route for supply, manufacturing and delivery with "
+"you."
 
-#: .\templates\partials\cta.html:21 .\templates\products\product_detail.html:68
+#: .\templates\partials\cta.html:21 .\templates\products\product_detail.html:70
 msgid "درخواست اطلاعات فنی"
 msgstr "Request technical information"
 
@@ -1086,7 +1116,7 @@ msgid "بستن منو"
 msgstr "Close menu"
 
 #: .\templates\partials\masthead.html:51 .\templates\partials\masthead.html:68
-#: .\templates\products\product_detail.html:130
+#: .\templates\products\product_detail.html:132
 msgid "درخواست اطلاعات"
 msgstr "Request information"
 
@@ -1111,6 +1141,10 @@ msgstr "Previous page"
 msgid "صفحه بعد"
 msgstr "Next page"
 
+#: .\templates\partials\service-cards.html:25
+msgid "تصاویر بیشتر"
+msgstr "More photos"
+
 #: .\templates\partials\team-card.html:31
 #, python-format
 msgid "ایمیل %(n)s"
@@ -1121,44 +1155,44 @@ msgstr "Email %(n)s"
 msgid "لینکدین %(n)s"
 msgstr "%(n)s on LinkedIn"
 
-#: .\templates\products\product_detail.html:119
+#: .\templates\products\product_detail.html:121
 msgid "بخش‌های این صفحه"
 msgstr "Sections on this page"
 
-#: .\templates\products\product_detail.html:123
+#: .\templates\products\product_detail.html:125
 msgid "ویژگی‌ها"
 msgstr "Features"
 
-#: .\templates\products\product_detail.html:124
+#: .\templates\products\product_detail.html:126
 msgid "مشخصات"
 msgstr "Specifications"
 
-#: .\templates\products\product_detail.html:125
-#: .\templates\products\product_detail.html:196
+#: .\templates\products\product_detail.html:127
+#: .\templates\products\product_detail.html:200
 msgid "کاربردها"
 msgstr "Applications"
 
-#: .\templates\products\product_detail.html:127
+#: .\templates\products\product_detail.html:129
 msgid "استعلام"
 msgstr "Enquiry"
 
-#: .\templates\products\product_detail.html:146
+#: .\templates\products\product_detail.html:150
 msgid "ویژگی‌های کلیدی"
 msgstr "Key features"
 
-#: .\templates\products\product_detail.html:189
+#: .\templates\products\product_detail.html:193
 msgid "یادداشت فنی"
 msgstr "Technical note"
 
-#: .\templates\products\product_detail.html:210
+#: .\templates\products\product_detail.html:214
 msgid "مدارک و کاتالوگ"
 msgstr "Documents and catalogue"
 
-#: .\templates\products\product_detail.html:230
+#: .\templates\products\product_detail.html:234
 msgid "استعلام محصول"
 msgstr "Product enquiry"
 
-#: .\templates\products\product_detail.html:233
+#: .\templates\products\product_detail.html:237
 msgid ""
 "برای دریافت مشخصات کامل، شرایط تحویل و گزینه‌های پیکربندی، درخواست خود را ثبت "
 "کنید."
@@ -1166,15 +1200,15 @@ msgstr ""
 "Submit a request for the full specification, delivery terms and "
 "configuration options."
 
-#: .\templates\products\product_detail.html:256
+#: .\templates\products\product_detail.html:260
 msgid "ایمیل فروش"
 msgstr "Sales email"
 
-#: .\templates\products\product_detail.html:267
+#: .\templates\products\product_detail.html:271
 msgid "بر پایه‌ی این فناوری‌ها"
 msgstr "Built on these technologies"
 
-#: .\templates\products\product_detail.html:312
+#: .\templates\products\product_detail.html:316
 msgid "همچنین ببینید"
 msgstr "See also"
 
@@ -1273,6 +1307,25 @@ msgstr "Team profiles are being completed"
 #: .\templates\team\team_list.html:25
 msgid "اعضای تیم از پنل مدیریت اضافه می‌شوند."
 msgstr "Team members are added from the admin panel."
+
+#~ msgid "سکوهای نفتی فراساحل"
+#~ msgstr "Offshore oil platforms"
+
+#~ msgid "نصب ماژول سنگین در دریا"
+#~ msgstr "Heavy module installation at sea"
+
+#~ msgid "شناور جرثقیل سنگین در کنار سکوی فراساحل"
+#~ msgstr "Heavy crane vessel alongside an offshore platform"
+
+#~ msgid "مجموعه‌ی تولید"
+#~ msgstr "Production facility"
+
+#, python-format
+#~ msgid "مجموعه‌ی مهندسی و تولید %(n)s"
+#~ msgstr "%(n)s engineering and production facility"
+
+#~ msgid "زنده از پنل مدیریت"
+#~ msgstr "Live from the admin"
 
 #~ msgid "درباره‌ی پروژه‌ی خود با ما صحبت کنید"
 #~ msgstr "Let’s talk about your project"

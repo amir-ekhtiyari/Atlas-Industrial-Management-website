@@ -11,12 +11,16 @@ from .models import (
     Advantage,
     Capability,
     Certification,
+    Client,
     CompanyInfo,
+    Endorsement,
     FAQ,
+    GalleryImage,
     Industry,
     Milestone,
     ProcessStep,
     Service,
+    ServiceImage,
     Statistic,
     Technology,
     Testimonial,
@@ -38,11 +42,21 @@ class CompanyInfoAdmin(ImagePreviewMixin, AtlasTranslationAdmin):
             'fields': ('hero_title', 'hero_text', 'hero_image', 'hero_image_preview'),
             'description': 'تیتر، متن و تصویر بالای صفحه اصلی. اینجا درباره‌ی شرکت بنویسید، نه یک محصول خاص.',
         }),
-        ('صفحه اصلی — معرفی شرکت', {
-            'fields': ('intro_title', 'intro_text'),
+        ('صفحه اصلی — معرفی شرکت (هدف بنیادین)', {
+            'fields': ('intro_title', 'intro_text', 'intro_image'),
+        }),
+        ('صفحه اصلی — نوار اعتماد، ارزش‌ها و شعار', {
+            'fields': ('trust_image', 'values_image', 'slogan', 'slogan_image'),
+            'description': 'تصویر پس‌زمینه‌ی نوار آمار، تصویر بخش ارزش‌های بنیادین، و نوار تصویری شعار برند.',
         }),
         ('صفحه درباره ما', {
-            'fields': ('about_text', 'about_image', 'about_image_preview', 'mission_text', 'vision_text'),
+            'fields': (
+                'about_text', 'about_image', 'about_image_preview',
+                'mission_text', 'mission_image', 'vision_text', 'vision_image',
+            ),
+        }),
+        ('صفحه محصولات', {
+            'fields': ('products_image',),
         }),
         ('بازار جهانی و صادرات', {
             'fields': ('global_title', 'global_text'),
@@ -140,8 +154,15 @@ class IndustryAdmin(PageContentAdmin):
     pass
 
 
+class ServiceImageInline(admin.TabularInline):
+    model = ServiceImage
+    extra = 1
+    fields = ('image', 'order')
+
+
 @admin.register(Service)
 class ServiceAdmin(ImagePreviewMixin, OrderedContentAdmin):
+    inlines = [ServiceImageInline]
     list_display = ('title', 'icon', 'image_preview', 'order', 'is_active')
     fieldsets = (
         ('محتوا', {'fields': ('title', 'description', 'icon', 'image')}),
@@ -242,3 +263,36 @@ class ProcessStepAdmin(AtlasTranslationAdmin):
 admin.site.site_header = 'پنل مدیریت اطلس'
 admin.site.site_title = 'مدیریت سایت اطلس'
 admin.site.index_title = 'مدیریت محتوای وب‌سایت'
+
+
+@admin.register(Client)
+class ClientAdmin(ImagePreviewMixin, AtlasTranslationAdmin):
+    preview_field = 'logo'
+    list_display = ('image_preview', 'name', 'order', 'is_active')
+    list_display_links = ('image_preview', 'name')
+    list_editable = ('order', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name',)
+    ordering = ('order', 'id')
+    fields = ('name', 'logo', 'website', 'order', 'is_active')
+
+
+@admin.register(Endorsement)
+class EndorsementAdmin(ImagePreviewMixin, AtlasTranslationAdmin):
+    list_display = ('image_preview', 'title', 'order', 'is_active')
+    list_display_links = ('image_preview', 'title')
+    list_editable = ('order', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('title',)
+    ordering = ('order', 'id')
+    fields = ('title', 'image', 'order', 'is_active')
+
+
+@admin.register(GalleryImage)
+class GalleryImageAdmin(ImagePreviewMixin, AtlasTranslationAdmin):
+    list_display = ('image_preview', 'caption', 'order', 'is_active')
+    list_display_links = ('image_preview', 'caption')
+    list_editable = ('order', 'is_active')
+    list_filter = ('is_active',)
+    ordering = ('order', 'id')
+    fields = ('image', 'caption', 'order', 'is_active')

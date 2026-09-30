@@ -113,21 +113,7 @@
             <p class="tag">{% trans "خدمات" %}</p>
             <h2>{% trans "فراتر از تأمین کالا" %}</h2>
         </div>
-        <div class="grid grid--2">
-            {% for service in services %}
-                <article class="row-item reveal">
-                    {% if service.image %}
-                        <img src="{{ service.image.url }}" alt="" class="row-item__thumb" loading="lazy" width="46" height="46">
-                    {% else %}
-                        <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ service.icon }}"></use></svg></span>
-                    {% endif %}
-                    <div class="row-item__body">
-                        <h3 class="row-item__title">{{ service.title }}</h3>
-                        {% if service.description %}<p class="row-item__text">{{ service.description }}</p>{% endif %}
-                    </div>
-                </article>
-            {% endfor %}
-        </div>
+        {% include 'partials/service-cards.html' with services=services %}
     </div>
 </section>
 {% endif %}

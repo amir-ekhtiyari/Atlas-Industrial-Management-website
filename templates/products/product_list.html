@@ -11,7 +11,7 @@
 {% trans "محصولات" as head_eyebrow %}
 {% trans "کاتالوگ محصولات" as head_title %}
 {% trans "محصولات اطلس متناسب با الزامات فنی پروژه‌های صنعتی و فراساحل تأمین یا تولید می‌شوند. برای یافتن سریع‌تر، بر پایه‌ی خط محصول، فناوری یا صنعت فیلتر کنید." as head_intro %}
-{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+{% if global_company.products_image %}{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs bg=global_company.products_image.url %}{% else %}{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}{% endif %}
 
 <section class="band">
     <div class="shell">
@@ -107,7 +107,7 @@
                     <div class="p-card__body">
                         {% if product.model_code %}<span class="p-card__code ltr">{{ product.model_code }}</span>{% endif %}
                         <h2 class="p-card__title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h2>
-                        <p class="p-card__text">{{ product.tagline|default:product.short_description }}</p>
+                        {% if product.tagline or product.short_description %}<p class="p-card__text">{{ product.tagline|default:product.short_description }}</p>{% endif %}
                         <div class="p-card__foot">
                             <a href="{{ product.get_absolute_url }}" class="link card-link">
                                 {% trans "مشخصات محصول" %}

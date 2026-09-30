@@ -4,8 +4,11 @@ from .models import (
     Advantage,
     Capability,
     Certification,
+    Client,
     CompanyInfo,
+    Endorsement,
     FAQ,
+    GalleryImage,
     Industry,
     Milestone,
     ProcessStep,
@@ -23,7 +26,7 @@ class CompanyInfoTranslationOptions(TranslationOptions):
         'hero_title', 'intro_title', 'intro_text',
         'mission_text', 'vision_text',
         'global_title', 'global_text',
-        'cta_title', 'cta_text',
+        'cta_title', 'cta_text', 'slogan',
         'address', 'working_hours', 'meta_description',
     )
 
@@ -81,3 +84,18 @@ class TestimonialTranslationOptions(TranslationOptions):
 @register(ProcessStep)
 class ProcessStepTranslationOptions(TranslationOptions):
     fields = ('title', 'description')
+
+
+@register(Client)
+class ClientTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+
+@register(Endorsement)
+class EndorsementTranslationOptions(TranslationOptions):
+    fields = ('title',)
+
+
+@register(GalleryImage)
+class GalleryImageTranslationOptions(TranslationOptions):
+    fields = ('caption',)
