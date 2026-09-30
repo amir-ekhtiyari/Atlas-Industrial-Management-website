@@ -3,9 +3,10 @@
     سربرگ صفحات داخلی — یک قالب برای همه‌ی صفحات، تا هر صفحه‌ی تازه‌ای
     (فناوری، صنعت، خط محصول) بدون کد اضافه همان ظاهر را بگیرد.
 
-    پارامترها: eyebrow، heading، intro، crumbs (فهرست dict با name/url)
+    پارامترها: eyebrow، heading، intro، crumbs (فهرست dict با name/url)،
+    bg (اختیاری: نشانی تصویر پس‌زمینه‌ی سربرگ)
 {% endcomment %}
-<section class="page-head">
+<section class="page-head{% if bg %} page-head--photo{% endif %}"{% if bg %} style="--head-img: url('{{ bg }}')"{% endif %}>
     <div class="mesh" aria-hidden="true"></div>
     <div class="shell page-head__inner">
         <nav aria-label="{% trans 'مسیر صفحه' %}">

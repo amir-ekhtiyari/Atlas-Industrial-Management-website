@@ -86,7 +86,10 @@ class CompanyInfo(OptimizedImagesMixin, models.Model):
     اطلاعات عمومی شرکت. این مدل به‌صورت Singleton طراحی شده،
     یعنی همیشه فقط یک رکورد از آن در دیتابیس وجود خواهد داشت.
     """
-    OPTIMIZED_IMAGE_FIELDS = ('hero_image', 'about_image', 'og_image')
+    OPTIMIZED_IMAGE_FIELDS = (
+        'hero_image', 'about_image', 'og_image', 'intro_image', 'mission_image',
+        'vision_image', 'values_image', 'trust_image', 'slogan_image', 'products_image',
+    )
 
     name = models.CharField(max_length=150, verbose_name="نام شرکت")
     logo = models.ImageField(
@@ -108,11 +111,33 @@ class CompanyInfo(OptimizedImagesMixin, models.Model):
     )
     intro_title = models.CharField(max_length=200, blank=True, verbose_name="عنوان بخش معرفی شرکت")
     intro_text = models.TextField(blank=True, verbose_name="متن بخش معرفی شرکت")
+    intro_image = models.ImageField(
+        upload_to='company/', blank=True, null=True, verbose_name="تصویر بخش معرفی (هدف بنیادین)",
+        help_text="اگر خالی بماند، تصویر صفحه‌ی درباره ما نمایش داده می‌شود.",
+    )
+    values_image = models.ImageField(
+        upload_to='company/', blank=True, null=True, verbose_name="تصویر بخش ارزش‌های بنیادین",
+    )
+    trust_image = models.ImageField(
+        upload_to='company/', blank=True, null=True, verbose_name="تصویر پس‌زمینه‌ی نوار اعتماد (آمار)",
+    )
+    slogan = models.CharField(
+        max_length=300, blank=True, verbose_name="شعار برند",
+        help_text="جمله‌ی کوتاهی که در نوار تصویری صفحه‌ی اصلی نمایش داده می‌شود.",
+    )
+    slogan_image = models.ImageField(
+        upload_to='company/', blank=True, null=True, verbose_name="تصویر پس‌زمینه‌ی شعار برند",
+    )
+    products_image = models.ImageField(
+        upload_to='company/', blank=True, null=True, verbose_name="تصویر سربرگ صفحه‌ی محصولات",
+    )
     about_image = models.ImageField(
         upload_to='company/', blank=True, null=True, verbose_name="تصویر صفحه درباره ما",
     )
     mission_text = models.TextField(blank=True, verbose_name="مأموریت شرکت")
     vision_text = models.TextField(blank=True, verbose_name="چشم‌انداز شرکت")
+    mission_image = models.ImageField(upload_to='company/', blank=True, null=True, verbose_name="تصویر مأموریت")
+    vision_image = models.ImageField(upload_to='company/', blank=True, null=True, verbose_name="تصویر چشم‌انداز")
 
     # --- بازار جهانی و صادرات ---
     global_title = models.CharField(
@@ -398,3 +423,83 @@ class ProcessStep(models.Model):
 
     def __str__(self):
         return f"{self.step_number}. {self.title}"
+
+
+
+class Client(OptimizedImagesMixin, models.Model):
+    """مشتریان و کارفرمایان: لوگو در نوار «مشتریان ما» نمایش داده می‌شود."""
+    OPTIMIZED_IMAGE_FIELDS = ('logo',)
+
+    name = models.CharField(max_length=150, verbose_name="نام مشتری")
+    logo = models.ImageField(upload_to='clients/', verbose_name="لوگو")
+    website = models.URLField(blank=True, verbose_name="وب‌سایت")
+    order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="ترتیب نمایش")
+    is_active = models.BooleanField(default=True, verbose_name="نمایش در سایت")
+
+    objects = OrderedContentQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = "مشتری"
+        verbose_name_plural = "مشتریان"
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.name
+
+
+class Endorsement(OptimizedImagesMixin, models.Model):
+    """رضایت‌نامه‌ها و تقدیرنامه‌های کارفرمایان (تصویر اسکن نامه)."""
+    OPTIMIZED_IMAGE_FIELDS = ('image',)
+
+    title = models.CharField(max_length=150, verbose_name="صادرکننده", help_text="نام شرکت یا سازمان صادرکننده‌ی نامه.")
+    image = models.ImageField(upload_to='endorsements/', verbose_name="تصویر نامه")
+    order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="ترتیب نمایش")
+    is_active = models.BooleanField(default=True, verbose_name="نمایش در سایت")
+
+    objects = OrderedContentQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = "رضایت‌نامه"
+        verbose_name_plural = "رضایت‌نامه‌ها"
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.title
+
+
+class GalleryImage(OptimizedImagesMixin, models.Model):
+    """گالری تصاویر شرکت در صفحه‌ی درباره ما (کارگاه، پروژه‌ها، نمایشگاه‌ها)."""
+    OPTIMIZED_IMAGE_FIELDS = ('image',)
+
+    image = models.ImageField(upload_to='gallery/', verbose_name="تصویر")
+    caption = models.CharField(max_length=200, blank=True, verbose_name="توضیح تصویر")
+    order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="ترتیب نمایش")
+    is_active = models.BooleanField(default=True, verbose_name="نمایش در سایت")
+
+    objects = OrderedContentQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = "تصویر گالری"
+        verbose_name_plural = "گالری تصاویر شرکت"
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.caption or f'#{self.pk}'
+
+
+
+class ServiceImage(OptimizedImagesMixin, models.Model):
+    """تصاویر تکمیلی هر خدمت (گالری کوچک زیر کارت خدمت)."""
+    OPTIMIZED_IMAGE_FIELDS = ('image',)
+
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='images', verbose_name="خدمت")
+    image = models.ImageField(upload_to='services/gallery/', verbose_name="تصویر")
+    order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="ترتیب نمایش")
+
+    class Meta:
+        verbose_name = "تصویر خدمت"
+        verbose_name_plural = "تصاویر تکمیلی خدمت"
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return f'{self.service} #{self.order}'

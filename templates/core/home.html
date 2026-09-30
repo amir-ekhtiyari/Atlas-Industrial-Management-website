@@ -6,7 +6,7 @@
 {% block content %}
 
 {# ═══════════════════════════════════════════════════════════ HERO ═══ #}
-<section class="hero">
+<section class="hero{% if company.hero_image %} hero--photo{% endif %}"{% if company.hero_image %} style="--hero-img: url('{{ company.hero_image.url }}')"{% endif %}>
     <div class="mesh mesh--fade" aria-hidden="true"></div>
     <div class="shell hero__inner">
         <div class="hero__copy">
@@ -49,20 +49,7 @@
         </div>
 
         <div class="hero__stage reveal" data-delay="1">
-            {% if company.hero_image %}
-                <div class="hero__panel">
-                    <div class="mesh" aria-hidden="true"></div>
-                    <p class="hero__panel-head">
-                        <span>{{ company.name }}</span>
-                        <span class="dot">{% trans "مجموعه‌ی تولید" %}</span>
-                    </p>
-                    <div class="hero__figure hero__figure--photo">
-                        <img src="{{ company.hero_image.url }}" width="900" height="675" fetchpriority="high"
-                             alt="{% blocktrans with n=company.name %}مجموعه‌ی مهندسی و تولید {{ n }}{% endblocktrans %}">
-                    </div>
-                </div>
-            {% else %}
-                {# بدون تصویر: خطوط محصول و حوزه‌های فناوری به‌عنوان نقشه‌ی شرکت #}
+                {# نقشه‌ی توانمندی: حوزه‌های فعالیت شرکت #}
                 <div class="hero__panel">
                     <div class="mesh" aria-hidden="true"></div>
                     <p class="hero__panel-head">
@@ -86,7 +73,6 @@
                         {% endfor %}
                     </ul>
                 </div>
-            {% endif %}
         </div>
     </div>
 </section>
@@ -111,9 +97,9 @@
         </div>
 
         <div class="reveal" data-delay="1">
-            {% if company.about_image %}
+            {% if company.intro_image or company.about_image %}
                 <figure class="frame" style="border-radius: var(--r-lg); overflow: hidden;">
-                    <img src="{{ company.about_image.url }}" width="800" height="600" loading="lazy"
+                    <img src="{% if company.intro_image %}{{ company.intro_image.url }}{% else %}{{ company.about_image.url }}{% endif %}" width="800" height="600" loading="lazy"
                          style="aspect-ratio: 4/3; object-fit: cover;"
                          alt="{% blocktrans with n=company.name %}مجموعه‌ی {{ n }}{% endblocktrans %}">
                 </figure>
@@ -130,18 +116,22 @@
         </div>
     </div>
 
-    {% if statistics %}
-        <div class="shell" style="margin-block-start: var(--s8);">
-            <div class="metrics">
-                {% for stat in statistics %}
-                    <div class="metric">
-                        <span class="metric__v ltr">{{ stat.value }}{% if stat.suffix %}<span class="metric__suffix">{{ stat.suffix }}</span>{% endif %}</span>
-                        <span class="metric__k">{{ stat.label }}</span>
-                    </div>
-                {% endfor %}
-            </div>
+</section>
+{% endif %}
+
+{# ═════════════════════════════════════════════════════ نوار اعتماد ═══ #}
+{% if statistics %}
+<section class="trust"{% if company.trust_image %} style="--trust-img: url('{{ company.trust_image.url }}')"{% endif %} aria-label="{% trans 'اطلس در یک نگاه' %}">
+    <div class="shell">
+        <div class="trust__grid">
+            {% for stat in statistics %}
+                <div class="trust__item reveal">
+                    <span class="trust__v ltr"><span data-count="{{ stat.value }}">{{ stat.value }}</span>{% if stat.suffix %}<span class="metric__suffix">{{ stat.suffix }}</span>{% endif %}</span>
+                    <span class="trust__k">{{ stat.label }}</span>
+                </div>
+            {% endfor %}
         </div>
-    {% endif %}
+    </div>
 </section>
 {% endif %}
 
@@ -235,7 +225,7 @@
                     <div class="p-card__body">
                         {% if product.model_code %}<span class="p-card__code ltr">{{ product.model_code }}</span>{% endif %}
                         <h3 class="p-card__title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
-                        <p class="p-card__text">{{ product.tagline|default:product.short_description }}</p>
+                        {% if product.tagline or product.short_description %}<p class="p-card__text">{{ product.tagline|default:product.short_description }}</p>{% endif %}
                         <div class="p-card__foot">
                             <a href="{{ product.get_absolute_url }}" class="link card-link">
                                 {% trans "مشخصات محصول" %}
@@ -262,13 +252,29 @@
     </div>
 </section>
 
-{# ═════════════════════════════════════════════════════ 04 INDUSTRIES ═══ #}
+{# ════════════════════════════════════════════════════════ 04 SERVICES ═══ #}
+{% if services %}
+<section class="band band--tall" id="services">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag"><span class="tag__idx">04</span> {% trans "خدمات" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "فراتر از تأمین کالا" %}</h2>
+            </div>
+            <p class="lead">{% trans "از حمل و امور گمرکی تا مدیریت پروژه‌های فراساحل و مشاوره‌ی انتخاب تجهیزات؛ در کنار پروژه‌ی شما هستیم." %}</p>
+        </div>
+        {% include 'partials/service-cards.html' with services=services %}
+    </div>
+</section>
+{% endif %}
+
+{# ═════════════════════════════════════════════════════ 05 INDUSTRIES ═══ #}
 {% if industries %}
 <section class="band band--tall band--tint" id="industries">
     <div class="shell">
         <div class="section-head section-head--split reveal">
             <div>
-                <p class="tag"><span class="tag__idx">04</span> {% trans "صنعت‌ها" %}</p>
+                <p class="tag"><span class="tag__idx">05</span> {% trans "صنعت‌ها" %}</p>
                 <h2 style="margin-block-start: var(--s4);">{% trans "کجا به کار می‌آید" %}</h2>
             </div>
             <p class="lead">{% trans "حوزه‌هایی که فناوری‌ها و محصولات اطلس در آن‌ها کاربرد دارند." %}</p>
@@ -304,9 +310,16 @@
 <section class="band band--tall band--carbon" id="why">
     <div class="mesh mesh--edge" aria-hidden="true" style="position: absolute; inset: 0;"></div>
     <div class="shell" style="position: relative;">
-        <div class="section-head reveal">
-            <p class="tag"><span class="tag__idx">05</span> {% trans "چرا اطلس" %}</p>
-            <h2>{% trans "تمایزهایی که قابل بررسی‌اند" %}</h2>
+        <div class="why-head reveal">
+            <div class="section-head">
+                <p class="tag"><span class="tag__idx">06</span> {% trans "چرا اطلس" %}</p>
+                <h2>{% trans "تمایزهایی که قابل بررسی‌اند" %}</h2>
+            </div>
+            {% if company.values_image %}
+                <figure class="why-head__img">
+                    <img src="{{ company.values_image.url }}" alt="{% trans 'ارزش‌های بنیادین' %}" loading="lazy" width="600" height="340">
+                </figure>
+            {% endif %}
         </div>
 
         <div class="grid grid--4">
@@ -328,7 +341,7 @@
     <div class="shell">
         <div class="section-head section-head--split reveal">
             <div>
-                <p class="tag"><span class="tag__idx">06</span> {% trans "مهندسی و کیفیت" %}</p>
+                <p class="tag"><span class="tag__idx">07</span> {% trans "مهندسی و کیفیت" %}</p>
                 <h2 style="margin-block-start: var(--s4);">{% trans "چگونه کار می‌کنیم" %}</h2>
             </div>
             <p class="lead">
@@ -358,7 +371,9 @@
                         {% for item in certifications %}
                             <article class="cert">
                                 {% if item.image %}
-                                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="cert__thumb" loading="lazy" width="54" height="54">
+                                    <a href="{{ item.image.url }}" data-lightbox="certificates" class="cert__thumb-link" aria-label="{{ item.title }}">
+                                        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="cert__thumb" loading="lazy" width="54" height="54">
+                                    </a>
                                 {% else %}
                                     <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
                                 {% endif %}
@@ -393,14 +408,29 @@
 </section>
 {% endif %}
 
-{# ═══════════════════════════════════════════════════ 07 GLOBAL MARKET ═══ #}
+{# ═══════════════════════════════════════════════════════ شعار برند ═══ #}
+{% if company.slogan %}
+<section class="slogan"{% if company.slogan_image %} style="--slogan-img: url('{{ company.slogan_image.url }}')"{% endif %}>
+    <div class="shell">
+        <figure class="slogan__inner reveal">
+            <svg class="icon slogan__mark" aria-hidden="true"><use href="#icon-quote"></use></svg>
+            <blockquote class="slogan__text">{{ company.slogan }}</blockquote>
+            <figcaption class="slogan__by">{{ company.name }}</figcaption>
+        </figure>
+    </div>
+</section>
+{% endif %}
+
+{% include 'partials/clients-strip.html' with clients=clients %}
+
+{# ═══════════════════════════════════════════════════ 08 GLOBAL MARKET ═══ #}
 {% if company.global_text %}
 <section class="band band--tall band--carbon" id="global">
     <div class="mesh mesh--fade" aria-hidden="true" style="position: absolute; inset: 0;"></div>
     <div class="shell split split--lead" style="position: relative;">
         <div class="reveal">
             <p class="tag" style="color: var(--signal-400);">
-                <span class="tag__idx" style="color: var(--steel-400);">07</span>
+                <span class="tag__idx" style="color: var(--steel-400);">08</span>
                 {% trans "بازار جهانی" %}
             </p>
             <h2 style="margin-block: var(--s4) var(--s5);">
@@ -450,7 +480,7 @@
     <div class="shell">
         <div class="section-head section-head--split reveal">
             <div>
-                <p class="tag"><span class="tag__idx">08</span> {% trans "بینش" %}</p>
+                <p class="tag"><span class="tag__idx">09</span> {% trans "بینش" %}</p>
                 <h2 style="margin-block-start: var(--s4);">{% trans "تازه‌های اطلس" %}</h2>
             </div>
             <p class="lead">
@@ -482,5 +512,5 @@
 </section>
 {% endif %}
 
-{% include 'partials/cta.html' with cta_company=company cta_index="09" %}
+{% include 'partials/cta.html' with cta_company=company cta_index="10" %}
 {% endblock %}

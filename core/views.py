@@ -16,7 +16,10 @@ from .models import (
     Advantage,
     Capability,
     Certification,
+    Client,
+    Endorsement,
     FAQ,
+    GalleryImage,
     Industry,
     Milestone,
     ProcessStep,
@@ -26,6 +29,11 @@ from .models import (
     Testimonial,
 )
 from .utils import get_company_or_404
+
+
+def _services():
+    """خدمات فعال همراه با تصاویر تکمیلی (یک کوئری برای همه‌ی تصاویر)."""
+    return Service.objects.active().prefetch_related('images')
 
 
 def _featured_products(limit=3):
@@ -59,7 +67,9 @@ def home(request):
         'advantages': Advantage.objects.active(),
         'capabilities': Capability.objects.active()[:6],
         'certifications': Certification.objects.active(),
-        'statistics': Statistic.objects.active()[:4],
+        'statistics': Statistic.objects.active(),
+        'services': _services(),
+        'clients': Client.objects.active(),
         'testimonials': Testimonial.objects.active()[:3],
         'latest_posts': Post.objects.published().with_related()[:3],
     }
@@ -78,6 +88,9 @@ def about(request):
         'team_members': TeamMember.objects.filter(is_active=True)[:4],
         'testimonials': Testimonial.objects.active()[:3],
         'technologies': Technology.objects.active()[:6],
+        'gallery': GalleryImage.objects.active(),
+        'endorsements': Endorsement.objects.active(),
+        'clients': Client.objects.active(),
     }
     return render(request, 'core/about.html', context)
 
@@ -91,7 +104,7 @@ def technology_list(request):
         ),
         'capabilities': Capability.objects.active(),
         'process_steps': ProcessStep.objects.active(),
-        'services': Service.objects.active(),
+        'services': _services(),
     }
     return render(request, 'core/technology_list.html', context)
 
@@ -139,7 +152,7 @@ def quality(request):
         'capabilities': Capability.objects.active(),
         'certifications': Certification.objects.active(),
         'process_steps': ProcessStep.objects.active(),
-        'services': Service.objects.active(),
+        'services': _services(),
         'faqs': FAQ.objects.active(),
     }
     return render(request, 'core/quality.html', context)

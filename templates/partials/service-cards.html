@@ -1,0 +1,39 @@
+{% load i18n %}
+{% comment %}
+    کارت‌های خدمات — مشترک صفحه‌ی اصلی، کیفیت و فناوری‌ها.
+    هر کارت: تصویر اصلی خدمت، عنوان، توضیح و تصاویر تکمیلی (با نمایشگر بزرگ).
+    خدمتی که تصویر ندارد با آیکون خودش نمایش داده می‌شود.
+{% endcomment %}
+<div class="grid grid--2 svc-grid">
+    {% for service in services %}
+        <article class="svc reveal">
+            <div class="svc__media">
+                {% if service.image %}
+                    <a href="{{ service.image.url }}" data-lightbox="service-{{ service.pk }}" aria-label="{{ service.title }}">
+                        <img src="{{ service.image.url }}" alt="{{ service.title }}" loading="lazy" width="800" height="500">
+                    </a>
+                {% else %}
+                    <span class="p-card__blank"><svg class="icon" aria-hidden="true"><use href="#{{ service.icon }}"></use></svg></span>
+                {% endif %}
+                <span class="svc__badge glyph"><svg class="icon" aria-hidden="true"><use href="#{{ service.icon }}"></use></svg></span>
+            </div>
+            <div class="svc__body">
+                <h3 class="svc__title">{{ service.title }}</h3>
+                {% if service.description %}<p class="svc__text">{{ service.description }}</p>{% endif %}
+                {% with extra=service.images.all %}
+                    {% if extra %}
+                        <ul class="svc__thumbs" aria-label="{% trans 'تصاویر بیشتر' %}">
+                            {% for item in extra %}
+                                <li>
+                                    <a href="{{ item.image.url }}" data-lightbox="service-{{ service.pk }}" aria-label="{{ service.title }} — {{ forloop.counter|add:1 }}">
+                                        <img src="{{ item.image.url }}" alt="" loading="lazy" width="120" height="84">
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </article>
+    {% endfor %}
+</div>
