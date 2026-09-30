@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Atlas Website 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-30 08:53-0700\n"
+"POT-Creation-Date: 2026-09-30 14:40-0700\n"
 "PO-Revision-Date: 2026-08-30 13:38-0700\n"
 "Last-Translator: Atlas Team\n"
 "Language-Team: English\n"
@@ -474,7 +474,9 @@ msgstr "What our clients have written about us"
 msgid ""
 "رضایت‌نامه‌های کتبی کارفرمایان صنعت نفت، گاز و دریا از همکاری با اطلس. برای "
 "مشاهده‌ی کامل هر نامه روی آن بزنید."
-msgstr "Written letters of satisfaction from oil, gas and marine clients on their work with Atlas. Select a letter to view it in full."
+msgstr ""
+"Written letters of satisfaction from oil, gas and marine clients on their "
+"work with Atlas. Select a letter to view it in full."
 
 #: .\templates\core\about.html:219
 #, python-format
@@ -490,15 +492,11 @@ msgstr "Team"
 msgid "افراد پشت این کار"
 msgstr "The people behind the work"
 
-#: .\templates\core\about.html:239
-msgid "معرفی کامل تیم"
-msgstr "Meet the full team"
-
-#: .\templates\core\about.html:257
+#: .\templates\core\about.html:260
 msgid "بازخورد"
 msgstr "Feedback"
 
-#: .\templates\core\about.html:258
+#: .\templates\core\about.html:261
 msgid "نظر همکاران و مشتریان"
 msgstr "What partners and customers say"
 
@@ -657,7 +655,9 @@ msgstr "Beyond supplying goods"
 msgid ""
 "از حمل و امور گمرکی تا مدیریت پروژه‌های فراساحل و مشاوره‌ی انتخاب تجهیزات؛ در "
 "کنار پروژه‌ی شما هستیم."
-msgstr "From shipping and customs to offshore project management and equipment-selection advice — we stand beside your project."
+msgstr ""
+"From shipping and customs to offshore project management and equipment-"
+"selection advice — we stand beside your project."
 
 #: .\templates\core\home.html:277 .\templates\core\industry_list.html:4
 #: .\templates\core\industry_list.html:11 .\templates\core\page_detail.html:27
@@ -1082,21 +1082,19 @@ msgid "تماس بازرگانی"
 msgstr "Commercial contact"
 
 #: .\templates\partials\footer.html:84
-#, fuzzy
-#| msgid "گفت‌وگو با اطلس"
 msgid "کد QR وب‌سایت اطلس"
-msgstr "Talk to Atlas"
+msgstr "Atlas website QR code"
 
 #: .\templates\partials\footer.html:87
 msgid "دانلود QR سایت"
-msgstr ""
+msgstr "Download website QR code"
 
 #: .\templates\partials\footer.html:95
 msgid "تمامی حقوق محفوظ است."
 msgstr "All rights reserved."
 
-#: .\templates\partials\footer.html:96
-msgid "Made by"
+#: .\templates\partials\footer.html:97
+msgid "ساخته شده توسط"
 msgstr "Made by"
 
 #: .\templates\partials\logo.html:14
@@ -1307,6 +1305,12 @@ msgstr "Team profiles are being completed"
 #: .\templates\team\team_list.html:25
 msgid "اعضای تیم از پنل مدیریت اضافه می‌شوند."
 msgstr "Team members are added from the admin panel."
+
+#~ msgid "معرفی کامل تیم"
+#~ msgstr "Meet the full team"
+
+#~ msgid "Made by"
+#~ msgstr "Made by"
 
 #~ msgid "سکوهای نفتی فراساحل"
 #~ msgstr "Offshore oil platforms"
