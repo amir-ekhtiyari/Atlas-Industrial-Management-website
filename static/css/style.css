@@ -2358,6 +2358,7 @@ select.field {
 .footer__bottom a:hover { color: var(--white); }
 .credit { display: inline-flex; align-items: center; gap: var(--s2); }
 .credit strong { color: var(--steel-200); font-weight: 500; }
+.credit__logo { display: block; block-size: 25px; inline-size: auto; }
 
 /* ==========================================================================
    15 · Utilities & special pages
@@ -3222,3 +3223,7 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
     color: var(--steel-300);
 }
 body.lightbox-open { overflow: hidden; }
+
+/* دکمه‌ی «بازگشت به بالا» (۴۶px در گوشه) روی لوگوی سازنده نیفتد. */
+@media (min-width: 720px) { .footer__bottom { padding-inline-end: calc(var(--s5) + 46px + var(--s4)); } }
+@media (max-width: 719.98px) { .footer__bottom { padding-block-end: calc(var(--s5) + 46px + var(--s4) + env(safe-area-inset-bottom)); } }

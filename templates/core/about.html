@@ -234,12 +234,14 @@
                 <p class="tag">{% trans "تیم" %}</p>
                 <h2 style="margin-block-start: var(--s4);">{% trans "افراد پشت این کار" %}</h2>
             </div>
+            {% comment %} پیوند «معرفی کامل تیم» — فعلاً غیرفعال؛ برای نمایش دوباره، این بلوک را از کامنت خارج کنید.
             <p class="lead">
                 <a href="{% url 'team:list' %}" class="link">
                     {% trans "معرفی کامل تیم" %}
                     <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
                 </a>
             </p>
+            {% endcomment %}
         </div>
         <div class="grid grid--4">
             {% for member in team_members %}

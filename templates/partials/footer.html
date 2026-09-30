@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load static i18n %}
 {% url 'core:home' as u_home %}
 <footer class="footer">
     <div class="shell footer__top">
@@ -93,6 +93,9 @@
 
     <div class="shell footer__bottom">
         <p>&copy; {% now "Y" %} {{ global_company.name|default:_("اطلس") }} — {% trans "تمامی حقوق محفوظ است." %}</p>
-        <p class="credit">{% trans "Made by" %} <strong>AMIR</strong></p>
+        <p class="credit">
+            <span>{% trans "ساخته شده توسط" %}</span>
+            <img src="{% static 'brand/made-by-amirekhtiyari.png' %}" alt="AmirEkhtiyari" class="credit__logo" width="138" height="25" loading="lazy">
+        </p>
     </div>
 </footer>
