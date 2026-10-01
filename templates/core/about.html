@@ -90,7 +90,7 @@
             {% if company.mission_text %}
                 <article class="feature reveal">
                     {% if company.mission_image %}
-                        <figure class="feature__media"><img src="{{ company.mission_image.url }}" alt="{% trans 'مأموریت' %}" loading="lazy" width="800" height="420"></figure>
+                        <figure class="feature__media feature__media--bottom"><img src="{{ company.mission_image.url }}" alt="{% trans 'مأموریت' %}" loading="lazy" width="800" height="420"></figure>
                     {% endif %}
                     <div class="feature__head">
                         <span class="glyph glyph--lg"><svg class="icon" aria-hidden="true"><use href="#icon-target"></use></svg></span>

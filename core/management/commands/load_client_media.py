@@ -146,10 +146,26 @@ def already(fieldfile, path):
     return bool(fieldfile) and Path(fieldfile.name).stem.startswith(path.stem)
 
 
-def attach(fieldfile, path):
-    """فایل را در فیلد می‌نشاند؛ اگر قبلاً نشسته باشد کاری نمی‌کند. خروجی: آیا تغییر کرد."""
-    if already(fieldfile, path):
+def _same_size(fieldfile, path):
+    try:
+        return fieldfile.size == path.stat().st_size
+    except OSError:          # فایل انبار گم شده — دوباره کپی شود
         return False
+
+
+def attach(fieldfile, path, keep_old=False):
+    """
+    فایل را در فیلد می‌نشاند و خروجی می‌دهد که آیا تغییری رخ داد.
+
+    اگر همین فایل با همین حجم قبلاً نشسته باشد کاری نمی‌کند؛ اگر فایل منبع
+    در content/client عوض شده باشد (حجم متفاوت)، نسخه‌ی تازه جایگزین و فایل
+    قدیمی از انبار حذف می‌شود (مگر keep_old، برای فایل‌های مشترک).
+    """
+    if already(fieldfile, path):
+        if _same_size(fieldfile, path):
+            return False
+        if not keep_old:
+            fieldfile.delete(save=False)
     with path.open('rb') as handle:
         fieldfile.save(path.name, File(handle), save=False)
     return True
@@ -261,7 +277,7 @@ class Command(BaseCommand):
                 if path in shared_files:
                     doc.file.name = shared_files[path]
                 else:
-                    attach(doc.file, path)
+                    attach(doc.file, path, keep_old=True)
                     shared_files[path] = doc.file.name
                 doc.order = index * 10
                 doc.save()

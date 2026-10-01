@@ -18,14 +18,15 @@
    ========================================================================== */
 
 :root {
-    /* Carbon — structural darks, tinted toward the logo navy (#1B1650). */
-    --carbon-950: #07081A;
-    --carbon-900: #0C0E24;
-    --carbon-850: #11132D;
-    --carbon-800: #171A37;
-    --carbon-750: #1F2243;
-    --carbon-700: #292D52;
-    --carbon-600: #373B66;
+    /* Carbon — structural darks, tinted toward the logo navy (#1B1650).
+       یک پله روشن‌تر از نسخه‌ی قبل (درخواست کارفرما)؛ متن روشن روی همه‌ی آن‌ها کنتراست AA دارد. */
+    --carbon-950: #0F1335;
+    --carbon-900: #151A42;
+    --carbon-850: #1B214C;
+    --carbon-800: #222857;
+    --carbon-750: #2A3062;
+    --carbon-700: #343B70;
+    --carbon-600: #444C83;
 
     /* Titanium — neutral scale for text on dark, borders, dividers. */
     --steel-200: #C8D0DC;
@@ -724,7 +725,7 @@ html.no-js .reveal { opacity: 1; transform: none; }
     position: fixed;
     inset: 0;
     z-index: var(--z-scrim);
-    background: rgba(7, 8, 26, 0.62);
+    background: rgba(15, 19, 53, 0.62);
     opacity: 0;
     visibility: hidden;
     transition: opacity var(--t) var(--ease), visibility var(--t) var(--ease);
@@ -888,7 +889,7 @@ body.nav-open .scrim { opacity: 1; visibility: visible; }
     background:
         radial-gradient(ellipse 60% 80% at 78% 18%, rgba(107, 115, 217, 0.16), transparent 62%),
         radial-gradient(ellipse 70% 60% at 8% 92%, rgba(41, 45, 82, 0.85), transparent 68%),
-        linear-gradient(168deg, var(--carbon-950) 0%, var(--carbon-900) 52%, #0F1230 100%);
+        linear-gradient(168deg, var(--carbon-950) 0%, var(--carbon-900) 52%, #1D2352 100%);
 }
 .hero .mesh { z-index: -1; }
 
@@ -1057,7 +1058,7 @@ html[lang="fa"] .hero__text { line-height: 1.95; max-inline-size: 46em; }
     font-size: var(--fs-mono);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: rgba(7, 8, 26, 0.72);
+    background: rgba(15, 19, 53, 0.72);
     border: 1px solid var(--line-dark-strong);
     border-radius: var(--r-xs);
     color: var(--signal-400);
@@ -1490,7 +1491,7 @@ html[lang="fa"] .hero__text { line-height: 1.95; max-inline-size: 46em; }
     font-size: var(--fs-mono);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: rgba(7, 8, 26, 0.78);
+    background: rgba(15, 19, 53, 0.78);
     border: 1px solid var(--line-dark-strong);
     border-radius: var(--r-xs);
     color: var(--steel-200);
@@ -1667,7 +1668,7 @@ html[lang="fa"] .hero__text { line-height: 1.95; max-inline-size: 46em; }
     z-index: -2;
     background:
         radial-gradient(ellipse 62% 72% at 24% 22%, rgba(107, 115, 217, 0.15), transparent 62%),
-        linear-gradient(160deg, var(--carbon-950), var(--carbon-850) 60%, #0F1230);
+        linear-gradient(160deg, var(--carbon-950), var(--carbon-850) 60%, #1D2352);
 }
 .p-hero .mesh { z-index: -1; background-size: 60px 60px; }
 .p-hero__inner { position: relative; display: grid; gap: var(--s7); padding-block: var(--s7) var(--s9); align-items: center; }
@@ -2867,8 +2868,8 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
    سمت متن تیره‌تر است و سمت نقشه‌ی توانمندی کمی بازتر. */
 .hero--photo::before {
     background:
-        linear-gradient(var(--hero-shade-dir, 90deg), rgba(7, 8, 26, 0.9) 0%, rgba(7, 8, 26, 0.62) 42%, rgba(7, 8, 26, 0.22) 100%),
-        linear-gradient(180deg, rgba(7, 8, 26, 0.1), rgba(7, 8, 26, 0.55)),
+        linear-gradient(var(--hero-shade-dir, 90deg), rgba(15, 19, 53, 0.9) 0%, rgba(15, 19, 53, 0.62) 42%, rgba(15, 19, 53, 0.22) 100%),
+        linear-gradient(180deg, rgba(15, 19, 53, 0.1), rgba(15, 19, 53, 0.55)),
         var(--hero-img) center / cover no-repeat,
         var(--carbon-950);
 }
@@ -2895,7 +2896,7 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
     inset: 0;
     z-index: -1;
     background:
-        linear-gradient(180deg, rgba(7, 8, 26, 0.78), rgba(21, 24, 72, 0.82)),
+        linear-gradient(180deg, rgba(15, 19, 53, 0.78), rgba(21, 24, 72, 0.82)),
         var(--trust-img, none) center / cover no-repeat;
 }
 .trust__grid {
@@ -2947,7 +2948,7 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(180deg, transparent 55%, rgba(7, 8, 26, 0.55));
+    background: linear-gradient(180deg, transparent 55%, rgba(15, 19, 53, 0.55));
 }
 .svc__badge {
     position: absolute;
@@ -3006,7 +3007,7 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
     inset: 0;
     z-index: -1;
     background:
-        radial-gradient(ellipse 70% 90% at 50% 50%, rgba(7, 8, 26, 0.45), rgba(7, 8, 26, 0.85)),
+        radial-gradient(ellipse 70% 90% at 50% 50%, rgba(15, 19, 53, 0.45), rgba(15, 19, 53, 0.85)),
         var(--slogan-img, none) center / cover no-repeat;
 }
 .slogan__inner { max-inline-size: 52rem; margin-inline: auto; text-align: center; }
@@ -3099,7 +3100,7 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
     font-size: var(--fs-xs);
     font-weight: 600;
     color: var(--white);
-    background: linear-gradient(180deg, transparent, rgba(7, 8, 26, 0.8));
+    background: linear-gradient(180deg, transparent, rgba(15, 19, 53, 0.8));
     opacity: 0;
     transform: translateY(6px);
     transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
@@ -3158,11 +3159,14 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
 }
 .feature__media img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: center 70%; transition: transform 900ms var(--ease-spring); }
 .feature:hover .feature__media img { transform: scale(1.04); }
+/* تصویری که نوشته‌ی پایینش باید کامل دیده شود (مأموریت): برش از بالا، نه از پایین؛
+   بزرگ‌نمایی hover هم از پایین لنگر می‌گیرد تا حروف بیرون نزنند. */
+.feature__media--bottom img { object-position: center bottom; transform-origin: center bottom; }
 
 /* ── ۱۰. سربرگ صفحه با عکس (صفحه‌ی محصولات) ─────────────────────────── */
 .page-head--photo::before {
     background:
-        linear-gradient(var(--hero-shade-dir, 90deg), rgba(7, 8, 26, 0.95), rgba(7, 8, 26, 0.7) 60%, rgba(7, 8, 26, 0.5)),
+        linear-gradient(var(--hero-shade-dir, 90deg), rgba(15, 19, 53, 0.95), rgba(15, 19, 53, 0.7) 60%, rgba(15, 19, 53, 0.5)),
         var(--head-img) center / cover no-repeat,
         var(--carbon-950);
 }
@@ -3181,7 +3185,7 @@ html[lang="fa"] .page-head__text { line-height: 1.95; }
     color: var(--white);
 }
 .lightbox[open] { display: grid; place-items: center; }
-.lightbox::backdrop { background: rgba(7, 8, 26, 0.9); backdrop-filter: blur(6px); }
+.lightbox::backdrop { background: rgba(15, 19, 53, 0.9); backdrop-filter: blur(6px); }
 .lightbox__figure { display: grid; gap: var(--s3); justify-items: center; max-block-size: 100%; margin: 0; }
 .lightbox__img {
     max-inline-size: min(92vw, 1400px);
