@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Atlas Website 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-30 14:40-0700\n"
+"POT-Creation-Date: 2026-10-02 07:41-0700\n"
 "PO-Revision-Date: 2026-08-30 13:38-0700\n"
 "Last-Translator: Atlas Team\n"
 "Language-Team: English\n"
@@ -240,7 +240,7 @@ msgstr "Page not found"
 #: .\templates\404.html:4 .\templates\base.html:4 .\templates\base.html:13
 #: .\templates\base.html:25 .\templates\contact\contact.html:4
 #: .\templates\news\post_detail.html:4 .\templates\news\post_list.html:4
-#: .\templates\partials\footer.html:95 .\templates\partials\logo.html:20
+#: .\templates\partials\footer.html:96 .\templates\partials\logo.html:20
 #: .\templates\products\product_detail.html:11
 #: .\templates\products\product_list.html:4 .\templates\team\team_list.html:4
 msgid "اطلس"
@@ -385,15 +385,35 @@ msgstr "Address"
 msgid "فکس"
 msgstr "Fax"
 
-#: .\templates\contact\contact.html:172
+#: .\templates\contact\contact.html:160
+msgid "اطلاعات ثبتی"
+msgstr "Registration details"
+
+#: .\templates\contact\contact.html:166 .\templates\partials\footer.html:99
+msgid "شماره ثبت"
+msgstr "Registration No."
+
+#: .\templates\contact\contact.html:175
+msgid "تاریخ ثبت"
+msgstr "Registration date"
+
+#: .\templates\contact\contact.html:184 .\templates\partials\footer.html:100
+msgid "شناسه ملی"
+msgstr "National ID"
+
+#: .\templates\contact\contact.html:193 .\templates\partials\footer.html:101
+msgid "شماره اقتصادی"
+msgstr "Economic code"
+
+#: .\templates\contact\contact.html:215
 msgid "نقشه موقعیت شرکت"
 msgstr "Company location map"
 
-#: .\templates\contact\contact.html:185 .\templates\core\quality.html:140
+#: .\templates\contact\contact.html:228 .\templates\core\quality.html:140
 msgid "پرسش‌های پرتکرار"
 msgstr "Frequently asked"
 
-#: .\templates\contact\contact.html:186 .\templates\core\quality.html:141
+#: .\templates\contact\contact.html:229 .\templates\core\quality.html:141
 msgid "سؤالات متداول"
 msgstr "Frequently asked questions"
 
@@ -1089,11 +1109,11 @@ msgstr "Atlas website QR code"
 msgid "دانلود QR سایت"
 msgstr "Download website QR code"
 
-#: .\templates\partials\footer.html:95
+#: .\templates\partials\footer.html:96
 msgid "تمامی حقوق محفوظ است."
 msgstr "All rights reserved."
 
-#: .\templates\partials\footer.html:97
+#: .\templates\partials\footer.html:106
 msgid "ساخته شده توسط"
 msgstr "Made by"
 

@@ -71,6 +71,10 @@ class CompanyInfoAdmin(ImagePreviewMixin, AtlasTranslationAdmin):
                 'email', 'sales_email', 'working_hours', 'map_embed_url',
             ),
         }),
+        ('اطلاعات ثبتی', {
+            'fields': ('registration_date', 'registration_number', 'economic_code', 'national_id'),
+            'description': 'در فوتر سایت و صفحه‌ی تماس نمایش داده می‌شود. هر فیلد خالی بماند نمایش داده نمی‌شود.',
+        }),
         ('شبکه‌های اجتماعی', {
             'fields': ('linkedin_url', 'instagram_url', 'telegram_url', 'whatsapp_url', 'youtube_url'),
             'classes': ('collapse',),

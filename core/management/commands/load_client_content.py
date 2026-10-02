@@ -161,12 +161,31 @@ COMPANY = {
         'work out the right route for supply, manufacturing and delivery with you.',
     ),
     'slogan': SLOGAN,
+    # نشانی رسمی (اعلام کارفرما)؛ فقط علائم نگارشی مرتب شده است.
+    'address': (
+        'تهران، فتح، بزرگراه ۶۵ متری فتح، بن‌بست فتح ۲۳، پلاک ۳۱',
+        'No. 31, Fath 23, Fath Highway, Tehran, Iran',
+    ),
     'meta_description': (
         'عملکرد آزموده، تأمین مطمئن — راهکارهای صنعتی از نیاز تا تحویل، با تمرکز بر '
         'کیفیت و اطمینان.',
         'Proven performance, reliable supply — industrial solutions from requirement to '
         'delivery, focused on quality and reliability.',
     ),
+}
+
+# اطلاعات تماس و ثبتی رسمی شرکت (اعلام کارفرما) — فیلدهای غیرترجمه‌ای.
+COMPANY_PLAIN = {
+    'phone': '021-91301120',
+    'secondary_phone': '',
+    'fax': '021-66812903',
+    'email': 'info@atlas-aim.com',
+    'sales_email': '',
+    'postal_code': '1387644911',
+    'registration_date': '1398/04/02',
+    'registration_number': '542858',
+    'economic_code': '411646548379',
+    'national_id': '14008414340',
 }
 
 # تصاویر شرکت: فیلد ← مسیر فایل در static
@@ -726,6 +745,8 @@ class Command(BaseCommand):
     def _load_company(self, company):
         for field, (value_fa, value_en) in COMPANY.items():
             _both(company, field, value_fa, value_en)
+        for field, value in COMPANY_PLAIN.items():
+            setattr(company, field, value)
 
         # تصاویر فقط یک بار کپی می‌شوند تا اجرای دوباره فایل تکراری در media نسازد.
         for field, rel_path in COMPANY_IMAGES.items():

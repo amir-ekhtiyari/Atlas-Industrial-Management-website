@@ -155,6 +155,49 @@
                         {% endif %}
                     </ul>
 
+                    {% if company.has_registration %}
+                        <hr>
+                        <h3 class="aside-panel__sub">{% trans "اطلاعات ثبتی" %}</h3>
+                        <ul class="contact-lines contact-lines--compact">
+                        {% if company.registration_number %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-building"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "شماره ثبت" %}</span>
+                                    <span class="contact-lines__v ltr">{{ company.registration_number }}</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if company.registration_date %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "تاریخ ثبت" %}</span>
+                                    <span class="contact-lines__v ltr">{{ company.registration_date }}</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if company.national_id %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-certificate"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "شناسه ملی" %}</span>
+                                    <span class="contact-lines__v ltr">{{ company.national_id }}</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if company.economic_code %}
+                            <li>
+                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-file"></use></svg></span>
+                                <span>
+                                    <span class="contact-lines__k">{% trans "شماره اقتصادی" %}</span>
+                                    <span class="contact-lines__v ltr">{{ company.economic_code }}</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                        </ul>
+                    {% endif %}
+
                     {% if company.social_links %}
                         <hr>
                         <div class="socials">

@@ -3231,3 +3231,10 @@ body.lightbox-open { overflow: hidden; }
 /* دکمه‌ی «بازگشت به بالا» (۴۶px در گوشه) روی لوگوی سازنده نیفتد. */
 @media (min-width: 720px) { .footer__bottom { padding-inline-end: calc(var(--s5) + 46px + var(--s4)); } }
 @media (max-width: 719.98px) { .footer__bottom { padding-block-end: calc(var(--s5) + 46px + var(--s4) + env(safe-area-inset-bottom)); } }
+
+/* اطلاعات ثبتی: زیرعنوان پنل تماس و سطر حقوقی فوتر */
+.aside-panel__sub { font-size: var(--fs-sm); margin-block: var(--s4) var(--s3); color: var(--signal-300); }
+.contact-lines--compact { gap: var(--s3); }
+.footer__legal { display: grid; gap: var(--s1); }
+.footer__reg { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s4); font-size: var(--fs-xs); color: var(--steel-400); }
+@media (max-width: 719.98px) { .footer__legal { justify-items: center; text-align: center; } .footer__reg { justify-content: center; } }
