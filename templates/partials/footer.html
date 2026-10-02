@@ -92,7 +92,16 @@
     </div>
 
     <div class="shell footer__bottom">
-        <p>&copy; {% now "Y" %} {{ global_company.name|default:_("اطلس") }} — {% trans "تمامی حقوق محفوظ است." %}</p>
+        <div class="footer__legal">
+            <p>&copy; {% now "Y" %} {{ global_company.name|default:_("اطلس") }} — {% trans "تمامی حقوق محفوظ است." %}</p>
+            {% if global_company.has_registration %}
+                <p class="footer__reg">
+                    {% if global_company.registration_number %}<span>{% trans "شماره ثبت" %}: <span class="ltr">{{ global_company.registration_number }}</span></span>{% endif %}
+                    {% if global_company.national_id %}<span>{% trans "شناسه ملی" %}: <span class="ltr">{{ global_company.national_id }}</span></span>{% endif %}
+                    {% if global_company.economic_code %}<span>{% trans "شماره اقتصادی" %}: <span class="ltr">{{ global_company.economic_code }}</span></span>{% endif %}
+                </p>
+            {% endif %}
+        </div>
         <p class="credit">
             <span>{% trans "ساخته شده توسط" %}</span>
             <img src="{% static 'brand/made-by-amirekhtiyari.png' %}" alt="AmirEkhtiyari" class="credit__logo" width="138" height="25" loading="lazy">

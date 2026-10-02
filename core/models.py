@@ -161,6 +161,19 @@ class CompanyInfo(OptimizedImagesMixin, models.Model):
     sales_email = models.EmailField(blank=True, verbose_name="ایمیل فروش")
     postal_code = models.CharField(max_length=20, blank=True, verbose_name="کد پستی")
     working_hours = models.CharField(max_length=150, blank=True, verbose_name="ساعات کاری")
+
+    # --- اطلاعات ثبتی (در فوتر و صفحه‌ی تماس نمایش داده می‌شود) ---
+    registration_date = models.CharField(
+        max_length=20, blank=True, verbose_name="تاریخ ثبت",
+        help_text="به همان شکلی که باید نمایش داده شود، مثلاً ۱۳۹۸/۰۴/۰۲.",
+    )
+    registration_number = models.CharField(max_length=30, blank=True, verbose_name="شماره ثبت")
+    economic_code = models.CharField(max_length=30, blank=True, verbose_name="شماره اقتصادی")
+    national_id = models.CharField(max_length=30, blank=True, verbose_name="شناسه ملی")
+
+    @property
+    def has_registration(self):
+        return any([self.registration_number, self.national_id, self.economic_code, self.registration_date])
     map_embed_url = models.URLField(
         blank=True, verbose_name="لینک نقشه (embed)",
         help_text="آدرس iframe نقشه گوگل یا نشان. در صفحه تماس نمایش داده می‌شود.",

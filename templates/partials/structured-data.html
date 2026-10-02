@@ -16,6 +16,10 @@
   "url": "{{ request.scheme }}://{{ request.get_host }}/{{ LANGUAGE_CODE }}/",
   {% if global_company.logo %}"logo": "{{ request.scheme }}://{{ request.get_host }}{{ global_company.logo.url }}",{% endif %}
   {% if global_company.meta_description %}"description": "{{ global_company.meta_description|striptags|escapejs }}",{% endif %}
+  {% if global_company.email %}"email": "{{ global_company.email|escapejs }}",{% endif %}
+  {% if global_company.fax %}"faxNumber": "{{ global_company.fax|escapejs }}",{% endif %}
+  {% if global_company.economic_code %}"taxID": "{{ global_company.economic_code|escapejs }}",{% endif %}
+  {% if global_company.national_id %}"identifier": {"@type": "PropertyValue", "propertyID": "National ID (Iran)", "value": "{{ global_company.national_id|escapejs }}"},{% endif %}
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "IR"{% if global_company.address %},
