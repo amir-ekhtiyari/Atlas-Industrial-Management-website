@@ -1,8 +1,38 @@
-# Atlas Industrial Management — Website
+<div align="center">
 
-Bilingual (Persian / English) corporate website for **Atlas Industrial Management** (شرکت مدیریت صنعتی اطلس) — industrial supply, manufacturing and assembly for marine, oil & gas and heavy-lift projects.
+# Atlas Industrial Management — Corporate Website
 
-Built with Django 6.1. Persian (RTL) is the default language; English (LTR) is one click away. All content — company text, products, team, technologies, industries, FAQs — is managed from the Django admin panel.
+**A bilingual (Persian / English) corporate website for an industrial supply, manufacturing and offshore-services company.**
+
+Django · PostgreSQL · Persian RTL + English LTR · Fully admin-managed content
+
+<a href="https://github.com/amir-ekhtiyari"><img src="docs/screenshots/made-by-badge.png" alt="Designed & developed by AmirEkhtiyari" height="52"></a>
+
+*Designed & developed by **Amir Ekhtiyari***
+
+</div>
+
+<p align="center">
+  <img src="docs/screenshots/home-en.jpg" alt="Atlas Industrial Management — home page" width="100%">
+</p>
+
+---
+
+## About the project
+
+Atlas Industrial Management (شرکت مدیریت صنعتی اطلس) supplies and manufactures equipment for the marine, oil & gas and heavy-lift industries — lifting and rigging gear, buoyancy modules, spare parts — and provides shipping, customs and offshore project-management services.
+
+The brief was a site that feels as dependable as the company: clear, fast, credible in front of engineers and procurement teams, and equally polished in Persian and English. Everything a visitor sees — texts, photos, products, certificates, client logos — is managed by the client from the admin panel.
+
+## Highlights
+
+- **True bilingual site** — Persian (default, right-to-left) and English (left-to-right) with a one-click switch; every layout, icon and animation is mirrored correctly.
+- **Product catalogue** — product lines, filters by line / technology / industry, search, photo galleries, technical specification tables and downloadable PDF catalogues.
+- **Brand-driven design system** — navy, blue and red taken from the client’s logo; layered card shadows, consistent icon style, smooth scroll reveals and hover motion (with a reduced-motion fallback).
+- **Credibility sections** — trust bar with company figures, ISO certificates, letters of satisfaction (open full-size in a built-in image viewer) and an animated client-logo strip.
+- **Admin-first** — new admin sections for clients, letters, gallery and service photos; optional fields can be left empty without breaking any page.
+- **SEO & performance** — `hreflang`, Open Graph, JSON-LD structured data, sitemap, automatic image optimisation, cache-busted static assets.
+- **Tested** — 90 automated tests, including real admin-form flows and a full content-loader run in both languages.
 
 ---
 
@@ -12,20 +42,26 @@ Built with Django 6.1. Persian (RTL) is the default language; English (LTR) is o
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/home-fa.jpg" alt="Home page — Persian"></td>
-    <td width="50%"><img src="docs/screenshots/home-en.jpg" alt="Home page — English"></td>
+    <td width="50%"><img src="docs/screenshots/home-fa.jpg" alt="Home — Persian"></td>
+    <td width="50%"><img src="docs/screenshots/trust-fa.jpg" alt="Our purpose and trust bar"></td>
   </tr>
   <tr>
     <td align="center"><sub>Hero — Persian (RTL)</sub></td>
-    <td align="center"><sub>Hero — English (LTR)</sub></td>
+    <td align="center"><sub>Our purpose &amp; trust bar</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/sections-fa.jpg" alt="Industries section"></td>
-    <td><img src="docs/screenshots/why-en.jpg" alt="Why Atlas section"></td>
+    <td><img src="docs/screenshots/services-fa.jpg" alt="Services"></td>
+    <td><img src="docs/screenshots/why-en.jpg" alt="Why Atlas — core values"></td>
   </tr>
   <tr>
-    <td align="center"><sub>Industries</sub></td>
-    <td align="center"><sub>Why Atlas — core values</sub></td>
+    <td align="center"><sub>Services with photo galleries</sub></td>
+    <td align="center"><sub>Core values</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/slogan-fa.jpg" alt="Brand slogan and client logos"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>Brand slogan &amp; client logo strip</sub></td>
   </tr>
 </table>
 
@@ -34,11 +70,11 @@ Built with Django 6.1. Persian (RTL) is the default language; English (LTR) is o
 <table>
   <tr>
     <td width="50%"><img src="docs/screenshots/products-fa.jpg" alt="Product catalogue"></td>
-    <td width="50%"><img src="docs/screenshots/product-en.jpg" alt="Product detail"></td>
+    <td width="50%"><img src="docs/screenshots/product-en.jpg" alt="Product page"></td>
   </tr>
   <tr>
     <td align="center"><sub>Catalogue with filters — Persian</sub></td>
-    <td align="center"><sub>Product detail — English</sub></td>
+    <td align="center"><sub>Product page with gallery &amp; specs — English</sub></td>
   </tr>
 </table>
 
@@ -46,18 +82,20 @@ Built with Django 6.1. Persian (RTL) is the default language; English (LTR) is o
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/company-fa.jpg" alt="About the company"></td>
-    <td width="50%"><img src="docs/screenshots/quality-en.jpg" alt="Engineering and quality"></td>
+    <td width="50%"><img src="docs/screenshots/gallery-fa.jpg" alt="Company gallery"></td>
+    <td width="50%"><img src="docs/screenshots/letters-en.jpg" alt="Letters of satisfaction"></td>
   </tr>
   <tr>
-    <td align="center"><sub>About the company</sub></td>
+    <td align="center"><sub>Company photo gallery</sub></td>
+    <td align="center"><sub>Letters of satisfaction</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/quality-en.jpg" alt="Engineering and quality process"></td>
+    <td><img src="docs/screenshots/contact-fa.jpg" alt="Contact"></td>
+  </tr>
+  <tr>
     <td align="center"><sub>Engineering &amp; quality process</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2"><img src="docs/screenshots/contact-fa.jpg" alt="Contact page"></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><sub>Contact</sub></td>
+    <td align="center"><sub>Contact</sub></td>
   </tr>
 </table>
 
@@ -65,9 +103,9 @@ Built with Django 6.1. Persian (RTL) is the default language; English (LTR) is o
 
 <table>
   <tr>
-    <td align="center"><img src="docs/screenshots/mobile-fa.jpg" alt="Mobile — Persian" width="260"></td>
-    <td align="center"><img src="docs/screenshots/mobile-en.jpg" alt="Mobile — English" width="260"></td>
-    <td align="center"><img src="docs/screenshots/mobile-products-fa.jpg" alt="Mobile — products" width="260"></td>
+    <td align="center"><img src="docs/screenshots/mobile-fa.jpg" alt="Mobile — Persian" width="240"></td>
+    <td align="center"><img src="docs/screenshots/mobile-en.jpg" alt="Mobile — English" width="240"></td>
+    <td align="center"><img src="docs/screenshots/mobile-products-fa.jpg" alt="Mobile — products" width="240"></td>
   </tr>
   <tr>
     <td align="center"><sub>Home — Persian</sub></td>
@@ -78,21 +116,15 @@ Built with Django 6.1. Persian (RTL) is the default language; English (LTR) is o
 
 ---
 
-## Features
-
-- **Bilingual** — Persian (default, RTL) and English (LTR). Interface strings use Django i18n (`locale/`), database content uses `django-modeltranslation`.
-- **Admin-managed content** — company info, products (with gallery, specs, features, applications, documents), product lines, team members, technologies, industries, statistics, FAQs and news. Optional fields can be left empty without breaking any page.
-- **Product catalogue** — filter by product line, technology and industry, plus search.
-- **SEO** — per-page meta, `hreflang`, Open Graph, JSON-LD structured data, sitemap and `robots.txt`.
-- **Image optimisation** — uploads are resized and compressed automatically.
-- **Responsive** — tested on phone, tablet and desktop in both languages.
-
 ## Tech stack
 
-- Python 3.12+, Django 6.1
-- PostgreSQL (`psycopg2-binary`)
-- `django-modeltranslation`, Pillow, `python-dotenv`, `qrcode`
-- Plain CSS and vanilla JavaScript — no frontend build step
+| Layer | Technology |
+|---|---|
+| Backend | Python 3.12+, Django 6.1 |
+| Database | PostgreSQL |
+| Translation | Django i18n (interface) + `django-modeltranslation` (content) |
+| Frontend | Hand-written CSS design system and vanilla JavaScript — no build step |
+| Media | Pillow (automatic resizing / compression), `qrcode` |
 
 ## Getting started
 
@@ -107,35 +139,34 @@ pip install -r requirements.txt
 
 # 3. Configure environment variables
 copy .env.example .env          # Windows  (cp on macOS / Linux)
-#    then edit .env: SECRET_KEY, DB_* settings, ALLOWED_HOSTS, ...
+#    then set SECRET_KEY, the DB_* settings and ALLOWED_HOSTS in .env
 
 # 4. Create the database schema and an admin user
 python manage.py migrate
 python manage.py createsuperuser
 
-# 5. Load the company's content (text, logo, About photos) — safe to re-run
+# 5. Load the company's content, photos and catalogues (safe to re-run)
 python manage.py load_client_content
 
 # 6. Run the development server
 python manage.py runserver
 ```
 
-Then open <http://127.0.0.1:8000/> (site) and <http://127.0.0.1:8000/admin/> (admin panel).
+Open <http://127.0.0.1:8000/> for the site and <http://127.0.0.1:8000/admin/> for the admin panel.
 
-> `media/` (uploaded files) is not tracked in git. `load_client_content` copies the logo and the About photo into it from `static/`.
+> Secrets live only in `.env`, which is never committed — `.env.example` contains placeholders. Uploaded files (`media/`) are not tracked either; `load_client_content` rebuilds them from `content/client/`.
 
 ## Managing content
 
-Everything visible on the site is edited from the admin panel:
+Everything visible on the site is edited from the admin panel, in Persian and English:
 
-| What | Where in admin |
+| What | Admin section |
 |---|---|
-| Company name, texts, logo, images, contact details | اطلاعات شرکت |
-| Products (photo, gallery, specs, documents) and product lines | محصولات / خطوط محصول |
-| Team members (photo, role, bio, links) | اعضای تیم |
-| Technologies, industries, values, capabilities, statistics, FAQs | حوزه‌های فناوری / صنعت‌ها / تمایزها / توانمندی‌ها / آمار / پرسش‌های پرتکرار |
-
-Each translatable field has a Persian and an English version. Records can be hidden without deleting them via **نمایش در سایت** (show on site).
+| Company texts, logo, section images, contact details | اطلاعات شرکت |
+| Products (photos, gallery, specs, documents) and product lines | محصولات / خطوط محصول |
+| Services and their photos | خدمات |
+| Client logos, letters of satisfaction, company gallery | مشتریان / رضایت‌نامه‌ها / گالری تصاویر شرکت |
+| Certificates, statistics, values, FAQs, technologies, industries | استانداردها / آمار / تمایزها / پرسش‌های پرتکرار / … |
 
 ## Tests
 
@@ -143,6 +174,12 @@ Each translatable field has a Persian and an English version. Records can be hid
 python manage.py test
 ```
 
-## License
+---
 
-[MIT](LICENSE)
+<div align="center">
+
+**Designed & developed by [Amir Ekhtiyari](https://github.com/amir-ekhtiyari)**
+
+Licensed under the [MIT License](LICENSE).
+
+</div>
