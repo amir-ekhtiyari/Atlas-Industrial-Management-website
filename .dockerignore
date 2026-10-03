@@ -1,0 +1,21 @@
+# Never ship secrets, local data or dev tooling inside the image.
+.env
+.env.*
+!.env.example
+!.env.production.example
+.git
+.gitignore
+.venv
+venv
+env
+media
+staticfiles
+__pycache__
+*.py[cod]
+*.log
+.idea
+.vscode
+.claude
+docs
+tools
+po_gaps.txt

@@ -1,0 +1,5 @@
+# Shell scripts and container files must keep Unix line endings, even on Windows checkouts.
+*.sh            text eol=lf
+Dockerfile      text eol=lf
+*.yml           text eol=lf
+deploy/**       text eol=lf

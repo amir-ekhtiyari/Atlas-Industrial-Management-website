@@ -6,6 +6,8 @@
 
 Django · PostgreSQL · Persian RTL + English LTR · Fully admin-managed content
 
+🌐 **[www.atlas-aim.com](https://www.atlas-aim.com)**
+
 <a href="https://github.com/amir-ekhtiyari"><img src="docs/screenshots/made-by-badge.png" alt="Designed & developed by AmirEkhtiyari" height="52"></a>
 
 *Designed & developed by **Amir Ekhtiyari***
@@ -125,8 +127,13 @@ The brief was a site that feels as dependable as the company: clear, fast, credi
 | Translation | Django i18n (interface) + `django-modeltranslation` (content) |
 | Frontend | Hand-written CSS design system and vanilla JavaScript — no build step |
 | Media | Pillow (automatic resizing / compression), `qrcode` |
+| Deployment | Docker Compose (PostgreSQL + Gunicorn + Nginx), or systemd + Nginx — see [DEPLOY.md](DEPLOY.md) |
 
 ## Getting started
+
+> Deploying to a server? Follow **[DEPLOY.md](DEPLOY.md)** — one `docker compose up` builds, migrates and loads the whole site.
+
+Local development:
 
 ```bash
 # 1. Create and activate a virtual environment

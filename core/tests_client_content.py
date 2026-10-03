@@ -80,3 +80,28 @@ class ClientContentLoaderTests(TestCase):
         about = self.client.get('/en/company/')
         self.assertContains(about, 'data-lightbox="endorsements"')
         self.assertContains(about, 'Letters of satisfaction')
+
+
+@override_settings(MEDIA_ROOT=MEDIA_ROOT)
+class FreshServerBootstrapTests(TestCase):
+    """سرور تازه: دیتابیس کاملاً خالی، بدون هیچ رکورد «اطلاعات شرکت»."""
+
+    def test_loader_builds_the_whole_site_from_an_empty_database(self):
+        self.assertFalse(CompanyInfo.objects.exists())
+        call_command('load_client_content', stdout=StringIO())
+        company = CompanyInfo.objects.get()
+        self.assertEqual(company.email, 'info@atlas-aim.com')
+        self.assertEqual(company.name_en, 'Atlas Industrial Management')
+        for lang in ('fa', 'en'):
+            for path in ('/', '/company/', '/products/', '/contact/'):
+                self.assertEqual(self.client.get(f'/{lang}{path}').status_code, 200, f'/{lang}{path}')
+
+    def test_if_empty_runs_once_and_never_overwrites_admin_edits(self):
+        call_command('load_client_content', '--if-empty', stdout=StringIO())
+        company = CompanyInfo.objects.get()
+        company.phone = '021-00000000'           # ویرایش مدیر سایت از پنل
+        company.save()
+        out = StringIO()
+        call_command('load_client_content', '--if-empty', stdout=out)
+        self.assertIn('--if-empty', out.getvalue())
+        self.assertEqual(CompanyInfo.objects.get().phone, '021-00000000')

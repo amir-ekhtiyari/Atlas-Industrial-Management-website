@@ -24,7 +24,7 @@ from pathlib import Path
 from django.conf import settings
 from django.core.files import File
 from django.core.management import call_command
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils import translation
 
@@ -714,11 +714,21 @@ def _both(obj, field, value_fa, value_en):
 class Command(BaseCommand):
     help = 'بارگذاری محتوای نهایی کارفرما (فارسی و انگلیسی) و غیرفعال‌کردن محتوای آزمایشی.'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--if-empty', action='store_true',
+            help='فقط روی دیتابیس خالی (نخستین استقرار) اجرا شود؛ اگر اطلاعات شرکت '
+                 'از قبل وجود دارد کاری نکن تا ویرایش‌های پنل مدیریت بازنویسی نشوند.',
+        )
+
     @transaction.atomic
     def handle(self, *args, **options):
-        company = CompanyInfo.objects.first()
-        if company is None:
-            raise CommandError('رکورد «اطلاعات شرکت» وجود ندارد؛ ابتدا آن را از پنل مدیریت بسازید.')
+        if options['if_empty'] and CompanyInfo.objects.exists():
+            self.stdout.write('محتوا از قبل وجود دارد؛ بارگذاری انجام نشد (--if-empty).')
+            return
+        # روی سرور تازه دیتابیس خالی است: رکورد شرکت همین‌جا ساخته می‌شود و
+        # همه‌ی فیلدهای الزامی آن از COMPANY / COMPANY_PLAIN پر می‌شود.
+        company = CompanyInfo.objects.first() or CompanyInfo()
 
         with translation.override(settings.LANGUAGE_CODE):
             self._load_company(company)
