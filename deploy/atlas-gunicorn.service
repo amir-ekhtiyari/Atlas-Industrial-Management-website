@@ -1,0 +1,23 @@
+# systemd unit for running Atlas WITHOUT Docker.
+#
+#   sudo cp deploy/atlas-gunicorn.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now atlas-gunicorn
+#
+# Assumes the project lives in /srv/atlas with its virtualenv in /srv/atlas/.venv
+# and the production .env in /srv/atlas/.env (adjust paths/user if different).
+
+[Unit]
+Description=Atlas Industrial Management (Gunicorn)
+After=network.target postgresql.service
+
+[Service]
+User=atlas
+Group=www-data
+WorkingDirectory=/srv/atlas
+ExecStart=/srv/atlas/.venv/bin/gunicorn Atlas.wsgi:application \
+    --bind 127.0.0.1:8000 --workers 3 --timeout 60 --access-logfile -
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

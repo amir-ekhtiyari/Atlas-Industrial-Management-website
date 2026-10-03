@@ -25,15 +25,21 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
+# دامنه‌ی رسمی سایت. اگر متغیرهای محیطی تنظیم نشده باشند، در حالت تولید
+# همین دامنه پیش‌فرض است.
+SITE_DOMAIN = 'www.atlas-aim.com'
+SITE_DOMAINS = [SITE_DOMAIN, 'atlas-aim.com']
+
 ALLOWED_HOSTS = env_list('ALLOWED_HOSTS')
-if DEBUG and not ALLOWED_HOSTS:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'testserver']
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'testserver'] if DEBUG else SITE_DOMAINS
 
 CSRF_TRUSTED_ORIGINS = env_list('CSRF_TRUSTED_ORIGINS')
+if not CSRF_TRUSTED_ORIGINS and not DEBUG:
+    CSRF_TRUSTED_ORIGINS = [f'https://{domain}' for domain in SITE_DOMAINS]
 
-# آدرس عمومی سایت — پایه‌ی ساخت QR کد و لینک‌های مطلق. فردا با تغییر همین یک
-# مقدار (یا متغیر محیطی SITE_URL) به دامنه‌ی واقعی سوییچ می‌شود.
-SITE_URL = os.environ.get('SITE_URL', 'http://127.0.0.1:8000')
+# آدرس عمومی سایت — پایه‌ی ساخت QR کد و لینک‌های مطلق.
+SITE_URL = os.environ.get('SITE_URL') or ('http://127.0.0.1:8000' if DEBUG else f'https://{SITE_DOMAIN}')
 
 
 # Application definition
@@ -226,12 +232,20 @@ SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = False  # قالب‌ها از {% csrf_token %} استفاده می‌کنند؛ JS به کوکی نیاز ندارد.
 
 if not DEBUG:
+    # SECURE_SSL_REDIRECT=True (پیش‌فرض) یعنی سایت روی HTTPS است: ریدایرکت، کوکی‌های امن و
+    # HSTS با هم فعال می‌شوند. فقط برای آزمایش موقت پیش از نصب گواهی SSL آن را False کنید،
+    # وگرنه ورود به پنل مدیریت روی HTTP ممکن نیست.
     SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'True') == 'True'
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '31536000'))
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = SECURE_SSL_REDIRECT
+    CSRF_COOKIE_SECURE = SECURE_SSL_REDIRECT
+    SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '31536000')) if SECURE_SSL_REDIRECT else 0
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = SECURE_HSTS_SECONDS > 0
+    SECURE_HSTS_PRELOAD = os.getenv('SECURE_HSTS_PRELOAD', 'False') == 'True'
+    if not SECURE_HSTS_PRELOAD:
+        # پیش‌بارگذاری HSTS عمداً خاموش است (خروج از فهرست preload مرورگرها بسیار دشوار است)؛
+        # پس از پایدار شدن HTTPS می‌توان SECURE_HSTS_PRELOAD=True گذاشت.
+        SILENCED_SYSTEM_CHECKS = ['security.W021']
+    # Nginx (یا پراکسی جلوی آن) پروتکل اصلی را در این سرآیند می‌فرستد.
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
