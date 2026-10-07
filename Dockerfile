@@ -15,7 +15,9 @@ WORKDIR /app
 #   PIP_INDEX_URL=https://mirror-pypi.runflare.com/simple docker compose build
 ARG PIP_INDEX_URL=https://pypi.org/simple
 COPY requirements.txt .
-RUN pip install --index-url "$PIP_INDEX_URL" -r requirements.txt
+# The Docker stack uses PostgreSQL; mysqlclient (MariaDB, cPanel host) needs a C compiler, so skip it.
+RUN grep -v "^mysqlclient" requirements.txt > /tmp/requirements.txt \
+    && pip install --index-url "$PIP_INDEX_URL" -r /tmp/requirements.txt
 
 COPY . .
 

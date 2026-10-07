@@ -32,6 +32,7 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
+      DB_ENGINE: postgresql
       DB_HOST: db
       DB_PORT: "5432"
     depends_on:

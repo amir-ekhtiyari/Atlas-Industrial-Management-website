@@ -3,13 +3,41 @@
 راهنمای تیم دپلوی برای راه‌اندازی وب‌سایت شرکت مدیریت صنعتی اطلس روی سرور.
 پروژه آماده‌ی استقرار است؛ کافی است مراحل زیر انجام شود.
 
-> **English summary:** Django 6.1 + PostgreSQL behind Nginx/Gunicorn. Recommended path: Docker Compose
+> **English summary:** Django 5.2 LTS. The live site runs on a cPanel host with MariaDB 10.6 (section 0).
+> Alternative: Docker Compose with PostgreSQL behind Nginx/Gunicorn. Docker path: Docker Compose
 > (`cp .env.production.example .env`, fill secrets, `docker compose up -d --build`,
 > `docker compose exec web python manage.py createsuperuser`). The first start migrates the database,
 > collects static files and loads all company content automatically. Point DNS for `atlas-aim.com` and
 > `www.atlas-aim.com` to the server and enable HTTPS (section 4). A non-Docker setup is in section 6.
 
 ---
+
+## ۰. سایت فعلی — هاست cPanel (ایران اسپید) با MariaDB
+
+سایت زنده روی هاست cPanel با **Setup Python App** و دیتابیس **MariaDB 10.6** اجرا می‌شود
+(PostgreSQL هاست قدیمی بود). DNS و ایمیل دامنه روی Morvahost است.
+
+| مورد | مقدار |
+|---|---|
+| Django | 5.2 LTS (نسخه‌ی ۶ با MariaDB هاست سازگار نیست) |
+| درایور دیتابیس | `mysqlclient` (در `requirements.txt`) |
+| `.env` | `DB_ENGINE=mysql`، `DB_PORT=3306` — charset `utf8mb4` و حالت strict خودکار تنظیم می‌شوند |
+| دیتابیس | `utf8mb4` با collation `utf8mb4_unicode_ci` (برای متن فارسی) |
+
+به‌روزرسانی سایت روی همین هاست (در Terminal یا SSH، بعد از فعال کردن virtualenv):
+
+```bash
+git pull origin main
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py collectstatic --noinput
+touch tmp/restart.txt
+```
+
+دامنه‌ی `atlasaim.ir` (و `www.atlasaim.ir`) اگر به همین هاست اشاره کند، خودکار با ریدایرکت ۳۰۱ به
+`https://www.atlas-aim.com` فرستاده می‌شود (متغیر `SITE_ALIAS_DOMAINS`).
+
+بخش‌های ۱ تا ۶ برای راه‌اندازی روی سرور مجازی (VPS) با Docker یا بدون آن است.
 
 ## ۱. پیش‌نیازها
 

@@ -29,6 +29,8 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # همین دامنه پیش‌فرض است.
 SITE_DOMAIN = 'www.atlas-aim.com'
 SITE_DOMAINS = [SITE_DOMAIN, 'atlas-aim.com']
+# دامنه‌های دیگری که به همین هاست اشاره می‌کنند و باید به دامنه‌ی اصلی ریدایرکت شوند.
+SITE_ALIAS_DOMAINS = env_list('SITE_ALIAS_DOMAINS', 'atlasaim.ir,www.atlasaim.ir')
 
 ALLOWED_HOSTS = env_list('ALLOWED_HOSTS')
 if not ALLOWED_HOSTS:
@@ -64,6 +66,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'core.middleware.AliasDomainRedirectMiddleware',   # atlasaim.ir → www.atlas-aim.com
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'core.middleware.DefaultLanguageMiddleware',   # پیش‌فرض فارسی، مستقل از زبان مرورگر
@@ -100,9 +103,13 @@ WSGI_APPLICATION = 'Atlas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+# موتور دیتابیس با DB_ENGINE انتخاب می‌شود: «mysql» (MariaDB/MySQL — هاست cPanel سایت)
+# یا «postgresql» (داکر و توسعه‌ی محلی). اگر تعیین نشده باشد، پورت ۳۳۰۶ یعنی MariaDB.
+DB_ENGINE = (os.getenv('DB_ENGINE') or ('mysql' if os.getenv('DB_PORT') == '3306' else 'postgresql')).lower()
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': f'django.db.backends.{DB_ENGINE}',
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
@@ -111,6 +118,15 @@ DATABASES = {
         'CONN_MAX_AGE': int(os.getenv('DB_CONN_MAX_AGE', '60')),
     }
 }
+
+if DB_ENGINE == 'mysql':
+    # utf8mb4 برای متن فارسی (و هر کاراکتر چهاربایتی)؛ حالت strict جلوی ذخیره‌ی
+    # بی‌صدای داده‌ی بریده یا نامعتبر را می‌گیرد.
+    DATABASES['default']['OPTIONS'] = {
+        'charset': 'utf8mb4',
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    }
+    DATABASES['default']['TEST'] = {'CHARSET': 'utf8mb4', 'COLLATION': 'utf8mb4_unicode_ci'}
 
 
 # Password validation

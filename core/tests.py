@@ -253,3 +253,14 @@ class LanguageTests(TestCase):
         response = self.client.get('/fa/company/')
         self.assertEqual(response.context['other_language']['code'], 'en')
         self.assertEqual(response.context['other_language']['path'], '/en/company/')
+
+
+class AliasDomainRedirectTests(TestCase):
+    """atlasaim.ir و www.atlasaim.ir با همان مسیر به دامنه‌ی اصلی ریدایرکت می‌شوند."""
+
+    def test_alias_domains_redirect_to_main_site(self):
+        from django.conf import settings
+        for host in ('atlasaim.ir', 'www.atlasaim.ir', 'atlasaim.ir:443'):
+            response = self.client.get('/fa/products/?line=x', HTTP_HOST=host)
+            self.assertEqual(response.status_code, 301, host)
+            self.assertEqual(response['Location'], settings.SITE_URL.rstrip('/') + '/fa/products/?line=x')

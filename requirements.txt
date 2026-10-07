@@ -1,7 +1,11 @@
-Django==6.1
+# Production host (cPanel, Iran Speed): Python + MariaDB 10.6 — Django 5.2 LTS (supported until April 2028).
+Django==5.2.17
 django-modeltranslation==0.20.3
-pillow==12.3.0
-psycopg2-binary==2.9.12
+pillow==12.2.0
 python-dotenv==1.2.3
 qrcode==8.2
+# Database drivers: mysqlclient for MariaDB/MySQL (the live site), psycopg2 for PostgreSQL (Docker / local).
+mysqlclient==2.3.0
+psycopg2-binary==2.9.12
+# WSGI server for Docker / systemd deployments (cPanel uses Passenger instead).
 gunicorn==26.2.0

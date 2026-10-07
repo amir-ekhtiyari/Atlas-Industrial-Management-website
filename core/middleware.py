@@ -2,6 +2,9 @@
 میان‌افزارهای سایت.
 """
 
+from django.conf import settings
+from django.http import HttpResponsePermanentRedirect
+
 
 class DefaultLanguageMiddleware:
     """
@@ -21,4 +24,25 @@ class DefaultLanguageMiddleware:
 
     def __call__(self, request):
         request.META.pop('HTTP_ACCEPT_LANGUAGE', None)
+        return self.get_response(request)
+
+
+class AliasDomainRedirectMiddleware:
+    """
+    دامنه‌های فرعی (مثلاً atlasaim.ir) با ریدایرکت دائمی ۳۰۱ به دامنه‌ی اصلی
+    (www.atlas-aim.com) با همان مسیر فرستاده می‌شوند — یک نشانی واحد برای گوگل.
+
+    باید پیش از SecurityMiddleware بیاید: آن میان‌افزار برای ریدایرکت HTTPS
+    نام دامنه را اعتبارسنجی می‌کند و دامنه‌ی فرعی را با خطای ۴۰۰ رد می‌کرد.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+        self.aliases = {d.lower() for d in getattr(settings, 'SITE_ALIAS_DOMAINS', ())}
+        self.target = settings.SITE_URL.rstrip('/')
+
+    def __call__(self, request):
+        host = request.META.get('HTTP_HOST', '').split(':')[0].lower()
+        if host in self.aliases:
+            return HttpResponsePermanentRedirect(self.target + request.get_full_path())
         return self.get_response(request)

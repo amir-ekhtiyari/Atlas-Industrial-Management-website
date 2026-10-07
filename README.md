@@ -4,7 +4,7 @@
 
 **A bilingual (Persian / English) corporate website for an industrial supply, manufacturing and offshore-services company.**
 
-Django · PostgreSQL · Persian RTL + English LTR · Fully admin-managed content
+Django · MariaDB / PostgreSQL · Persian RTL + English LTR · Fully admin-managed content
 
 🌐 **[www.atlas-aim.com](https://www.atlas-aim.com)**
 
@@ -122,12 +122,12 @@ The brief was a site that feels as dependable as the company: clear, fast, credi
 
 | Layer | Technology |
 |---|---|
-| Backend | Python 3.12+, Django 6.1 |
-| Database | PostgreSQL |
+| Backend | Python 3.10+, Django 5.2 LTS |
+| Database | MariaDB 10.6 (live site) or PostgreSQL (Docker) — selected with `DB_ENGINE` |
 | Translation | Django i18n (interface) + `django-modeltranslation` (content) |
 | Frontend | Hand-written CSS design system and vanilla JavaScript — no build step |
 | Media | Pillow (automatic resizing / compression), `qrcode` |
-| Deployment | Docker Compose (PostgreSQL + Gunicorn + Nginx), or systemd + Nginx — see [DEPLOY.md](DEPLOY.md) |
+| Deployment | cPanel (Passenger + MariaDB), Docker Compose (PostgreSQL + Gunicorn + Nginx) or systemd + Nginx — see [DEPLOY.md](DEPLOY.md) |
 
 ## Getting started
 
