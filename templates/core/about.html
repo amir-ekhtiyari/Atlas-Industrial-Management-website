@@ -10,7 +10,7 @@
 
 {% trans "شرکت" as head_eyebrow %}
 {% trans "درباره اطلس" as head_title %}
-{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=company.tagline crumbs=crumbs %}
+{% include 'partials/page-head.html' with photo='about' eyebrow=head_eyebrow heading=head_title intro=company.tagline crumbs=crumbs %}
 
 {# ─────────────────────────────────────────────────── داستان شرکت ─── #}
 <section class="band band--tall">
@@ -155,8 +155,8 @@
                 <h2 style="margin-block-start: var(--s4);">{% trans "زیرساخت مهندسی و تولید" %}</h2>
             </div>
             <p class="lead">
-                <a href="{% url 'core:quality' %}" class="link">
-                    {% trans "فرایند مهندسی و کیفیت" %}
+                <a href="{% url 'core:industry_list' %}#engineering" class="link">
+                    {% trans "مهندسی و طراحی" %}
                     <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
                 </a>
             </p>

@@ -619,7 +619,7 @@ msgstr "All technology areas"
 
 #: .\templates\core\home.html:189
 msgid "آنچه امروز تولید می‌کنیم"
-msgstr "What we build today"
+msgstr "What we supply today"
 
 #: .\templates\core\home.html:193
 msgid ""
@@ -712,7 +712,7 @@ msgstr "Differences you can verify"
 
 #: .\templates\core\home.html:320
 msgid "ارزش‌های بنیادین"
-msgstr "Core values"
+msgstr "Ethical values"
 
 #: .\templates\core\home.html:345
 msgid "چگونه کار می‌کنیم"
@@ -1325,6 +1325,466 @@ msgstr "Team profiles are being completed"
 #: .\templates\team\team_list.html:25
 msgid "اعضای تیم از پنل مدیریت اضافه می‌شوند."
 msgstr "Team members are added from the admin panel."
+
+#: client-updates
+msgid "حوزه‌های کاری"
+msgstr "Areas of Work"
+
+#: client-updates
+msgid "همه‌ی حوزه‌های کاری"
+msgstr "All areas of work"
+
+#: client-updates
+msgid "دیگر حوزه‌های کاری"
+msgstr "Other areas of work"
+
+#: client-updates
+msgid "زمینه‌های فعالیت"
+msgstr "Fields of activity"
+
+#: client-updates
+msgid "حوزه‌های کاری اطلس"
+msgstr "Our Areas of Work"
+
+#: client-updates
+msgid "اطلس در صنایعی فعال است که خطا، تأخیر یا نقص محصول در آن‌ها گران است. این‌ها حوزه‌هایی است که امروز در آن‌ها فعالیم."
+msgstr "Atlas works in industries where an error, a delay or a defective product is expensive. These are the areas we work in today."
+
+#: client-updates
+msgid "حوزه‌های کاری اطلس؛ صنایع و خدماتی که فناوری‌ها و محصولات اطلس در آن‌ها به کار می‌آیند."
+msgstr "Atlas areas of work — the industries and services where Atlas technologies and products are put to use."
+
+#: client-updates
+msgid "همکاری"
+msgstr "Partnership"
+
+#: client-updates-2
+msgid "تماس بازرگانی و فنی با اطلس: درخواست اطلاعات، استعلام و همکاری."
+msgstr "Commercial and technical contact with Atlas: information requests, quotes and partnership."
+
+#: client-updates-2
+msgid "مهندسی و طراحی"
+msgstr "Engineering and design"
+
+#: client-updates-2
+msgid "معرفی کامل تیم"
+msgstr "Meet the full team"
+
+#: client-updates-2
+msgid "آنچه امروز تأمین می‌کنیم"
+msgstr "What we supply today"
+
+#: client-updates-2
+msgid "ارزش‌های اخلاقی"
+msgstr "Ethical values"
+
+#: client-updates-2
+msgid "کیفیت، یک فرایند است؛ نه یک اتفاق"
+msgstr "Quality is a process, not a coincidence"
+
+#: client-updates-2
+msgid "ساخت بر پایه‌ی مهندسی و استاندارد"
+msgstr "Built on engineering and standards"
+
+#: client-updates-2
+msgid "طراحی، مواد و روش ساخت مطابق استانداردهای بین‌المللی مرتبط با هر محصول."
+msgstr "Design, materials and manufacturing methods that follow the international standards for each product."
+
+#: client-updates-2
+msgid "تضمین کیفیت در خط تولید"
+msgstr "Quality assurance on the production line"
+
+#: client-updates-2
+msgid "بازرسی ورودی و کنترل حین ساخت؛ انحراف همان‌جا که رخ می‌دهد اصلاح می‌شود."
+msgstr "Incoming inspection and in-process checks — deviations are corrected where they happen."
+
+#: client-updates-2
+msgid "آزمون بر اساس استاندارد"
+msgstr "Testing to standard"
+
+#: client-updates-2
+msgid "آزمون با معیارهای پذیرش مشخص و گزارش مکتوب برای هر محصول."
+msgstr "Testing against defined acceptance criteria, with a written report for every product."
+
+#: client-updates-2
+msgid "تحویل با اطمینان کامل"
+msgstr "Delivery with complete confidence"
+
+#: client-updates-2
+msgid "تحویل همراه با شناسنامه‌ی فنی، نتایج آزمون و مدارک بهره‌برداری."
+msgstr "Delivered with the technical file, test results and operating documents."
+
+#: client-updates-2
+msgid "رویکرد ما به کیفیت"
+msgstr "Our approach to quality"
+
+#: client-updates-2
+msgid "خط‌مشی کیفیت"
+msgstr "Quality policy"
+
+#: client-updates-2
+msgid "اطلس در صنایعی فعال است که خطا، تأخیر یا نقص محصول در آن‌ها گران است. این‌ها حوزه‌هایی است که امروز در آن‌ها فعالیم؛ و پشت همه‌ی آن‌ها، مهندسی و طراحی دقیقی است که محصول را پیش از ساخت شکل می‌دهد."
+msgstr "Atlas works in industries where an error, a delay or a defective product is expensive. These are the areas we work in today — and behind all of them is the precise engineering and design that shapes each product before it is made."
+
+#: client-updates-2
+msgid "پیش از ساخت، مهندسی"
+msgstr "Engineering comes before manufacturing"
+
+#: client-updates-2
+msgid "محصولات اطلس بر پایه‌ی طراحی و مهندسی دقیق ساخته می‌شوند. تیم فنی ما نیاز هر حوزه‌ی کاری را به نقشه، مشخصات و روش ساخت تبدیل می‌کند تا آنچه ساخته می‌شود دقیقاً همان باشد که کار به آن نیاز دارد."
+msgstr "Atlas products are built on precise design and engineering. Our technical team turns the needs of each area of work into drawings, specifications and a manufacturing method, so what gets made is exactly what the job requires."
+
+#: client-updates-2
+msgid "تحلیل نیاز و شرایط کاری"
+msgstr "Needs and operating conditions"
+
+#: client-updates-2
+msgid "نوع و میزان بار، محیط کار (دریایی، خورنده، دمای بالا یا پایین)، چرخه‌ی بهره‌برداری و استانداردهای حاکم بر پروژه پیش از هر طراحی بررسی می‌شود."
+msgstr "The type and size of the load, the working environment (marine, corrosive, high or low temperature), the duty cycle and the project's governing standards are reviewed before any design work."
+
+#: client-updates-2
+msgid "طراحی و محاسبات مهندسی"
+msgstr "Design and engineering calculations"
+
+#: client-updates-2
+msgid "محاسبات استحکام، ظرفیت بار و ضریب ایمنی بر اساس استاندارد مرجع هر محصول انجام می‌شود تا طراحی با حاشیه‌ی اطمینان کافی کار کند."
+msgstr "Strength, load capacity and safety factor are calculated to each product's reference standard, so the design works with an adequate safety margin."
+
+#: client-updates-2
+msgid "انتخاب مواد"
+msgstr "Material selection"
+
+#: client-updates-2
+msgid "فلز یا پلیمر مناسب با توجه به خوردگی، رطوبت، سایش و بار مکانیکی انتخاب می‌شود؛ انتخاب درست مواد عمر محصول را چند برابر می‌کند."
+msgstr "The right metal or polymer is chosen for corrosion, moisture, wear and mechanical load — the right material can multiply a product's service life."
+
+#: client-updates-2
+msgid "مدل‌سازی و نقشه‌های ساخت"
+msgstr "Modelling and manufacturing drawings"
+
+#: client-updates-2
+msgid "مدل سه‌بعدی و نقشه‌های اجرایی با ابعاد و تلرانس‌های دقیق تهیه می‌شود. در صورت نبود نقشه، قطعه از روی نمونه‌ی موجود مهندسی معکوس می‌شود."
+msgstr "3D models and manufacturing drawings are produced with exact dimensions and tolerances. Where no drawing exists, the part is reverse-engineered from an existing sample."
+
+#: client-updates-2
+msgid "بازبینی و تأیید طراحی"
+msgstr "Design review and approval"
+
+#: client-updates-2
+msgid "پیش از ساخت، طراحی با مشخصات مشتری و الزامات استاندارد تطبیق داده و تأیید می‌شود؛ هیچ قطعه‌ای از روی طراحی تأییدنشده ساخته نمی‌شود."
+msgstr "Before manufacture, the design is checked against the customer's specification and the standard's requirements and then approved — nothing is made from an unapproved design."
+
+#: client-updates-2
+msgid "پشتیبانی فنی ساخت و نصب"
+msgstr "Technical support for manufacture and installation"
+
+#: client-updates-2
+msgid "تیم مهندسی در طول ساخت و مونتاژ و در صورت نیاز در محل نصب همراه پروژه است و به پرسش‌های فنی تیم مشتری پاسخ می‌دهد."
+msgstr "Our engineers stay with the project through manufacture and assembly, and on site during installation when needed, answering the customer team's technical questions."
+
+#: client-updates-2
+msgid "خروجی‌های مهندسی هر پروژه"
+msgstr "Engineering deliverables for every project"
+
+#: client-updates-2
+msgid "نقشه‌های ساخت"
+msgstr "Manufacturing drawings"
+
+#: client-updates-2
+msgid "مدل سه‌بعدی"
+msgstr "3D model"
+
+#: client-updates-2
+msgid "دفترچه‌ی محاسبات"
+msgstr "Calculation report"
+
+#: client-updates-2
+msgid "فهرست مواد و مشخصات"
+msgstr "Bill of materials and specifications"
+
+#: client-updates-2
+msgid "برنامه‌ی بازرسی و آزمون"
+msgstr "Inspection and test plan"
+
+#: client-updates-2
+msgid "دستورالعمل نصب و نگهداری"
+msgstr "Installation and maintenance instructions"
+
+#: client-updates-2
+msgid "رویکرد اطلس به کیفیت: ساخت بر پایه‌ی مهندسی و استانداردهای بین‌المللی، تضمین کیفیت در خط تولید، آزمون مستند، تحویل با اطمینان کامل و خط‌مشی کیفیت شرکت."
+msgstr "Atlas's approach to quality: manufacturing based on engineering and international standards, quality assurance on the production line, documented testing, delivery with complete confidence, and the company's quality policy."
+
+#: client-updates-2
+msgid "تضمین کیفیت"
+msgstr "Quality assurance"
+
+#: client-updates-2
+msgid "در اطلس کیفیت از طراحی شروع می‌شود و تا تحویل ادامه دارد: ساخت بر پایه‌ی مهندسی و استانداردهای بین‌المللی، کنترل در خط تولید، آزمون مستند و تحویلی که مشتری بتواند با اطمینان کامل به آن تکیه کند."
+msgstr "At Atlas, quality starts at the design stage and continues through delivery: manufacturing based on engineering and international standards, control on the production line, documented testing, and a delivery the customer can rely on with complete confidence."
+
+#: client-updates-2
+msgid "رویکرد ما"
+msgstr "Our approach"
+
+#: client-updates-2
+msgid "پنج حلقه‌ی کیفیت، از طراحی تا تحویل"
+msgstr "Five links of quality, from design to delivery"
+
+#: client-updates-2
+msgid "هیچ‌کدام از این حلقه‌ها به‌تنهایی کیفیت نمی‌سازد. کیفیت محصول نهایی حاصل پیوستگی همه‌ی آن‌هاست و هر حلقه شواهد مکتوب خودش را به جا می‌گذارد."
+msgstr "None of these links creates quality on its own. The quality of the final product comes from all of them working together, and every link leaves its own written evidence."
+
+#: client-updates-2
+msgid "ساخت بر پایه‌ی مهندسی و طراحی"
+msgstr "Manufacturing based on engineering and design"
+
+#: client-updates-2
+msgid "هر محصول پیش از ساخت، نقشه، مشخصات فنی و محاسبات مهندسی دارد. مواد، ابعاد و تلرانس‌ها بر اساس شرایط کاری و الزامات پروژه تعیین و پیش از تولید بازبینی می‌شوند؛ ساخت فقط از روی طراحی تأییدشده آغاز می‌شود."
+msgstr "Every product has drawings, technical specifications and engineering calculations before it is made. Materials, dimensions and tolerances are set by the operating conditions and project requirements and reviewed before production; manufacturing starts only from an approved design."
+
+#: client-updates-2
+msgid "نقشه و مشخصات فنی تأییدشده"
+msgstr "Approved drawings and specifications"
+
+#: client-updates-2
+msgid "انطباق با استانداردهای بین‌المللی"
+msgstr "Compliance with international standards"
+
+#: client-updates-2
+msgid "طراحی، انتخاب مواد و روش‌های ساخت با استانداردهای بین‌المللی مرتبط با هر محصول و الزامات قراردادی مشتری تطبیق داده می‌شود؛ از استانداردهای نظام مدیریت کیفیت تا استانداردهای فنی تجهیزات بالابری و دریایی."
+msgstr "Design, material selection and manufacturing methods are matched to the international standards that apply to each product and to the customer's contractual requirements — from quality management system standards to the technical standards for lifting and marine equipment."
+
+#: client-updates-2
+msgid "استانداردهای مرجع در مدارک هر سفارش"
+msgstr "Reference standards listed in every order's documents"
+
+#: client-updates-2
+msgid "کنترل کیفیت به انتهای کار موکول نمی‌شود. بازرسی ورودی مواد، کنترل‌های حین ساخت و نقاط توقف بازرسی در طول تولید تعریف شده‌اند تا هر انحراف همان‌جا که رخ می‌دهد دیده و اصلاح شود، نه پس از تحویل."
+msgstr "Quality control is not left until the end. Incoming material inspection, in-process checks and inspection hold points are defined throughout production, so every deviation is caught and corrected where it happens — not after delivery."
+
+#: client-updates-2
+msgid "گزارش‌های بازرسی ورودی و حین ساخت"
+msgstr "Incoming and in-process inspection reports"
+
+#: client-updates-2
+msgid "محصول نهایی با روش‌ها و معیارهای پذیرش استاندارد آزموده می‌شود؛ بسته به نوع محصول شامل کنترل ابعادی، آزمون بار و کشش، آزمون‌های غیرمخرب و آزمون عملکرد. معیار قبولی پیش از آزمون مشخص است، نه پس از آن."
+msgstr "The finished product is tested using standard methods and acceptance criteria — depending on the product, dimensional checks, load and tensile tests, non-destructive testing and performance tests. The pass criteria are fixed before the test, not after it."
+
+#: client-updates-2
+msgid "گزارش آزمون و گواهی انطباق"
+msgstr "Test report and certificate of conformity"
+
+#: client-updates-2
+msgid "فقط محصولی تحویل می‌شود که همه‌ی کنترل‌ها و آزمون‌ها را با موفقیت گذرانده باشد؛ همراه با شناسنامه‌ی فنی، نتایج آزمون و مدارک لازم برای بهره‌برداری، تا مشتری بدون تردید آن را به کار بگیرد."
+msgstr "Only a product that has passed every check and test is delivered — together with its technical file, test results and the documents needed to operate it, so the customer can put it to work without hesitation."
+
+#: client-updates-2
+msgid "شناسنامه‌ی فنی و مدارک تحویل"
+msgstr "Technical file and delivery documents"
+
+#: client-updates-2
+msgid "نگاه فرایندی"
+msgstr "A process view"
+
+#: client-updates-2
+msgid "کیفیت را به شانس نمی‌سپاریم"
+msgstr "We don't leave quality to chance"
+
+#: client-updates-2
+msgid "کیفیتی که اتفاقی به دست بیاید، تکرارپذیر نیست. ما کیفیت را یک فرایند تعریف‌شده می‌بینیم که در هر سفارش به همان شکل اجرا می‌شود."
+msgstr "Quality achieved by chance can't be repeated. We treat quality as a defined process that runs the same way on every order."
+
+#: client-updates-2
+msgid "مقایسه‌ی نگاه تصادفی و نگاه فرایندی به کیفیت"
+msgstr "Comparison of a chance-based and a process-based approach to quality"
+
+#: client-updates-2
+msgid "نگاه تصادفی"
+msgstr "Left to chance"
+
+#: client-updates-2
+msgid "نگاه فرایندی در اطلس"
+msgstr "The process approach at Atlas"
+
+#: client-updates-2
+msgid "بازرسی فقط در پایان کار"
+msgstr "Inspection only at the end"
+
+#: client-updates-2
+msgid "کنترل در تمام مراحل، از ورود مواد تا بسته‌بندی"
+msgstr "Control at every stage, from incoming material to packing"
+
+#: client-updates-2
+msgid "تکیه بر تجربه و سلیقه‌ی افراد"
+msgstr "Relying on individual experience and judgement"
+
+#: client-updates-2
+msgid "روش‌های اجرایی مکتوب و معیارهای پذیرش مشخص"
+msgstr "Written procedures and defined acceptance criteria"
+
+#: client-updates-2
+msgid "کشف خطا پس از تحویل به مشتری"
+msgstr "Errors found after delivery to the customer"
+
+#: client-updates-2
+msgid "پیشگیری از خطا پیش از وقوع"
+msgstr "Errors prevented before they happen"
+
+#: client-updates-2
+msgid "نتیجه‌ای که از سفارشی به سفارش دیگر فرق می‌کند"
+msgstr "Results that vary from one order to the next"
+
+#: client-updates-2
+msgid "کیفیت یکسان و تکرارپذیر در هر سفارش"
+msgstr "Consistent, repeatable quality on every order"
+
+#: client-updates-2
+msgid "سوابق پراکنده یا ناموجود"
+msgstr "Scattered or missing records"
+
+#: client-updates-2
+msgid "سوابق کامل و قابل ردیابی برای هر قلم"
+msgstr "Complete, traceable records for every item"
+
+#: client-updates-2
+msgid "تکرار یک خطا در سفارش‌های بعدی"
+msgstr "The same mistake repeated on later orders"
+
+#: client-updates-2
+msgid "ثبت عدم انطباق، ریشه‌یابی و اقدام اصلاحی"
+msgstr "Nonconformities recorded, root causes found, corrective action taken"
+
+#: client-updates-2
+msgid "اهداف کیفی"
+msgstr "Quality objectives"
+
+#: client-updates-2
+msgid "آنچه اندازه می‌گیریم"
+msgstr "What we measure"
+
+#: client-updates-2
+msgid "کیفیتی که اندازه‌گیری نشود، بهبود هم پیدا نمی‌کند. این شاخص‌ها به‌طور منظم پایش و در بازنگری مدیریت بررسی می‌شوند."
+msgstr "Quality that isn't measured doesn't improve. These indicators are monitored regularly and reviewed in management review."
+
+#: client-updates-2
+msgid "عدم انطباق‌ها"
+msgstr "Nonconformities"
+
+#: client-updates-2
+msgid "هر انحراف از مشخصات ثبت، ریشه‌یابی و با اقدام اصلاحی بسته می‌شود تا تکرار نشود."
+msgstr "Every deviation from specification is recorded, traced to its root cause and closed with corrective action so it doesn't recur."
+
+#: client-updates-2
+msgid "ضایعات و دوباره‌کاری"
+msgstr "Waste and rework"
+
+#: client-updates-2
+msgid "کاهش ضایعات مواد و دوباره‌کاری، نشانه‌ی فرایندی است که درست طراحی شده است."
+msgstr "Less material waste and rework is the sign of a well-designed process."
+
+#: client-updates-2
+msgid "تحویل به‌موقع"
+msgstr "On-time delivery"
+
+#: client-updates-2
+msgid "پایبندی به زمان تحویل تعهدشده، بدون کوتاه آمدن از هیچ مرحله‌ی کنترل."
+msgstr "Meeting the promised delivery date without cutting any inspection step."
+
+#: client-updates-2
+msgid "رضایت مشتری"
+msgstr "Customer satisfaction"
+
+#: client-updates-2
+msgid "بازخورد مشتریان پس از تحویل گرفته می‌شود و مبنای بهبود فرایندها قرار می‌گیرد."
+msgstr "Customer feedback is collected after delivery and used to improve our processes."
+
+#: client-updates-2
+msgid "تعهد مدیریت"
+msgstr "Management commitment"
+
+#: client-updates-2
+msgid "خط‌مشی کیفیت اطلس سندی رسمی و کنترل‌شده است که به تأیید مدیرعامل رسیده و به همه‌ی کارکنان ابلاغ شده است. چهار تعهد اصلی آن:"
+msgstr "The Atlas quality policy is a formal, controlled document approved by the Managing Director and communicated to every employee. Its four main commitments:"
+
+#: client-updates-2
+msgid "پایبندی به الزامات"
+msgstr "Meeting requirements"
+
+#: client-updates-2
+msgid "الزامات مشتری، الزامات قانونی و مقرراتی، استانداردهای صنعتی و تعهدات قراردادی."
+msgstr "Customer requirements, legal and regulatory requirements, industry standards and contractual obligations."
+
+#: client-updates-2
+msgid "کیفیت در همه‌ی مراحل"
+msgstr "Quality at every stage"
+
+#: client-updates-2
+msgid "تضمین کیفیت، ایمنی و قابلیت اطمینان محصول در تأمین، تولید، بازرسی و تحویل."
+msgstr "Assuring product quality, safety and reliability through sourcing, manufacturing, inspection and delivery."
+
+#: client-updates-2
+msgid "فرهنگ مسئولیت‌پذیری"
+msgstr "A culture of accountability"
+
+#: client-updates-2
+msgid "شفافیت، مسئولیت‌پذیری و بهبود مستمر برای افزایش رضایت مشتری و اعتماد ذی‌نفعان."
+msgstr "Transparency, accountability and continual improvement to raise customer satisfaction and stakeholder trust."
+
+#: client-updates-2
+msgid "اهداف کیفی قابل سنجش"
+msgstr "Measurable quality objectives"
+
+#: client-updates-2
+msgid "اهداف مشخص که عملکردشان به‌طور منظم توسط مدیریت ارشد بازنگری می‌شود."
+msgstr "Defined objectives whose performance top management reviews regularly."
+
+#: client-updates-2
+msgid "متن خط‌مشی کیفیت"
+msgstr "Quality policy text"
+
+#: client-updates-2
+msgid "شرکت مدیریت صنعتی اطلس"
+msgstr "Atlas Industrial Management"
+
+#: client-updates-2
+msgid "شرکت مدیریت صنعتی اطلس متعهد است با تکیه بر دانش تخصصی، فناوری مناسب، فرآیندهای کنترل‌شده و قابل‌ردیابی، و مشارکت فعال همه‌ی کارکنان، قطعات و خدمات باکیفیت، ایمن و قابل اعتماد را برای صنایع مادر تولید کند."
+msgstr "Atlas Industrial Management is committed to producing high-quality, safe and reliable parts and services for core industries, drawing on specialist knowledge, appropriate technology, controlled and traceable processes, and the active participation of all our people."
+
+#: client-updates-2
+msgid "ما متعهدیم به الزامات مشتری، الزامات قانونی و مقرراتی، استانداردهای صنعتی و الزامات قراردادی پایبند باشیم؛ کیفیت، ایمنی و قابلیت اطمینان محصول را در تمامی مراحل تأمین، تولید، بازرسی و تحویل تضمین کنیم؛ و با ایجاد فرهنگ مسئولیت‌پذیری، شفافیت و بهبود مستمر، رضایت مشتری و اعتماد ذی‌نفعان را ارتقا دهیم."
+msgstr "We are committed to meeting customer requirements, legal and regulatory requirements, industry standards and contractual obligations; to assuring product quality, safety and reliability at every stage of sourcing, manufacturing, inspection and delivery; and to raising customer satisfaction and stakeholder trust by building a culture of accountability, transparency and continual improvement."
+
+#: client-updates-2
+msgid "مدیریت ارشد، منابع لازم برای استقرار، نگهداشت و اثربخشی نظام مدیریت کیفیت را فراهم کرده، اهداف کیفی قابل سنجش تعیین می‌کند و عملکرد آن‌ها را به‌طور منظم بازنگری می‌نماید. این خط‌مشی برای همه‌ی کارکنان اطلاع‌رسانی، درک و اجرا می‌شود و مبنای بهبود مستمر نظام مدیریت کیفیت، کاهش ضایعات و عدم انطباق‌ها، تحویل به‌موقع و توسعه‌ی پایدار شرکت خواهد بود."
+msgstr "Top management provides the resources needed to establish, maintain and ensure the effectiveness of the quality management system, sets measurable quality objectives and reviews their performance regularly. This policy is communicated to, understood and applied by all employees, and is the basis for continual improvement of the quality management system, reducing waste and nonconformities, on-time delivery and the company's sustainable growth."
+
+#: client-updates-2
+msgid "کد سند"
+msgstr "Document code"
+
+#: client-updates-2
+msgid "بازنگری"
+msgstr "Revision"
+
+#: client-updates-2
+msgid "تأییدکننده"
+msgstr "Approved by"
+
+#: client-updates-2
+msgid "مدیرعامل"
+msgstr "Managing Director"
+
+#: client-updates-2
+msgid "تاریخ تأیید"
+msgstr "Approval date"
+
+#: client-updates-2
+msgid "۲۶ مهر ۱۴۰۵"
+msgstr "18 October 2026"
+
+#: client-updates-2
+msgid "سند کنترل‌شده"
+msgstr "Controlled document"
 
 #~ msgid "معرفی کامل تیم"
 #~ msgstr "Meet the full team"

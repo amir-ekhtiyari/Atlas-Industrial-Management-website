@@ -18,7 +18,6 @@ from .models import (
     Certification,
     Client,
     Endorsement,
-    FAQ,
     GalleryImage,
     Industry,
     Milestone,
@@ -149,11 +148,8 @@ def quality(request):
     company = get_company_or_404(request)
     context = {
         'company': company,
-        'capabilities': Capability.objects.active(),
+        # صفحه‌ی کیفیت فقط به کیفیت می‌پردازد؛ توانمندی‌ها و خدمات در صفحه‌ی فناوری‌ها هستند.
         'certifications': Certification.objects.active(),
-        'process_steps': ProcessStep.objects.active(),
-        'services': _services(),
-        'faqs': FAQ.objects.active(),
     }
     return render(request, 'core/quality.html', context)
 

@@ -90,7 +90,7 @@
             <div class="btn-row" style="margin-block-start: var(--s6);">
                 <a href="{% url 'core:about' %}" class="btn btn--line">{% trans "درباره اطلس" %}</a>
                 <a href="{% url 'core:quality' %}" class="link">
-                    {% trans "مهندسی و کیفیت" %}
+                    {% trans "کیفیت" %}
                     <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
                 </a>
             </div>
@@ -186,7 +186,7 @@
         <div class="section-head section-head--split reveal">
             <div>
                 <p class="tag"><span class="tag__idx">03</span> {% trans "محصولات" %}</p>
-                <h2 style="margin-block-start: var(--s4);">{% trans "آنچه امروز تولید می‌کنیم" %}</h2>
+                <h2 style="margin-block-start: var(--s4);">{% trans "آنچه امروز تأمین می‌کنیم" %}</h2>
             </div>
             <p class="lead">
                 {% if product_lines %}
@@ -274,7 +274,7 @@
     <div class="shell">
         <div class="section-head section-head--split reveal">
             <div>
-                <p class="tag"><span class="tag__idx">05</span> {% trans "صنعت‌ها" %}</p>
+                <p class="tag"><span class="tag__idx">05</span> {% trans "حوزه‌های کاری" %}</p>
                 <h2 style="margin-block-start: var(--s4);">{% trans "کجا به کار می‌آید" %}</h2>
             </div>
             <p class="lead">{% trans "حوزه‌هایی که فناوری‌ها و محصولات اطلس در آن‌ها کاربرد دارند." %}</p>
@@ -298,7 +298,7 @@
 
         <div class="btn-row" style="margin-block-start: var(--s7);">
             <a href="{% url 'core:industry_list' %}" class="link">
-                {% trans "همه‌ی صنعت‌ها" %}
+                {% trans "همه‌ی حوزه‌های کاری" %}
                 <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
             </a>
         </div>
@@ -313,11 +313,11 @@
         <div class="why-head reveal">
             <div class="section-head">
                 <p class="tag"><span class="tag__idx">06</span> {% trans "چرا اطلس" %}</p>
-                <h2>{% trans "تمایزهایی که قابل بررسی‌اند" %}</h2>
+                <h2>{% trans "ارزش‌های اخلاقی" %}</h2>
             </div>
             {% if company.values_image %}
                 <figure class="why-head__img">
-                    <img src="{{ company.values_image.url }}" alt="{% trans 'ارزش‌های بنیادین' %}" loading="lazy" width="600" height="340">
+                    <img src="{{ company.values_image.url }}" alt="{% trans 'ارزش‌های اخلاقی' %}" loading="lazy" width="600" height="340">
                 </figure>
             {% endif %}
         </div>
@@ -336,13 +336,12 @@
 {% endif %}
 
 {# ══════════════════════════════════════════════ 06 ENGINEERING & QUALITY ═══ #}
-{% if capabilities or certifications %}
 <section class="band band--tall" id="quality">
     <div class="shell">
         <div class="section-head section-head--split reveal">
             <div>
-                <p class="tag"><span class="tag__idx">07</span> {% trans "مهندسی و کیفیت" %}</p>
-                <h2 style="margin-block-start: var(--s4);">{% trans "چگونه کار می‌کنیم" %}</h2>
+                <p class="tag"><span class="tag__idx">07</span> {% trans "کیفیت" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "کیفیت، یک فرایند است؛ نه یک اتفاق" %}</h2>
             </div>
             <p class="lead">
                 {% trans "کیفیت در این صنعت با مدرک سنجیده می‌شود، نه با ادعا. آنچه در اختیار داریم را شفاف ارائه می‌کنیم." %}
@@ -350,19 +349,38 @@
         </div>
 
         <div class="split split--lead split--top">
-            {% if capabilities %}
-                <div class="reveal">
-                    <div class="grid grid--2 grid--tight">
-                        {% for item in capabilities %}
-                            <article class="card card--flat">
-                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
-                                <h3 class="card__title" style="font-size: var(--fs-base);">{{ item.title }}</h3>
-                                {% if item.description %}<p class="card__text">{{ item.description }}</p>{% endif %}
-                            </article>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
+            <div class="reveal">
+                <ul class="q-points">
+                    <li>
+                        <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-compass"></use></svg></span>
+                        <div>
+                            <h3 class="q-points__k">{% trans "ساخت بر پایه‌ی مهندسی و استاندارد" %}</h3>
+                            <p class="q-points__v">{% trans "طراحی، مواد و روش ساخت مطابق استانداردهای بین‌المللی مرتبط با هر محصول." %}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-shield-check"></use></svg></span>
+                        <div>
+                            <h3 class="q-points__k">{% trans "تضمین کیفیت در خط تولید" %}</h3>
+                            <p class="q-points__v">{% trans "بازرسی ورودی و کنترل حین ساخت؛ انحراف همان‌جا که رخ می‌دهد اصلاح می‌شود." %}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-flask"></use></svg></span>
+                        <div>
+                            <h3 class="q-points__k">{% trans "آزمون بر اساس استاندارد" %}</h3>
+                            <p class="q-points__v">{% trans "آزمون با معیارهای پذیرش مشخص و گزارش مکتوب برای هر محصول." %}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-package-check"></use></svg></span>
+                        <div>
+                            <h3 class="q-points__k">{% trans "تحویل با اطمینان کامل" %}</h3>
+                            <p class="q-points__v">{% trans "تحویل همراه با شناسنامه‌ی فنی، نتایج آزمون و مدارک بهره‌برداری." %}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
             <div class="reveal" data-delay="1">
                 {% if certifications %}
@@ -402,11 +420,14 @@
         </div>
 
         <div class="btn-row" style="margin-block-start: var(--s7);">
-            <a href="{% url 'core:quality' %}" class="btn btn--line">{% trans "مهندسی و کیفیت" %}</a>
+            <a href="{% url 'core:quality' %}" class="btn btn--line">{% trans "رویکرد ما به کیفیت" %}</a>
+            <a href="{% url 'core:quality' %}#quality-policy" class="link">
+                {% trans "خط‌مشی کیفیت" %}
+                <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
         </div>
     </div>
 </section>
-{% endif %}
 
 {# ═══════════════════════════════════════════════════════ شعار برند ═══ #}
 {% if company.slogan %}

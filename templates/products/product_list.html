@@ -11,7 +11,7 @@
 {% trans "محصولات" as head_eyebrow %}
 {% trans "کاتالوگ محصولات" as head_title %}
 {% trans "محصولات اطلس متناسب با الزامات فنی پروژه‌های صنعتی و فراساحل تأمین یا تولید می‌شوند. برای یافتن سریع‌تر، بر پایه‌ی خط محصول، فناوری یا صنعت فیلتر کنید." as head_intro %}
-{% if global_company.products_image %}{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs bg=global_company.products_image.url %}{% else %}{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}{% endif %}
+{% if global_company.products_image %}{% include 'partials/page-head.html' with photo='products' eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs bg=global_company.products_image.url %}{% else %}{% include 'partials/page-head.html' with photo='products' eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}{% endif %}
 
 <section class="band">
     <div class="shell">

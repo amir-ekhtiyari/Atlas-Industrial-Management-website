@@ -208,7 +208,11 @@ class CoreViewTests(TestCase):
         response = self.client.get(reverse('core:quality'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'core/quality.html')
-        self.assertTrue(response.context['capabilities'])
+        # فقط کیفیت: توانمندی‌ها و خدمات اینجا نیستند، خط‌مشی کیفیت هست.
+        self.assertNotIn('capabilities', response.context)
+        self.assertNotIn('services', response.context)
+        self.assertContains(response, 'id="quality-policy"')
+        self.assertContains(response, 'MD-OP-QUPO')
 
     def test_robots_txt_exposes_sitemap(self):
         response = self.client.get('/robots.txt')

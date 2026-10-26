@@ -1,12 +1,14 @@
-{% load i18n %}
+{% load i18n head_images %}
 {% comment %}
     سربرگ صفحات داخلی — یک قالب برای همه‌ی صفحات، تا هر صفحه‌ی تازه‌ای
     (فناوری، صنعت، خط محصول) بدون کد اضافه همان ظاهر را بگیرد.
 
     پارامترها: eyebrow، heading، intro، crumbs (فهرست dict با name/url)،
-    bg (اختیاری: نشانی تصویر پس‌زمینه‌ی سربرگ)
+    bg (اختیاری: نشانی تصویر پس‌زمینه‌ی سربرگ)،
+    photo (اختیاری: کلید عکس پیش‌فرض صفحه در core/head_images.py؛ اگر bg خالی باشد)
 {% endcomment %}
-<section class="page-head{% if bg %} page-head--photo{% endif %}"{% if bg %} style="--head-img: url('{{ bg }}')"{% endif %}>
+{% head_image photo as photo_url %}{% firstof bg photo_url as head_src %}
+<section class="page-head{% if head_src %} page-head--photo{% endif %}"{% if head_src %} style="--head-img: url('{{ head_src }}')"{% endif %}>
     <div class="mesh" aria-hidden="true"></div>
     <div class="shell page-head__inner">
         <nav aria-label="{% trans 'مسیر صفحه' %}">

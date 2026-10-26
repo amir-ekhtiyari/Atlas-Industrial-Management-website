@@ -28,7 +28,7 @@
             <a href="{{ u_products }}" class="nav__link{% if u_products in request.path %} is-current{% endif %}"
                {% if u_products in request.path %}aria-current="page"{% endif %}>{% trans "محصولات" %}</a>
             <a href="{{ u_industries }}" class="nav__link{% if u_industries in request.path %} is-current{% endif %}"
-               {% if u_industries in request.path %}aria-current="page"{% endif %}>{% trans "صنعت‌ها" %}</a>
+               {% if u_industries in request.path %}aria-current="page"{% endif %}>{% trans "حوزه‌های کاری" %}</a>
             <a href="{{ u_quality }}" class="nav__link{% if request.path == u_quality %} is-current{% endif %}"
                {% if request.path == u_quality %}aria-current="page"{% endif %}>{% trans "کیفیت" %}</a>
             <a href="{{ u_insights }}" class="nav__link{% if u_insights in request.path %} is-current{% endif %}"

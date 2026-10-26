@@ -1,64 +1,149 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "مهندسی و کیفیت" %} — {{ company.name }}{% endblock %}
+{% block title %}{% trans "کیفیت" %} — {{ company.name }}{% endblock %}
 {% block extra_head %}
-    <meta name="description" content="{% trans 'فرایند تأمین، تولید، کنترل کیفیت و مستندسازی در اطلس؛ همراه با خدمات بازرگانی، فراساحل و مشاوره فنی.' %}">
+    <meta name="description" content="{% trans 'رویکرد اطلس به کیفیت: ساخت بر پایه‌ی مهندسی و استانداردهای بین‌المللی، تضمین کیفیت در خط تولید، آزمون مستند، تحویل با اطمینان کامل و خط‌مشی کیفیت شرکت.' %}">
 {% endblock %}
 
 {% block content %}
 
-{% trans "کیفیت" as head_eyebrow %}
-{% trans "مهندسی و کیفیت" as head_title %}
-{% trans "کیفیت در تأمین و تولید صنعتی با مدرک سنجیده می‌شود، نه با ادعا. این‌جا مسیری را توضیح می‌دهیم که هر سفارش از نیاز تا تحویل طی می‌کند." as head_intro %}
-{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+{% trans "تضمین کیفیت" as head_eyebrow %}
+{% trans "کیفیت، یک فرایند است؛ نه یک اتفاق" as head_title %}
+{% trans "در اطلس کیفیت از طراحی شروع می‌شود و تا تحویل ادامه دارد: ساخت بر پایه‌ی مهندسی و استانداردهای بین‌المللی، کنترل در خط تولید، آزمون مستند و تحویلی که مشتری بتواند با اطمینان کامل به آن تکیه کند." as head_intro %}
+{% include 'partials/page-head.html' with photo='quality' eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
 
-{% if process_steps %}
+{# ─────────────────────────────────── زنجیره‌ی کیفیت: پنج حلقه به ترتیب ─── #}
 <section class="band band--tall">
-    <div class="shell">
-        <div class="section-head reveal">
-            <p class="tag">{% trans "فرایند" %}</p>
-            <h2>{% trans "از نیاز تا تحویل" %}</h2>
+    <div class="shell q-layout">
+        <div class="q-layout__head reveal">
+            <p class="tag">{% trans "رویکرد ما" %}</p>
+            <h2>{% trans "پنج حلقه‌ی کیفیت، از طراحی تا تحویل" %}</h2>
+            <p class="lead">{% trans "هیچ‌کدام از این حلقه‌ها به‌تنهایی کیفیت نمی‌سازد. کیفیت محصول نهایی حاصل پیوستگی همه‌ی آن‌هاست و هر حلقه شواهد مکتوب خودش را به جا می‌گذارد." %}</p>
         </div>
-        <ol class="process">
-            {% for step in process_steps %}
-                <li class="process__item reveal">
-                    <span class="process__n ltr">{{ step.step_number|stringformat:"02d" }}</span>
-                    <h3 class="process__title">{{ step.title }}</h3>
-                    {% if step.description %}<p class="process__text">{{ step.description }}</p>{% endif %}
-                </li>
-            {% endfor %}
+
+        <ol class="q-chain">
+            <li class="q-link reveal">
+                <span class="q-link__n ltr">01</span>
+                <div class="q-link__body">
+                    <h3 class="q-link__title">{% trans "ساخت بر پایه‌ی مهندسی و طراحی" %}</h3>
+                    <p class="q-link__text">{% trans "هر محصول پیش از ساخت، نقشه، مشخصات فنی و محاسبات مهندسی دارد. مواد، ابعاد و تلرانس‌ها بر اساس شرایط کاری و الزامات پروژه تعیین و پیش از تولید بازبینی می‌شوند؛ ساخت فقط از روی طراحی تأییدشده آغاز می‌شود." %}</p>
+                    <p class="q-link__proof"><svg class="icon" aria-hidden="true"><use href="#icon-file"></use></svg>{% trans "نقشه و مشخصات فنی تأییدشده" %}</p>
+                </div>
+            </li>
+            <li class="q-link reveal">
+                <span class="q-link__n ltr">02</span>
+                <div class="q-link__body">
+                    <h3 class="q-link__title">{% trans "انطباق با استانداردهای بین‌المللی" %}</h3>
+                    <p class="q-link__text">{% trans "طراحی، انتخاب مواد و روش‌های ساخت با استانداردهای بین‌المللی مرتبط با هر محصول و الزامات قراردادی مشتری تطبیق داده می‌شود؛ از استانداردهای نظام مدیریت کیفیت تا استانداردهای فنی تجهیزات بالابری و دریایی." %}</p>
+                    <p class="q-link__proof"><svg class="icon" aria-hidden="true"><use href="#icon-certificate"></use></svg>{% trans "استانداردهای مرجع در مدارک هر سفارش" %}</p>
+                </div>
+            </li>
+            <li class="q-link reveal">
+                <span class="q-link__n ltr">03</span>
+                <div class="q-link__body">
+                    <h3 class="q-link__title">{% trans "تضمین کیفیت در خط تولید" %}</h3>
+                    <p class="q-link__text">{% trans "کنترل کیفیت به انتهای کار موکول نمی‌شود. بازرسی ورودی مواد، کنترل‌های حین ساخت و نقاط توقف بازرسی در طول تولید تعریف شده‌اند تا هر انحراف همان‌جا که رخ می‌دهد دیده و اصلاح شود، نه پس از تحویل." %}</p>
+                    <p class="q-link__proof"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"></use></svg>{% trans "گزارش‌های بازرسی ورودی و حین ساخت" %}</p>
+                </div>
+            </li>
+            <li class="q-link reveal">
+                <span class="q-link__n ltr">04</span>
+                <div class="q-link__body">
+                    <h3 class="q-link__title">{% trans "آزمون بر اساس استاندارد" %}</h3>
+                    <p class="q-link__text">{% trans "محصول نهایی با روش‌ها و معیارهای پذیرش استاندارد آزموده می‌شود؛ بسته به نوع محصول شامل کنترل ابعادی، آزمون بار و کشش، آزمون‌های غیرمخرب و آزمون عملکرد. معیار قبولی پیش از آزمون مشخص است، نه پس از آن." %}</p>
+                    <p class="q-link__proof"><svg class="icon" aria-hidden="true"><use href="#icon-flask"></use></svg>{% trans "گزارش آزمون و گواهی انطباق" %}</p>
+                </div>
+            </li>
+            <li class="q-link reveal">
+                <span class="q-link__n ltr">05</span>
+                <div class="q-link__body">
+                    <h3 class="q-link__title">{% trans "تحویل با اطمینان کامل" %}</h3>
+                    <p class="q-link__text">{% trans "فقط محصولی تحویل می‌شود که همه‌ی کنترل‌ها و آزمون‌ها را با موفقیت گذرانده باشد؛ همراه با شناسنامه‌ی فنی، نتایج آزمون و مدارک لازم برای بهره‌برداری، تا مشتری بدون تردید آن را به کار بگیرد." %}</p>
+                    <p class="q-link__proof"><svg class="icon" aria-hidden="true"><use href="#icon-package-check"></use></svg>{% trans "شناسنامه‌ی فنی و مدارک تحویل" %}</p>
+                </div>
+            </li>
         </ol>
     </div>
 </section>
-{% endif %}
 
-{% if capabilities %}
-<section class="band band--tall band--paper">
-    <div class="shell">
-        <div class="section-head section-head--split reveal">
-            <div>
-                <p class="tag">{% trans "توانمندی‌ها" %}</p>
-                <h2 style="margin-block-start: var(--s4);">{% trans "چه کاری را در مجموعه انجام می‌دهیم" %}</h2>
-            </div>
-            <p class="lead">{% trans "تأمین، ساخت، مونتاژ و کنترل کیفیت در یک مجموعه هماهنگ می‌شود؛ همین موضوع کیفیت، زمان و مستندات را در تمام زنجیره قابل پیگیری می‌کند." %}</p>
+{# ──────────────────────────────── نگاه فرایندی در برابر نگاه تصادفی ─── #}
+<section class="band band--tall band--carbon">
+    <div class="shell shell--mid" style="position: relative;">
+        <div class="section-head reveal">
+            <p class="tag" style="color: var(--signal-400);">{% trans "نگاه فرایندی" %}</p>
+            <h2>{% trans "کیفیت را به شانس نمی‌سپاریم" %}</h2>
+            <p class="lead">{% trans "کیفیتی که اتفاقی به دست بیاید، تکرارپذیر نیست. ما کیفیت را یک فرایند تعریف‌شده می‌بینیم که در هر سفارش به همان شکل اجرا می‌شود." %}</p>
         </div>
-        <div class="grid grid--3">
-            {% for item in capabilities %}
-                <article class="card card--hover reveal">
-                    <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
-                    <h3 class="card__title">{{ item.title }}</h3>
-                    {% if item.description %}<p class="card__text">{{ item.description }}</p>{% endif %}
-                </article>
-            {% endfor %}
+
+        <div class="q-compare reveal">
+            <table class="q-table">
+                <caption class="visually-hidden">{% trans "مقایسه‌ی نگاه تصادفی و نگاه فرایندی به کیفیت" %}</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="q-table__off">
+                            <svg class="icon" aria-hidden="true"><use href="#icon-x-circle"></use></svg>
+                            {% trans "نگاه تصادفی" %}
+                        </th>
+                        <th scope="col" class="q-table__on">
+                            <svg class="icon" aria-hidden="true"><use href="#icon-check-circle"></use></svg>
+                            {% trans "نگاه فرایندی در اطلس" %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>{% trans "بازرسی فقط در پایان کار" %}</td><td>{% trans "کنترل در تمام مراحل، از ورود مواد تا بسته‌بندی" %}</td></tr>
+                    <tr><td>{% trans "تکیه بر تجربه و سلیقه‌ی افراد" %}</td><td>{% trans "روش‌های اجرایی مکتوب و معیارهای پذیرش مشخص" %}</td></tr>
+                    <tr><td>{% trans "کشف خطا پس از تحویل به مشتری" %}</td><td>{% trans "پیشگیری از خطا پیش از وقوع" %}</td></tr>
+                    <tr><td>{% trans "نتیجه‌ای که از سفارشی به سفارش دیگر فرق می‌کند" %}</td><td>{% trans "کیفیت یکسان و تکرارپذیر در هر سفارش" %}</td></tr>
+                    <tr><td>{% trans "سوابق پراکنده یا ناموجود" %}</td><td>{% trans "سوابق کامل و قابل ردیابی برای هر قلم" %}</td></tr>
+                    <tr><td>{% trans "تکرار یک خطا در سفارش‌های بعدی" %}</td><td>{% trans "ثبت عدم انطباق، ریشه‌یابی و اقدام اصلاحی" %}</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
-{% endif %}
 
-{# استانداردها — اگر شرکت موردی ثبت نکرده باشد، به‌جای ادعای جعلی، رویکرد مستندسازی توضیح داده می‌شود #}
+{# ───────────────────────────────────────────── خط‌مشی کیفیت ─── #}
+{% include 'partials/quality-policy.html' %}
+
+{# ──────────────────────────────────────── آنچه اندازه می‌گیریم ─── #}
+<section class="band band--tall">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag">{% trans "اهداف کیفی" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "آنچه اندازه می‌گیریم" %}</h2>
+            </div>
+            <p class="lead">{% trans "کیفیتی که اندازه‌گیری نشود، بهبود هم پیدا نمی‌کند. این شاخص‌ها به‌طور منظم پایش و در بازنگری مدیریت بررسی می‌شوند." %}</p>
+        </div>
+        <div class="grid grid--4">
+            <article class="card reveal">
+                <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg></span>
+                <h3 class="card__title">{% trans "عدم انطباق‌ها" %}</h3>
+                <p class="card__text">{% trans "هر انحراف از مشخصات ثبت، ریشه‌یابی و با اقدام اصلاحی بسته می‌شود تا تکرار نشود." %}</p>
+            </article>
+            <article class="card reveal" data-delay="1">
+                <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-cycle"></use></svg></span>
+                <h3 class="card__title">{% trans "ضایعات و دوباره‌کاری" %}</h3>
+                <p class="card__text">{% trans "کاهش ضایعات مواد و دوباره‌کاری، نشانه‌ی فرایندی است که درست طراحی شده است." %}</p>
+            </article>
+            <article class="card reveal" data-delay="2">
+                <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg></span>
+                <h3 class="card__title">{% trans "تحویل به‌موقع" %}</h3>
+                <p class="card__text">{% trans "پایبندی به زمان تحویل تعهدشده، بدون کوتاه آمدن از هیچ مرحله‌ی کنترل." %}</p>
+            </article>
+            <article class="card reveal" data-delay="3">
+                <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-handshake"></use></svg></span>
+                <h3 class="card__title">{% trans "رضایت مشتری" %}</h3>
+                <p class="card__text">{% trans "بازخورد مشتریان پس از تحویل گرفته می‌شود و مبنای بهبود فرایندها قرار می‌گیرد." %}</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+{# ─────────────────────── مدارک و گواهی‌ها؛ ارزیابی بر پایه‌ی مدرک ─── #}
 <section class="band band--tall band--carbon">
-    <div class="mesh mesh--edge" aria-hidden="true" style="position: absolute; inset: 0;"></div>
     <div class="shell split split--lead split--top" style="position: relative;">
         <div class="reveal">
             <p class="tag" style="color: var(--signal-400);">{% trans "مدارک" %}</p>
@@ -82,7 +167,9 @@
                 {% for item in certifications %}
                     <article class="cert">
                         {% if item.image %}
-                            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="cert__thumb" loading="lazy" width="54" height="54">
+                            <a href="{{ item.image.url }}" data-lightbox="certificates" class="cert__thumb-link" aria-label="{{ item.title }}">
+                                <img src="{{ item.image.url }}" alt="{{ item.title }}" class="cert__thumb" loading="lazy" width="54" height="54">
+                            </a>
                         {% else %}
                             <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span>
                         {% endif %}
@@ -120,40 +207,6 @@
         </div>
     </div>
 </section>
-
-{% if services %}
-<section class="band band--tall">
-    <div class="shell">
-        <div class="section-head reveal">
-            <p class="tag">{% trans "خدمات" %}</p>
-            <h2>{% trans "فراتر از تأمین کالا" %}</h2>
-        </div>
-        {% include 'partials/service-cards.html' with services=services %}
-    </div>
-</section>
-{% endif %}
-
-{% if faqs %}
-<section class="band band--tall band--paper">
-    <div class="shell shell--mid">
-        <div class="section-head reveal">
-            <p class="tag">{% trans "پرسش‌های پرتکرار" %}</p>
-            <h2>{% trans "سؤالات متداول" %}</h2>
-        </div>
-        <div class="accordion">
-            {% for faq in faqs %}
-                <details class="accordion__item"{% if forloop.first %} open{% endif %}>
-                    <summary class="accordion__q">
-                        <span>{{ faq.question }}</span>
-                        <svg class="icon accordion__icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-                    </summary>
-                    <div class="accordion__a">{{ faq.answer|linebreaks }}</div>
-                </details>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
 
 {% include 'partials/cta.html' with cta_company=company %}
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n head_images %}
 {% comment %}
     صفحه‌ی جزئیات برای هر مورد دارای صفحه‌ی اختصاصی — حوزه‌ی فناوری یا صنعت.
     یک قالب برای هر دو، چون ساختار داده‌شان یکسان است (PageContent).
@@ -24,10 +24,11 @@
     {% trans "فناوری" as parent_label %}
 {% else %}
     {% url 'core:industry_list' as parent_url %}
-    {% trans "صنعت‌ها" as parent_label %}
+    {% trans "حوزه‌های کاری" as parent_label %}
 {% endif %}
 
-<section class="page-head">
+{% if kind == 'technology' %}{% head_image 'technologies' as head_src %}{% else %}{% head_image 'industries' as head_src %}{% endif %}
+<section class="page-head page-head--photo" style="--head-img: url('{{ head_src }}')">
     <div class="mesh" aria-hidden="true"></div>
     <div class="shell page-head__inner">
         <nav aria-label="{% trans 'مسیر صفحه' %}">
@@ -98,7 +99,7 @@
             {% if siblings %}
                 <div>
                     <p class="tag" style="margin-block-end: var(--s4);">
-                        {% if kind == 'technology' %}{% trans "دیگر حوزه‌های فناوری" %}{% else %}{% trans "دیگر صنعت‌ها" %}{% endif %}
+                        {% if kind == 'technology' %}{% trans "دیگر حوزه‌های فناوری" %}{% else %}{% trans "دیگر حوزه‌های کاری" %}{% endif %}
                     </p>
                     <ul class="link-list">
                         {% for sib in siblings %}

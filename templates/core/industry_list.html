@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "صنعت‌ها" %} — {{ company.name }}{% endblock %}
+{% block title %}{% trans "حوزه‌های کاری" %} — {{ company.name }}{% endblock %}
 {% block extra_head %}
-    <meta name="description" content="{% trans 'صنعت‌ها و حوزه‌های کاربردی که فناوری‌ها و محصولات اطلس در آن‌ها به کار می‌آیند.' %}">
+    <meta name="description" content="{% trans 'حوزه‌های کاری اطلس؛ صنایع و خدماتی که فناوری‌ها و محصولات اطلس در آن‌ها به کار می‌آیند.' %}">
 {% endblock %}
 
 {% block content %}
 
-{% trans "صنعت‌ها" as head_eyebrow %}
-{% trans "صنعت‌ها و حوزه‌های کاربرد" as head_title %}
-{% trans "اطلس در صنایعی فعال است که خطا، تأخیر یا نقص محصول در آن‌ها هزینه‌ساز است. این‌ها حوزه‌هایی است که امروز در آن‌ها فعالیم." as head_intro %}
-{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+{% trans "زمینه‌های فعالیت" as head_eyebrow %}
+{% trans "حوزه‌های کاری اطلس" as head_title %}
+{% trans "اطلس در صنایعی فعال است که خطا، تأخیر یا نقص محصول در آن‌ها گران است. این‌ها حوزه‌هایی است که امروز در آن‌ها فعالیم؛ و پشت همه‌ی آن‌ها، مهندسی و طراحی دقیقی است که محصول را پیش از ساخت شکل می‌دهد." as head_intro %}
+{% include 'partials/page-head.html' with photo='industries' eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
 
 {% if industries %}
 <section class="band">
@@ -66,8 +66,66 @@
 </section>
 {% endif %}
 
+{# ─────────────────────── مهندسی و طراحی: پشتوانه‌ی فنی همه‌ی حوزه‌ها ─── #}
+<section class="band band--tall band--paper" id="engineering">
+    <div class="shell">
+        <div class="section-head section-head--split reveal">
+            <div>
+                <p class="tag">{% trans "مهندسی و طراحی" %}</p>
+                <h2 style="margin-block-start: var(--s4);">{% trans "پیش از ساخت، مهندسی" %}</h2>
+            </div>
+            <p class="lead">{% trans "محصولات اطلس بر پایه‌ی طراحی و مهندسی دقیق ساخته می‌شوند. تیم فنی ما نیاز هر حوزه‌ی کاری را به نقشه، مشخصات و روش ساخت تبدیل می‌کند تا آنچه ساخته می‌شود دقیقاً همان باشد که کار به آن نیاز دارد." %}</p>
+        </div>
+
+        <ol class="process process--3">
+            <li class="process__item reveal">
+                <span class="process__n ltr">01</span>
+                <h3 class="process__title">{% trans "تحلیل نیاز و شرایط کاری" %}</h3>
+                <p class="process__text">{% trans "نوع و میزان بار، محیط کار (دریایی، خورنده، دمای بالا یا پایین)، چرخه‌ی بهره‌برداری و استانداردهای حاکم بر پروژه پیش از هر طراحی بررسی می‌شود." %}</p>
+            </li>
+            <li class="process__item reveal" data-delay="1">
+                <span class="process__n ltr">02</span>
+                <h3 class="process__title">{% trans "طراحی و محاسبات مهندسی" %}</h3>
+                <p class="process__text">{% trans "محاسبات استحکام، ظرفیت بار و ضریب ایمنی بر اساس استاندارد مرجع هر محصول انجام می‌شود تا طراحی با حاشیه‌ی اطمینان کافی کار کند." %}</p>
+            </li>
+            <li class="process__item reveal" data-delay="2">
+                <span class="process__n ltr">03</span>
+                <h3 class="process__title">{% trans "انتخاب مواد" %}</h3>
+                <p class="process__text">{% trans "فلز یا پلیمر مناسب با توجه به خوردگی، رطوبت، سایش و بار مکانیکی انتخاب می‌شود؛ انتخاب درست مواد عمر محصول را چند برابر می‌کند." %}</p>
+            </li>
+            <li class="process__item reveal">
+                <span class="process__n ltr">04</span>
+                <h3 class="process__title">{% trans "مدل‌سازی و نقشه‌های ساخت" %}</h3>
+                <p class="process__text">{% trans "مدل سه‌بعدی و نقشه‌های اجرایی با ابعاد و تلرانس‌های دقیق تهیه می‌شود. در صورت نبود نقشه، قطعه از روی نمونه‌ی موجود مهندسی معکوس می‌شود." %}</p>
+            </li>
+            <li class="process__item reveal" data-delay="1">
+                <span class="process__n ltr">05</span>
+                <h3 class="process__title">{% trans "بازبینی و تأیید طراحی" %}</h3>
+                <p class="process__text">{% trans "پیش از ساخت، طراحی با مشخصات مشتری و الزامات استاندارد تطبیق داده و تأیید می‌شود؛ هیچ قطعه‌ای از روی طراحی تأییدنشده ساخته نمی‌شود." %}</p>
+            </li>
+            <li class="process__item reveal" data-delay="2">
+                <span class="process__n ltr">06</span>
+                <h3 class="process__title">{% trans "پشتیبانی فنی ساخت و نصب" %}</h3>
+                <p class="process__text">{% trans "تیم مهندسی در طول ساخت و مونتاژ و در صورت نیاز در محل نصب همراه پروژه است و به پرسش‌های فنی تیم مشتری پاسخ می‌دهد." %}</p>
+            </li>
+        </ol>
+
+        <div class="eng-out reveal">
+            <p class="eng-out__k"><svg class="icon" aria-hidden="true"><use href="#icon-compass"></use></svg>{% trans "خروجی‌های مهندسی هر پروژه" %}</p>
+            <ul class="eng-out__list">
+                <li>{% trans "نقشه‌های ساخت" %}</li>
+                <li>{% trans "مدل سه‌بعدی" %}</li>
+                <li>{% trans "دفترچه‌ی محاسبات" %}</li>
+                <li>{% trans "فهرست مواد و مشخصات" %}</li>
+                <li>{% trans "برنامه‌ی بازرسی و آزمون" %}</li>
+                <li>{% trans "دستورالعمل نصب و نگهداری" %}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
 {% if technologies %}
-<section class="band band--tall band--paper">
+<section class="band band--tall">
     <div class="shell">
         <div class="section-head section-head--split reveal">
             <div>

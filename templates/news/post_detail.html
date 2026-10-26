@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n head_images %}
 
 {% block title %}{{ post.title }} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
 {% block og_type %}article{% endblock %}
@@ -16,7 +16,8 @@
 
 {% block content %}
 
-<section class="page-head">
+{% head_image 'news' as head_src %}
+<section class="page-head page-head--photo" style="--head-img: url('{{ head_src }}')">
     <div class="mesh" aria-hidden="true"></div>
     <div class="shell page-head__inner">
         <nav aria-label="{% trans 'مسیر صفحه' %}">

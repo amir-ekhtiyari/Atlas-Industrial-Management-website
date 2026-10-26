@@ -3,7 +3,7 @@
 
 {% block title %}{% trans "تماس با اطلس" %} — {{ global_company.name|default:_("اطلس") }}{% endblock %}
 {% block extra_head %}
-    <meta name="description" content="{% trans 'تماس بازرگانی و فنی با اطلس: درخواست اطلاعات، استعلام، همکاری و صادرات.' %}">
+    <meta name="description" content="{% trans 'تماس بازرگانی و فنی با اطلس: درخواست اطلاعات، استعلام و همکاری.' %}">
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
 {% trans "تماس" as head_eyebrow %}
 {% trans "با اطلس صحبت کنید" as head_title %}
 {% trans "نیاز فنی، بازار مقصد یا موضوع همکاری خود را بنویسید. کارشناسان ما در کمتر از یک روز کاری پاسخ می‌دهند." as head_intro %}
-{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+{% include 'partials/page-head.html' with photo='contact' eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
 
 {# مسیرهای تماس — ورودی‌های مشخص برای هر نوع مخاطب B2B #}
 <section class="band band--tight">
@@ -31,7 +31,7 @@
             </a>
             <a href="?topic=partnership#form" class="route reveal" data-delay="2">
                 <span class="glyph"><svg class="icon" aria-hidden="true"><use href="#icon-handshake"></use></svg></span>
-                <span class="route__k">{% trans "همکاری و صادرات" %}</span>
+                <span class="route__k">{% trans "همکاری" %}</span>
                 <span class="route__v">{% trans "نمایندگی، توزیع و بازارهای بین‌المللی." %}</span>
                 <svg class="icon arrow route__arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
             </a>
@@ -183,15 +183,6 @@
                                 <span>
                                     <span class="contact-lines__k">{% trans "شناسه ملی" %}</span>
                                     <span class="contact-lines__v ltr">{{ company.national_id }}</span>
-                                </span>
-                            </li>
-                        {% endif %}
-                        {% if company.economic_code %}
-                            <li>
-                                <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-file"></use></svg></span>
-                                <span>
-                                    <span class="contact-lines__k">{% trans "شماره اقتصادی" %}</span>
-                                    <span class="contact-lines__v ltr">{{ company.economic_code }}</span>
                                 </span>
                             </li>
                         {% endif %}

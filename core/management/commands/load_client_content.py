@@ -67,7 +67,7 @@ COMPANY = {
     ),
     'intro_title': (
         'هدف بنیادین',
-        'Our purpose',
+        'Core purpose',
     ),
     'intro_text': (
         'در صنایعی که خطا، تأخیر یا نقص محصول هزینه‌ساز است، ما فقط کالا تحویل '
@@ -167,10 +167,10 @@ COMPANY = {
         'No. 31, Fath 23, Fath Highway, Tehran, Iran',
     ),
     'meta_description': (
-        'عملکرد آزموده، تأمین مطمئن — راهکارهای صنعتی از نیاز تا تحویل، با تمرکز بر '
-        'کیفیت و اطمینان.',
-        'Proven performance, reliable supply — industrial solutions from requirement to '
-        'delivery, focused on quality and reliability.',
+        'تأمین مطمئن و راهکارهای صنعتی از نیاز تا تحویل، با تمرکز بر کیفیت، اطمینان و '
+        'عملکرد آزموده.',
+        'Reliable supply and industrial solutions from requirement to delivery, focused on '
+        'quality, reliability and proven performance.',
     ),
 }
 
@@ -240,17 +240,17 @@ TECHNOLOGIES = [
     ),
     (
         'mechanical-electrical-assembly',
-        'مونتاژ مجموعه‌های مکانیکی-الکتریکی', 'Mechanical–electrical assembly',
-        'مونتاژ و مجموعه‌سازی قطعات در قالب مجموعه‌های مکانیکی-الکتریکی آماده‌ی نصب و '
+        'مونتاژ مجموعه‌های مکانیکی', 'Mechanical assembly',
+        'مونتاژ و مجموعه‌سازی قطعات در قالب مجموعه‌های مکانیکی آماده‌ی نصب و '
         'بهره‌برداری.',
-        'Assembling parts into mechanical–electrical assemblies that are ready to install '
+        'Assembling parts into mechanical assemblies that are ready to install '
         'and operate.',
         'بسیاری از پروژه‌ها به یک مجموعه‌ی کامل و آماده‌ی نصب نیاز دارند، نه قطعات جدا از '
-        'هم. ما قطعات تأمین‌شده و ساخته‌شده را در قالب مجموعه‌های مکانیکی-الکتریکی '
+        'هم. ما قطعات تأمین‌شده و ساخته‌شده را در قالب مجموعه‌های مکانیکی '
         'مونتاژ می‌کنیم تا در محل پروژه با کمترین کار اضافه نصب شوند.\n\n'
         'عملکرد هر مجموعه پیش از تحویل آزموده می‌شود.',
         'Many projects need a complete, ready-to-install assembly rather than separate '
-        'parts. We assemble sourced and manufactured parts into mechanical–electrical '
+        'parts. We assemble sourced and manufactured parts into mechanical '
         'assemblies so they can be installed on site with minimal extra work.\n\n'
         'Every assembly is performance-tested before delivery.',
         'icon-cog',
@@ -313,36 +313,48 @@ TECHNOLOGIES = [
 INDUSTRIES = [
     (
         'offshore-oil-gas',
-        'نفت و گاز فراساحل', 'Offshore oil and gas',
+        'نفت و گاز و فراساحل', 'Oil, gas and offshore',
         'سکوها، شناورها و پروژه‌های فراساحلی که به تجهیزات مقاوم، قطعات یدکی و تحویل '
-        'به‌موقع در محل نیاز دارند.',
+        'به‌موقع در محل نیاز دارند. تجهیزات این حوزه برای مقاومت در برابر خوردگی، رطوبت و '
+        'بار سنگین انتخاب و آزموده می‌شوند و تحویل تا روی شناور یا سکو هماهنگ می‌شود.',
         'Platforms, vessels and offshore projects that need robust equipment, spare parts '
-        'and on-time delivery on site.',
+        'and on-time delivery on site. Equipment for this field is selected and tested to '
+        'withstand corrosion, moisture and heavy loads, and delivery is coordinated right '
+        'onto the vessel or platform.',
         'icon-layers',
     ),
     (
         'marine-shipping',
-        'دریانوردی و کشتیرانی', 'Marine and shipping',
-        'تجهیزات، قطعات یدکی و اقلام ریگینگ برای شناورها، ناوگان دریایی و عملیات بندری.',
-        'Equipment, spare parts and rigging for vessels, marine fleets and port operations.',
+        'خدمات بازرگانی', 'Commercial services',
+        'خدمات گمرکی، حمل بین‌المللی، تأمین کالا از منابع خارجی و تحویل در داخل کشور. از '
+        'معرفی Consignee در کشورهای ثالث تا ترخیص در ایران و امارات، مسیر کالا را یک‌جا '
+        'مدیریت می‌کنیم تا سفارش سالم و به‌موقع به دست شما برسد.',
+        'Customs services, international shipping, sourcing goods from foreign suppliers '
+        'and delivery within Iran. From arranging consignees in third countries to '
+        'clearance in Iran and the UAE, we manage the whole route so your order arrives '
+        'intact and on time.',
         'icon-route',
     ),
     (
         'process-manufacturing',
         'صنایع فرآیندی و تولیدی', 'Process and manufacturing industries',
-        'قطعات فلزی و پلیمری، مجموعه‌های مکانیکی-الکتریکی و تأمین قطعات برای خطوط '
-        'تولیدی که توقف در آن‌ها پرهزینه است.',
-        'Metal and polymer parts, mechanical–electrical assemblies and component supply for '
-        'production lines where downtime is costly.',
+        'قطعات فلزی و پلیمری، مجموعه‌های مکانیکی و تأمین قطعات برای خطوط '
+        'تولیدی که توقف در آن‌ها پرهزینه است. از ساخت قطعه بر اساس نقشه یا نمونه تا '
+        'تأمین قطعات یدکی خارجی، تلاش می‌کنیم زمان توقف خط به حداقل برسد.',
+        'Metal and polymer parts, mechanical assemblies and component supply for '
+        'production lines where downtime is costly. From making parts to a drawing or '
+        'sample to sourcing imported spares, we work to keep line stoppages to a minimum.',
         'icon-factory',
     ),
     (
         'heavy-lift-pipeline',
-        'پروژه‌های بالابری سنگین و خط لوله', 'Heavy lift and pipeline projects',
+        'نصب سنگین', 'Heavy installation',
         'تجهیزات لیفتینگ و ریگینگ، مشاوره‌ی انتخاب تجهیزات و پشتیبانی پروژه‌های نصب '
-        'سنگین و خط لوله.',
+        'سنگین و خط لوله. تجهیزات بالابری بر اساس استانداردهای مرجع انتخاب و همراه با '
+        'مدارک آزمون تحویل می‌شوند.',
         'Lifting and rigging equipment, equipment-selection advice and support for heavy '
-        'lift and pipeline projects.',
+        'lift and pipeline projects. Lifting gear is selected to the reference standards '
+        'and delivered with its test documentation.',
         'icon-weight',
     ),
 ]
@@ -422,8 +434,8 @@ CAPABILITIES = [
     ),
     (
         'مونتاژ و مجموعه‌سازی', 'Assembly',
-        'مونتاژ مجموعه‌های مکانیکی-الکتریکی آماده‌ی نصب.',
-        'Building ready-to-install mechanical–electrical assemblies.',
+        'مونتاژ مجموعه‌های مکانیکی آماده‌ی نصب.',
+        'Building ready-to-install mechanical assemblies.',
         'icon-cog',
     ),
     (
@@ -460,10 +472,10 @@ SERVICES = [
         'مدیریت پروژه‌های فراساحل',
         'Offshore project management',
         'نقشه‌برداری ژئوتکنیک و ژئوفیزیک (Geotechnical & Geophysical Survey)؛ مدیریت ناوگان '
-        'و شناور (Fleet Management)؛ پروژه‌های نصب سنگین و خط لوله (Heavy Lift & Pipeline '
+        'و شناور (Fleet Management)؛ مشارکت در پروژه‌های نصب سنگین و خط لوله (Heavy Lift & Pipeline '
         'Projects).',
-        'Geotechnical and geophysical surveys; fleet and vessel management; heavy lift and '
-        'pipeline projects.',
+        'Geotechnical and geophysical surveys; fleet and vessel management; participation in '
+        'heavy lift and pipeline projects.',
         'icon-layers',
     ),
     (
@@ -610,7 +622,7 @@ CATEGORIES.append(BUOYANCY_CATEGORY)
 #  نامک‌های حوزه‌ی فعالیت، نامک‌های صنعت)
 
 LIFTING_TECH = ('industrial-sourcing', 'quality-control-testing', 'documentation-traceability')
-LIFTING_IND = ('offshore-oil-gas', 'marine-shipping', 'heavy-lift-pipeline')
+LIFTING_IND = ('offshore-oil-gas', 'heavy-lift-pipeline')
 
 PRODUCTS = [
     (
@@ -632,7 +644,7 @@ PRODUCTS = [
         'technical requirements.',
         True,
         ('industrial-sourcing', 'mechanical-electrical-assembly', 'logistics-offshore-delivery'),
-        ('offshore-oil-gas', 'marine-shipping'),
+        ('offshore-oil-gas',),
     ),
     (
         'marine-platform-spare-parts', 'marine-oil-gas-equipment',
@@ -644,7 +656,7 @@ PRODUCTS = [
         'compatibility and delivery time.',
         False,
         ('industrial-sourcing', 'logistics-offshore-delivery'),
-        ('offshore-oil-gas', 'marine-shipping'),
+        ('offshore-oil-gas',),
     ),
     (
         'shackles', 'lifting-rigging-equipment',

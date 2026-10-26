@@ -22,7 +22,7 @@
             <h2 class="footer__h">{% trans "شرکت" %}</h2>
             <ul class="footer__links">
                 <li><a href="{% url 'core:about' %}">{% trans "درباره اطلس" %}</a></li>
-                <li><a href="{% url 'core:quality' %}">{% trans "مهندسی و کیفیت" %}</a></li>
+                <li><a href="{% url 'core:quality' %}">{% trans "کیفیت" %}</a></li>
                 <li><a href="{% url 'team:list' %}">{% trans "تیم" %}</a></li>
                 <li><a href="{% url 'news:list' %}">{% trans "بینش و اخبار" %}</a></li>
             </ul>
@@ -33,7 +33,7 @@
             <ul class="footer__links">
                 <li><a href="{% url 'core:technology_list' %}">{% trans "حوزه‌های فناوری" %}</a></li>
                 <li><a href="{% url 'products:list' %}">{% trans "کاتالوگ محصولات" %}</a></li>
-                <li><a href="{% url 'core:industry_list' %}">{% trans "صنعت‌ها" %}</a></li>
+                <li><a href="{% url 'core:industry_list' %}">{% trans "حوزه‌های کاری" %}</a></li>
                 {% for line in footer_lines %}
                     <li><a href="{{ line.get_absolute_url }}">{{ line.name|truncatechars:30 }}</a></li>
                 {% endfor %}
@@ -76,7 +76,7 @@
                 {% endif %}
             </ul>
             <a href="{% url 'contact:form' %}?topic=partnership" class="link link--signal" style="color: var(--signal-400);">
-                {% trans "همکاری و صادرات" %}
+                {% trans "همکاری" %}
                 <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
             </a>
 
@@ -98,7 +98,6 @@
                 <p class="footer__reg">
                     {% if global_company.registration_number %}<span>{% trans "شماره ثبت" %}: <span class="ltr">{{ global_company.registration_number }}</span></span>{% endif %}
                     {% if global_company.national_id %}<span>{% trans "شناسه ملی" %}: <span class="ltr">{{ global_company.national_id }}</span></span>{% endif %}
-                    {% if global_company.economic_code %}<span>{% trans "شماره اقتصادی" %}: <span class="ltr">{{ global_company.economic_code }}</span></span>{% endif %}
                 </p>
             {% endif %}
         </div>

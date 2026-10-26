@@ -1,0 +1,83 @@
+{% load static i18n %}
+{% comment %}
+    خط‌مشی کیفیت شرکت — متن رسمی سند MD-OP-QUPO-Rev. 00 (تأیید مدیرعامل).
+    در صفحه‌ی «کیفیت» و صفحه‌ی «بینش» استفاده می‌شود.
+    پارامتر: show_link (اختیاری) — پیوند به صفحه‌ی کیفیت در پایان بخش.
+{% endcomment %}
+<section class="band band--tall band--paper" id="quality-policy" aria-labelledby="quality-policy-title">
+    <div class="shell policy">
+        <div class="policy__aside reveal">
+            <p class="tag">{% trans "تعهد مدیریت" %}</p>
+            <h2 id="quality-policy-title" class="policy__title">{% trans "خط‌مشی کیفیت" %}</h2>
+            <p class="lead">{% trans "خط‌مشی کیفیت اطلس سندی رسمی و کنترل‌شده است که به تأیید مدیرعامل رسیده و به همه‌ی کارکنان ابلاغ شده است. چهار تعهد اصلی آن:" %}</p>
+
+            <ul class="policy-points">
+                <li>
+                    <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"></use></svg></span>
+                    <div>
+                        <h3 class="policy-points__k">{% trans "پایبندی به الزامات" %}</h3>
+                        <p class="policy-points__v">{% trans "الزامات مشتری، الزامات قانونی و مقرراتی، استانداردهای صنعتی و تعهدات قراردادی." %}</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-shield-check"></use></svg></span>
+                    <div>
+                        <h3 class="policy-points__k">{% trans "کیفیت در همه‌ی مراحل" %}</h3>
+                        <p class="policy-points__v">{% trans "تضمین کیفیت، ایمنی و قابلیت اطمینان محصول در تأمین، تولید، بازرسی و تحویل." %}</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg></span>
+                    <div>
+                        <h3 class="policy-points__k">{% trans "فرهنگ مسئولیت‌پذیری" %}</h3>
+                        <p class="policy-points__v">{% trans "شفافیت، مسئولیت‌پذیری و بهبود مستمر برای افزایش رضایت مشتری و اعتماد ذی‌نفعان." %}</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="glyph glyph--sm"><svg class="icon" aria-hidden="true"><use href="#icon-chart"></use></svg></span>
+                    <div>
+                        <h3 class="policy-points__k">{% trans "اهداف کیفی قابل سنجش" %}</h3>
+                        <p class="policy-points__v">{% trans "اهداف مشخص که عملکردشان به‌طور منظم توسط مدیریت ارشد بازنگری می‌شود." %}</p>
+                    </div>
+                </li>
+            </ul>
+
+            {% if show_link %}
+                <a href="{% url 'core:quality' %}" class="link" style="margin-block-start: var(--s5);">
+                    {% trans "رویکرد ما به کیفیت" %}
+                    <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </a>
+            {% endif %}
+        </div>
+
+        <article class="policy-doc reveal" data-delay="1" aria-label="{% trans 'متن خط‌مشی کیفیت' %}">
+            <header class="policy-doc__head">
+                <img src="{% static 'brand/atlas-icon.png' %}" alt="" width="44" height="44" class="policy-doc__logo">
+                <div>
+                    <p class="policy-doc__name">{% trans "خط‌مشی کیفیت" %}</p>
+                    <p class="policy-doc__org">{% trans "شرکت مدیریت صنعتی اطلس" %}</p>
+                </div>
+                <p class="policy-doc__code ltr">MD-OP-QUPO<br>Rev. 00</p>
+            </header>
+
+            <div class="policy-doc__body">
+                <p>{% trans "شرکت مدیریت صنعتی اطلس متعهد است با تکیه بر دانش تخصصی، فناوری مناسب، فرآیندهای کنترل‌شده و قابل‌ردیابی، و مشارکت فعال همه‌ی کارکنان، قطعات و خدمات باکیفیت، ایمن و قابل اعتماد را برای صنایع مادر تولید کند." %}</p>
+                <p>{% trans "ما متعهدیم به الزامات مشتری، الزامات قانونی و مقرراتی، استانداردهای صنعتی و الزامات قراردادی پایبند باشیم؛ کیفیت، ایمنی و قابلیت اطمینان محصول را در تمامی مراحل تأمین، تولید، بازرسی و تحویل تضمین کنیم؛ و با ایجاد فرهنگ مسئولیت‌پذیری، شفافیت و بهبود مستمر، رضایت مشتری و اعتماد ذی‌نفعان را ارتقا دهیم." %}</p>
+                <p>{% trans "مدیریت ارشد، منابع لازم برای استقرار، نگهداشت و اثربخشی نظام مدیریت کیفیت را فراهم کرده، اهداف کیفی قابل سنجش تعیین می‌کند و عملکرد آن‌ها را به‌طور منظم بازنگری می‌نماید. این خط‌مشی برای همه‌ی کارکنان اطلاع‌رسانی، درک و اجرا می‌شود و مبنای بهبود مستمر نظام مدیریت کیفیت، کاهش ضایعات و عدم انطباق‌ها، تحویل به‌موقع و توسعه‌ی پایدار شرکت خواهد بود." %}</p>
+            </div>
+
+            <footer class="policy-doc__foot">
+                <dl class="policy-doc__meta">
+                    <div><dt>{% trans "کد سند" %}</dt><dd class="ltr">MD-OP-QUPO</dd></div>
+                    <div><dt>{% trans "بازنگری" %}</dt><dd class="ltr">00</dd></div>
+                    <div><dt>{% trans "تأییدکننده" %}</dt><dd>{% trans "مدیرعامل" %}</dd></div>
+                    <div><dt>{% trans "تاریخ تأیید" %}</dt><dd>{% trans "۲۶ مهر ۱۴۰۵" %}</dd></div>
+                </dl>
+                <span class="policy-doc__stamp" aria-hidden="true">
+                    <svg class="icon"><use href="#icon-shield-check"></use></svg>
+                    {% trans "سند کنترل‌شده" %}
+                </span>
+            </footer>
+        </article>
+    </div>
+</section>

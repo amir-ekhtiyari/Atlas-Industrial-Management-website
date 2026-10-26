@@ -11,7 +11,10 @@
 {% trans "بینش" as head_eyebrow %}
 {% trans "بینش و اخبار" as head_title %}
 {% trans "یادداشت‌های فنی، رویدادهای شرکت و مطالبی درباره‌ی کاری که انجام می‌دهیم." as head_intro %}
-{% include 'partials/page-head.html' with eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+{% include 'partials/page-head.html' with photo='news' eyebrow=head_eyebrow heading=head_title intro=head_intro crumbs=crumbs %}
+
+{# خط‌مشی کیفیت شرکت — سند رسمی، بالای فهرست مطالب #}
+{% if not active_category %}{% include 'partials/quality-policy.html' with show_link=True %}{% endif %}
 
 <section class="band band--tall">
     <div class="shell">

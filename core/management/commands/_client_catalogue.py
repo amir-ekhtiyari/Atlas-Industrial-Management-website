@@ -37,7 +37,7 @@ BUOYANCY_CATEGORY = (
 )
 
 BUOYANCY_TECH = ('metal-polymer-manufacturing', 'quality-control-testing', 'documentation-traceability')
-BUOYANCY_IND = ('offshore-oil-gas', 'marine-shipping', 'heavy-lift-pipeline')
+BUOYANCY_IND = ('offshore-oil-gas', 'heavy-lift-pipeline')
 
 # (نامک، نام فا، نام en، کد مدل، توضیح کوتاه فا، توضیح کوتاه en، شاخص)
 NEW_PRODUCTS = [
@@ -60,14 +60,14 @@ NEW_PRODUCTS = [
         'بویه‌های کوچک و متوسط', 'Small & Medium Buoys', 'AT-SB1 ~ AT-SB6',
         'بویه‌های کروی، دوکی و استوانه‌ای با قطر ۲۰۰ تا ۱۱۵۰ میلی‌متر و شناوری خالص تا ۱۰۲۰ کیلوگرم.',
         'Spherical, spindle and cylindrical buoys, 200–1,150 mm in diameter, with net buoyancy up to 1,020 kg.',
-        False, BUOYANCY_TECH, ('offshore-oil-gas', 'marine-shipping'),
+        False, BUOYANCY_TECH, ('offshore-oil-gas',),
     ),
     (
         'mooring-buoys', 'buoyancy-modules',
         'بویه‌های مهاربندی', 'Mooring Buoys', 'AT-MB1 ~ AT-MB3',
         'بویه‌های Pendant، Pick-up و Chain-through با شناوری خالص تا ۱۷۹۵ کیلوگرم.',
         'Pendant, pick-up and chain-through buoys with net buoyancy up to 1,795 kg.',
-        False, BUOYANCY_TECH, ('offshore-oil-gas', 'marine-shipping'),
+        False, BUOYANCY_TECH, ('offshore-oil-gas',),
     ),
     (
         'anchors', 'lifting-rigging-equipment',
@@ -75,7 +75,7 @@ NEW_PRODUCTS = [
         'لنگرهای پرظرفیت Delta و Danforth (HHP) برای مهار شناورها و سازه‌های دریایی.',
         'Delta and Danforth high-holding-power (HHP) anchors for mooring vessels and offshore structures.',
         False, ('industrial-sourcing', 'metal-polymer-manufacturing', 'quality-control-testing'),
-        ('offshore-oil-gas', 'marine-shipping'),
+        ('offshore-oil-gas',),
     ),
 ]
 

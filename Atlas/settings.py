@@ -116,6 +116,8 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
         'CONN_MAX_AGE': int(os.getenv('DB_CONN_MAX_AGE', '60')),
+        # اتصال کهنه (خطای 2006: MySQL server has gone away) پیش از استفاده بررسی و در صورت قطع بودن دوباره باز می‌شود
+        'CONN_HEALTH_CHECKS': True,
     }
 }
 
