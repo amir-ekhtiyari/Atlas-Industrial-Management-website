@@ -772,7 +772,7 @@ msgid "ترانزیت"
 msgstr "Transit"
 
 #: .\templates\core\home.html:459
-msgid "معرفی Consignee در کشورهای ثالث و ترانزیت به ایران."
+msgid "معرفی گیرنده کالا در کشورهای ثالث و ترانزیت به ایران."
 msgstr "Arranging consignees in third countries and transit to Iran."
 
 #: .\templates\core\home.html:463
