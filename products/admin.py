@@ -104,7 +104,6 @@ class ProductAdmin(ImagePreviewMixin, AtlasTranslationAdmin):
     list_select_related = ('category',)
     filter_horizontal = ('technologies', 'industries')
     readonly_fields = ('created_at', 'updated_at', 'main_image_preview', 'gallery_summary')
-    date_hierarchy = 'created_at'
     save_on_top = True
     list_per_page = 25
 

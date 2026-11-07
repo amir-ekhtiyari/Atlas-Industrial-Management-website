@@ -24,7 +24,6 @@ class PostAdmin(ImagePreviewMixin, AtlasTranslationAdmin):
     list_editable = ('is_published',)
     list_select_related = ('category',)
     readonly_fields = ('created_at', 'updated_at', 'cover_preview')
-    date_hierarchy = 'published_at'
     save_on_top = True
     ordering = ('-published_at',)
 

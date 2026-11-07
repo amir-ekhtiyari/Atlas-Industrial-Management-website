@@ -21,7 +21,6 @@ class ContactMessageAdmin(AtlasModelAdmin):
     list_editable = ('is_read',)
     list_select_related = ('related_product',)
     ordering = ('-created_at',)
-    date_hierarchy = 'created_at'
     list_per_page = 30
 
     fieldsets = (
